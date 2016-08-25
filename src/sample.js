@@ -1,4 +1,4 @@
-let sample = {
+module.exports = {
   created_at: 'Tue Jun 14 01:01:43 +0000 2016',
   id: 742522370645200900,
   id_str: '742522370645200896',
