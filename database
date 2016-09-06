@@ -1,0 +1,13 @@
+{"code":"F16029592","type":"NEW","location":"Loc: 300 Block MAIN ST N FL @ FAIRCREST DR/DEAD END","_id":"POhuEP3nMZfsJUio","createdAt":{"$$date":1473190008167},"updatedAt":{"$$date":1473190008167}}
+{"code":"F16029584","type":"NEW","location":"Loc: 100 Block GOLF CLUB RD GL @ PRIVATE RD/WOODBURN RD /CN: SCENIC WOODS... https://t.co/tcqed5Uwkd","_id":"QoddXLXMJvNih5PI","createdAt":{"$$date":1473185959040},"updatedAt":{"$$date":1473185959040}}
+{"code":"F16029586","type":"NEW","location":"Loc: 0 Block CONCESSION 12 E FL @ PRIVATE RD/PRIVATE RD /CN: FERNBROOK RESORT","_id":"UdaNffq4tVukISwE","createdAt":{"$$date":1473186156762},"updatedAt":{"$$date":1473186156762}}
+{"code":"F16029591","type":"NEW","location":"Loc: 0 Block CAROLINE ST S HAM @ KING ST W/GEORGE ST /CN: STAYBRIDGE SUITES","_id":"noWftLEScFqYxUEG","createdAt":{"$$date":1473189698936},"updatedAt":{"$$date":1473189698936}}
+{"code":"F16029585","type":"NEW","location":"Loc: 0 Block MAPLEWOOD AV HAM @ NORWAY AV/SPRINGER AV /CN: ST PETERS HOSPITAL","_id":"qlMJDowEL5yARGhD","createdAt":{"$$date":1473186087401},"updatedAt":{"$$date":1473186087401}}
+{"code":"F16019090","type":"NEW","location":"Loc: 0 Block HOLLYBANK WY GL @ PROVIDENT WY/MIDANBURY WY","_id":"tMH5q4DitPlS8phI","createdAt":{"$$date":1473184917334},"updatedAt":{"$$date":1473184917334}}
+{"code":"F16029583","type":"NEW","location":"Loc: 0 Block STANLEY AV HAM @ QUEEN ST S/KENT ST","_id":"uNkmez42mwWgVcNL","createdAt":{"$$date":1473185588772},"updatedAt":{"$$date":1473185588772}}
+{"code":"F16029590","type":"UPDATE","location":"Loc: 0 Block SHAW ST HAM @ EMERALD ST N/DOUGLAS AV","_id":"wCmeP3RH9EfapiXa","createdAt":{"$$date":1473189570008},"updatedAt":{"$$date":1473189570008}}
+{"$$indexCreated":{"fieldName":"code","unique":false,"sparse":false}}
+{"code":"F16029594","type":"NEW","location":"Loc: FL @ MILLGROVE SIDEROAD/HIGHWAY NO. 6","time":"1473192367637","_id":"kjcU7tDOODsewAIU","createdAt":{"$$date":1473192367844},"updatedAt":{"$$date":1473192367844}}
+{"code":"F16029595","type":"NEW","location":"Loc: HAM @ KING ST E/GLENDALE AV N","time":"1473192617379","_id":"D6eJHPG88qOiUA6Q","createdAt":{"$$date":1473192617726},"updatedAt":{"$$date":1473192617726}}
+{"code":"F16029595","type":"UPDATE","time":"1473192685929","_id":"XeVOp8CZCFXkaZS4","createdAt":{"$$date":1473192686193},"updatedAt":{"$$date":1473192686193}}
+{"code":"F16029596","type":"NEW","location":"Loc: 700 Block MUD ST E SC @ SIXTH RD E/SEVENTH RD E /CN: MIKE'S AUTO PARTS","time":"1473192754427","_id":"CrBCjjygEzeMtFBT","createdAt":{"$$date":1473192754790},"updatedAt":{"$$date":1473192754790}}

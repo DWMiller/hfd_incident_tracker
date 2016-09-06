@@ -4,15 +4,16 @@ const LOCATION = /Loc:/;
 
 module.exports = function(tweet) {
 
-  let fields = tweet.text.split('|')
-    .map((field) => field.trim());
+    let fields = tweet.text.split('|')
+        .map((field) => field.trim());
 
-  let parsed = {
-    code: fields.find((field) => HPD_CODE.test(field)),
-    type: fields.find((field) => EVENT_TYPE.test(field)),
-    location: fields.find((field) => LOCATION.test(field)),
-  }
+    let parsed = {
+        code: fields.find((field) => HPD_CODE.test(field)),
+        type: fields.find((field) => EVENT_TYPE.test(field)),
+        location: fields.find((field) => LOCATION.test(field)),
+        time: tweet.timestamp_ms,
+    }
 
-  return parsed
+    return parsed
 
 }
