@@ -2,7 +2,7 @@ module.exports = {
   created_at: 'Tue Jun 14 01:01:43 +0000 2016',
   id: 742522370645200900,
   id_str: '742522370645200896',
-  text: 'NEW | F16019090 | MEDICAL | Loc: 0 Block HOLLYBANK WY GL @ PROVIDENT WY/MIDANBURY WY | Units: 1 | 6/13/16 21:00',
+  text: 'NEW | F16019090 | MEDICAL | Loc: 0 Block APPLEBLOSSOM DR HAM @ CHESTER AV/BRIGADOON DR /CN: HELEN ZURHBRIGG NON-PROFIT HOME | Units: 1 | 6/13/16 21:00',
   source: '<a href="http://tweetymail.com" rel="nofollow">tweetymail</a>',
   truncated: false,
   in_reply_to_status_id: null,
