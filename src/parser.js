@@ -12,12 +12,13 @@ module.exports = function(tweet) {
     let fields = tweet.text.split('|')
         .map((field) => field.trim());
 
-    let event = {}
+    let event = {
+        id: tweet.id,
+        time: tweet.timestamp_ms
+    }
 
     event.code = fields.find((field) => HPD_CODE.test(field));
     event.type = fields.find((field) => EVENT_TYPE.test(field));
-    event.time = tweet.timestamp_ms;
-
 
     if (event.type === 'NEW') {
         event.originalLocation = fields.find((field) => LOCATION.test(field));
@@ -39,8 +40,8 @@ module.exports = function(tweet) {
 
         event.streets.crossOne = locationBits.shift();
         event.streets.crossTwo = locationBits.shift();
-        console.log(event);
 
+        event.intersection = event.streets.main + ' at ' + event.streets.crossOne;
     }
 
     return event

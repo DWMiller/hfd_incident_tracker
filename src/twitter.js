@@ -17,6 +17,8 @@ const refinedFields = ['id', 'text', 'timestamp_ms'];
 function handleTweet(tweet) {
     tweet = refine(tweet);
 
+    console.log(tweet);
+
     db.tweets.insert(tweet, () =>
         console.log('tweet logged, ID: ' + tweet.id));
 
@@ -25,7 +27,7 @@ function handleTweet(tweet) {
         return tweet;
     }
 
-    tweet = twitter.parse(tweet);
+    tweet = parse(tweet);
 
     db.updates.insert(tweet, () =>
         console.log('event logged, ID: ' + tweet.id));

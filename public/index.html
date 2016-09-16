@@ -6,16 +6,28 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
 
+        <style type="text/css">
+          html, body { height: 100%; margin: 0; padding: 0; }
+          #map { height: 100%; }
+        </style>
+
     </head>
     <body>
-        <h1>test</h1>
-        <pre class="content"></pre>
+        <div id="map"></div>
+
+        <!-- <pre class="content"></pre> -->
         <script src="../socket.io/socket.io.js"></script>
+        <script src="js/index.js"></script>
+
         <script
             src="https://code.jquery.com/jquery-3.1.0.js"
             integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
             crossorigin="anonymous"></script>
-        <script src="js/index.js"></script>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y&callback=initMap"
+            async
+            defer></script>
+
         <script>
             // $(function () {     $.get('api', function (data) {
             // $('.content').text(JSON.stringify(data, null, 4));         }) })
