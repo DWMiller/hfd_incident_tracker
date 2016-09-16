@@ -1,3 +1,7 @@
+/**
+ * Parsed relevant tweet data into useful data/format describing the update
+ */
+
 const HPD_CODE = /^F[0-9]+$/;
 const EVENT_TYPE = /^[A-Z]+$/;
 const LOCATION = /Loc:/;
@@ -10,10 +14,10 @@ module.exports = function(tweet) {
 
     let event = {}
 
-
     event.code = fields.find((field) => HPD_CODE.test(field));
     event.type = fields.find((field) => EVENT_TYPE.test(field));
     event.time = tweet.timestamp_ms;
+
 
     if (event.type === 'NEW') {
         event.originalLocation = fields.find((field) => LOCATION.test(field));

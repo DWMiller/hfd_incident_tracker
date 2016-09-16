@@ -1,12 +1,19 @@
 var Datastore = require('nedb');
 
-var db = new Datastore({
-    filename: 'database',
-    autoload: true,
-    timestampData: true
-});
+var db = {
+    tweets: new Datastore({
+        filename: __dirname + '/../databases/tweets',
+        autoload: true,
+        timestampData: true
+    }),
+    updates: new Datastore({
+        filename: __dirname + '/../databases/updates',
+        autoload: true,
+        timestampData: true
+    })
+}
 
-db.ensureIndex({
+db.updates.ensureIndex({
     fieldName: 'code'
 }, function(err) {});
 
