@@ -2,6 +2,8 @@ var Twitter = require('node-tweet-stream');
 var tweetParser = require('./parser.js');
 var db = require('./database.js');
 
+var geocoder = require('geocoder');
+
 var connection = new Twitter({
     consumer_key: '7IbK7hgaJ08LYSnI3ZqZm0T64',
     consumer_secret: 'FgSu5C0gIDyTKEPgJ8PtioxSUsXLhmiW6EJRd3JB5uSQUsBLXd',
@@ -14,7 +16,7 @@ var connection = new Twitter({
  */
 const refinedFields = ['id', 'text', 'timestamp_ms'];
 
-function handleTweet(tweet) {
+function handleTweet(tweet, callback) {
     tweet = refine(tweet);
 
     console.log(tweet);
@@ -29,12 +31,28 @@ function handleTweet(tweet) {
 
     tweet = parse(tweet);
 
-    db.updates.insert(tweet, () =>
-        console.log('event logged, ID: ' + tweet.id));
+    twitter.geocode(tweet, (tweet) => {
+        db.updates.insert(tweet, () => {
+            console.log('event logged, ID: ' + tweet.id);
+            callback(tweet);
+        })
+    });
 
-    return tweet;
 }
 
+function geocode(tweet, callback) {
+    geocoder.geocode(tweet.intersection, function(err, data) {
+        let result = data.results[0];
+
+        tweet.coordinates = result.geometry.location;
+        tweet.formatted_address = result.formatted_address;
+
+        callback(tweet);
+
+    }, {
+        key: "AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y"
+    });
+}
 /**
  * Returns new object containing only relevant fields of tweet
  */
@@ -57,6 +75,7 @@ function parse(tweet) {
 module.exports = {
     connection,
     handleTweet,
+    geocode,
     refine,
     parse,
 }

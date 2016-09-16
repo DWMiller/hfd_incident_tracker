@@ -1,6 +1,8 @@
 var map;
 var geocoder;
 
+var activeMarker = null;
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -10,7 +12,13 @@ function initMap() {
         zoom: 10
     });
 
-    geocoder = new google.maps.Geocoder();
+    google.maps.event.addListener(map, "click", function(event) {
+        if (activeMarker) {
+            activeMarker.InfoWindow.close();
+            activeMarker = null;
+        }
+
+    });
 
     startSocket();
 }
@@ -18,54 +26,55 @@ function initMap() {
 function startSocket() {
 
     if (io !== undefined) {
-        // Storage for WebSocket connections
+
         var socket = io.connect('http://localhost:8081/');
 
-        // This listens on the "twitter-steam" channel and data is
-        // received everytime a new tweet is receieved.
-        socket.on('twitter-stream', function(data) {
+        socket.on('events', function(data) {
+            data.forEach(addToMap);
+        });
 
-            // console.log(data);
-
-            data.forEach((update) => {
-
-                geocoder.geocode({
-                    'address': update.intersection
-                }, function(results, status) {
-                    console.log(results);
-                    if (status === 'OK') {
-                        var marker = new google.maps.Marker({
-                            position: results[0].geometry.location,
-                            map: map,
-                        });
-                    }
-                    // if (status === 'OK') {
-                    //   resultsMap.setCenter(results[0].geometry.location);
-                    //   var marker = new google.maps.Marker({
-                    //     map: resultsMap,
-                    //     position: results[0].geometry.location
-                    //   });
-                    // } else {
-                    //   alert('Geocode was not successful for the following reason: ' + status);
-                    // }
-                });
-
-
-
-            })
-
-
-
-
+        socket.on('event', (update) => {
+            addToMap(update);
         });
 
         // Listens for a success response from the server to
         // say the connection was successful.
         socket.on("connected", function(r) {
+
             //Now that we are connected to the server let's tell
             //the server we are ready to start receiving tweets.
-            socket.emit("start tweets");
+            socket.emit("all_events");
         });
     }
+
+}
+
+function addToMap(update) {
+    console.log(update);
+
+    var marker = new google.maps.Marker({
+        position: update.coordinates,
+        title: update.formatted_address,
+        map: map,
+    });
+
+    marker.addListener('click', function() {
+
+        let infoWindowContent = '<div>' +
+            '<h1>' + update.category + '</h1>' +
+            '<p>' + update.formatted_address + '</p>' +
+            '</div>'
+
+        marker.InfoWindow = new google.maps.InfoWindow({
+            content: infoWindowContent
+        })
+
+        if (activeMarker) {
+            activeMarker.InfoWindow.close();
+        }
+
+        activeMarker = marker;
+        marker.InfoWindow.open(map, marker);
+    });
 
 }

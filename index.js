@@ -3,27 +3,19 @@ var db = require('./src/database.js');
 
 var express = require('express'); // call express
 var app = express(); // define our app using express
-// var bodyParser = require('body-parser');
 
 var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
-
-// const flow = require('lodash/fp/flow');
-
-// app.use(bodyParser.urlencoded({
-//     extended: true
-// }));
-// app.use(bodyParser.json());
-
-// var port = process.env.PORT || 8081; // set our port
 
 server.listen(process.env.PORT || 8081);
 
 app.use(express.static(__dirname + '/public'));
 
 twitter.connection.on('tweet', (tweet) => {
-    twitter.handleTweet(tweet);
+    tweet = twitter.handleTweet(tweet, (tweet) => {
+        io.emit('event', tweet);
+    });
 })
 
 twitter.connection.on('error', function(err) {
@@ -34,47 +26,18 @@ twitter.connection.follow('611701456');
 
 //Create web sockets connection.
 io.sockets.on('connection', function(socket) {
-    console.log('connected');
 
-    socket.on("start tweets", function() {
+    socket.on("all_events", function() {
 
+        db.updates.find({
+            type: "NEW"
+        }, function(err, docs) {
 
-        db.updates.find({}, function(err, docs) {
+            socket.emit('events', docs);
 
-            socket.broadcast.emit("twitter-stream", docs)
-            socket.emit('twitter-stream', docs)
-
-            // res.json(docs);
+            // socket.broadcast.emit("twitter-stream", docs)
         });
 
-        // var data = {
-        //         test: 'test'
-        //     }
-        // if (stream === null) {
-        //     //Connect to twitter stream passing in filter for entire world.
-        //     twit.stream('statuses/filter', {
-        //         'locations': '-180,-90,180,90'
-        //     }, function(s) {
-        //         stream = s;
-        //         stream.on('data', function(data) {
-        //             // Does the JSON result have coordinates
-        //             if (data.coordinates) {
-        //                 if (data.coordinates !== null) {
-        //                     //If so then build up some nice json and send out to web sockets
-        //                     var outputPoint = {
-        //                         "lat": data.coordinates.coordinates[0],
-        //                         "lng": data.coordinates.coordinates[1]
-        //                     };
-        //
-        // socket.broadcast.emit("twitter-stream", data);
-        //
-        //                     //Send out to web sockets channel.
-        // socket.emit('twitter-stream', data);
-        //                 }
-        //             }
-        //         });
-        //     });
-        // }
     });
 
     // Emits signal to the client telling them that the
