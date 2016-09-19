@@ -4,9 +4,9 @@ var twitter = require('../src/twitter.js');
 var queue;
 
 db.updates.find({
-    formatted_address: {
-        $exists: false
-    },
+    // formatted_address: {
+    //     $exists: false
+    // },
     type: 'NEW'
 }, function(err, docs) {
     queue = docs;

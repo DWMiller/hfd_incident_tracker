@@ -3,6 +3,29 @@ var geocoder;
 
 var activeMarker = null;
 
+var typeIcons = {
+    'MEDICAL': 'medical.png',
+    'SMOKE DETECTOR': 'fire2.png',
+    'SMOKE': 'fire2.png',
+    'VEHICLE FIRE': 'car-fire.png',
+    'CO DETECTOR': 'alarm.png',
+    'BURN COMPLAINT': 'medical.png',
+    'ALARM CONDITIONS': 'alarm.png',
+    // 'NATURAL GAS': 'alarm.png',
+    'VEHICLE ACC': 'accident.jpg',
+    'STRUCTURE FIRE': 'fire2.png',
+    // 'MULTIPLE ALARM': 'alarm.png',
+    'GRASS FIRE': 'fire2.png',
+    'ELECTRICAL PROBLEM': 'electrical.png',
+    // 'RUBBISH FIRE'
+    //  'APPLIANCE FIRE'
+    // 'FIRE OUT'
+    //  'FD ASSISTANCE'
+    // 'PROPANE LEAK':
+    // 'ODOURS' : ''
+    'UNKNOWN': 'question.png'
+}
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -26,8 +49,8 @@ function initMap() {
 function startSocket() {
 
     if (io !== undefined) {
-
-        var socket = io.connect('http://localhost:8081/');
+        // var socket = io.connect('http://localhost:8081/');
+        var socket = io.connect(window.location.href);
 
         socket.on('events', function(data) {
             data.forEach(addToMap);
@@ -50,19 +73,42 @@ function startSocket() {
 }
 
 function addToMap(update) {
-    console.log(update);
+    // console.log(update.category);
+
+    var iconFile = typeIcons[update.category];
+
+    if (typeof iconFile === 'undefined') {
+        iconFile = typeIcons['UNKNOWN'];
+        console.log('Unknown event type: ' + update.category);
+    }
+
+
+    var icon = {
+        url: 'img/' + iconFile,
+        scaledSize: new google.maps.Size(35, 35), // scaled size
+        // origin: new google.maps.Point(0,0), // origin
+        // anchor: new google.maps.Point(0, 0) // anchor
+    };
 
     var marker = new google.maps.Marker({
         position: update.coordinates,
         title: update.formatted_address,
         map: map,
+        icon: icon
     });
 
     marker.addListener('click', function() {
 
-        let infoWindowContent = '<div>' +
-            '<h1>' + update.category + '</h1>' +
-            '<p>' + update.formatted_address + '</p>' +
+        let infoWindowContent = '<div>';
+
+        if (update.locationName) {
+            infoWindowContent += '<h1>' + update.locationName + '</h1>';
+        }
+
+        infoWindowContent += '<h2>' + update.code + ' - ' + update.category + '</h2>';
+
+        infoWindowContent += '<p>' + update.formatted_address + '</p>';
+        infoWindowContent += '<p>' + update.time + '</p>' +
             '</div>'
 
         marker.InfoWindow = new google.maps.InfoWindow({

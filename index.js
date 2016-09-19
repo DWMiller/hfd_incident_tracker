@@ -8,12 +8,12 @@ var http = require('http');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
-server.listen(process.env.PORT || 8081);
+server.listen(80); //process.env.PORT || 8081);
 
 app.use(express.static(__dirname + '/public'));
 
 twitter.connection.on('tweet', (tweet) => {
-    tweet = twitter.handleTweet(tweet, (tweet) => {
+    twitter.handleTweet(tweet, (tweet) => {
         io.emit('event', tweet);
     });
 })

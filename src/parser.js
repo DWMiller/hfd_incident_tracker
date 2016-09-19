@@ -12,7 +12,8 @@ const cityCodes = {
     FL: 'Flamborough',
     SC: 'Stoney Creek',
     AN: 'Ancaster',
-    DU: 'Dundas'
+    DU: 'Dundas',
+    GL: 'Glanbrook',
 }
 
 module.exports = function(tweet) {
@@ -37,7 +38,13 @@ module.exports = function(tweet) {
         let locationBits = event.originalLocation.split(/[\/@]/).map((bit) => bit.trim());
 
         let main = locationBits.shift().replace('Loc:', '').replace(/[0-9]+ Block /, '').trim().split(" ");
-        event.city = cityCodes[main.pop()];
+
+        let cityCode = main.pop();
+        event.city = cityCodes[cityCode];
+
+        if (typeof event.city === 'undefined') {
+            console.log('Unlisted city: ' + cityCode);
+        }
 
         event.streets = {
             main: main.join(" ")

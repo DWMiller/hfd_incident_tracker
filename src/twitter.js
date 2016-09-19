@@ -26,12 +26,12 @@ function handleTweet(tweet, callback) {
 
     if (/goo\.gl/.test(tweet.text)) {
         // Can't yet handle content if externerally linked, skip it
-        return tweet;
+        return;
     }
 
     tweet = parse(tweet);
 
-    twitter.geocode(tweet, (tweet) => {
+    geocode(tweet, (tweet) => {
         db.updates.insert(tweet, () => {
             console.log('event logged, ID: ' + tweet.id);
             callback(tweet);
@@ -41,13 +41,30 @@ function handleTweet(tweet, callback) {
 }
 
 function geocode(tweet, callback) {
-    geocoder.geocode(tweet.intersection, function(err, data) {
+    let useField = tweet.intersection;
+
+    // if (tweet.locationName) {
+    //CN field is not neccessarily correct or listed in google,
+    // should attempt to resolve it but need to fall back to intersection on failure
+    //     useField = tweet.locationName + ', ' + tweet.city
+    // }
+
+    geocoder.geocode(useField, function(err, data) {
+        if (!data) {
+            console.log('Geolocation Error A :', err, useField);
+            return;
+        }
+
         let result = data.results[0];
 
-        tweet.coordinates = result.geometry.location;
-        tweet.formatted_address = result.formatted_address;
+        if (result) {
+            tweet.coordinates = result.geometry.location;
+            tweet.formatted_address = result.formatted_address;
 
-        callback(tweet);
+            callback(tweet);
+        } else {
+            console.log('Geolocation Error B :', data, err, useField);
+        }
 
     }, {
         key: "AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y"
