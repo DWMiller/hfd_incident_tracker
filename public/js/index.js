@@ -59,7 +59,6 @@ function addToMap(update) {
         console.log('Unknown event type: ' + update.category);
     }
 
-
     var icon = {
         url: 'img/' + iconFile.file,
         scaledSize: new google.maps.Size(iconFile.width, iconFile.height), // scaled size
@@ -72,6 +71,8 @@ function addToMap(update) {
         icon: icon
     });
 
+    update.displayDate = moment().millisecond(update.time).format("h:mm a");
+
     marker.addListener('click', function() {
 
         let infoWindowContent = '<div>';
@@ -83,7 +84,7 @@ function addToMap(update) {
         infoWindowContent += '<h2>' + update.code + ' - ' + update.category + '</h2>';
 
         infoWindowContent += '<p>' + update.formatted_address + '</p>';
-        infoWindowContent += '<p>' + update.time + '</p>' +
+        infoWindowContent += '<p>' + update.displayDate + '</p>' +
             '</div>'
 
         marker.InfoWindow = new google.maps.InfoWindow({

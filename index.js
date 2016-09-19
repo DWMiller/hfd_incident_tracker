@@ -24,17 +24,23 @@ twitter.connection.on('error', function(err) {
 
 twitter.connection.follow('611701456');
 
+const DAY = 86400000;
+const DAY_AGO = (Date.now() - DAY);
 //Create web sockets connection.
 io.sockets.on('connection', function(socket) {
 
     socket.on("all_events", function() {
 
         db.updates.find({
-            type: "NEW"
+            type: "NEW",
+            $where: function() {
+                    return this.time > DAY_AGO;
+                }
+                // time: {
+                //     $gte: DAY_AGO
+                // }
         }, function(err, docs) {
-
             socket.emit('events', docs);
-
             // socket.broadcast.emit("twitter-stream", docs)
         });
 
