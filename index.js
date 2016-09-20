@@ -40,6 +40,9 @@ io.sockets.on('connection', function(socket) {
                 //     $gte: DAY_AGO
                 // }
         }, function(err, docs) {
+            // docs.map((doc) => {
+            //     console.log(doc.time);
+            // })
             socket.emit('events', docs);
             // socket.broadcast.emit("twitter-stream", docs)
         });

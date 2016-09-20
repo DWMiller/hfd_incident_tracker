@@ -19,7 +19,6 @@ var typeIcons = {
         width: 24,
         height: 35
     },
-
     'UNKNOWN': {
         file: 'question.png',
         width: 24,
@@ -41,6 +40,7 @@ typeIcons['BURN COMPLAINT'] = typeIcons['MEDICAL'];
 typeIcons['SMOKE DETECTOR'] = typeIcons['FIRE'];
 typeIcons['SMOKE'] = typeIcons['FIRE'];
 typeIcons['GRASS FIRE'] = typeIcons['FIRE'];
+typeIcons['UNKNOWN FIRE'] = typeIcons['FIRE'];
 typeIcons['STRUCTURE FIRE'] = typeIcons['FIRE'];
 typeIcons['RUBBISH FIRE'] = typeIcons['FIRE'];
 typeIcons['APPLIANCE FIRE'] = typeIcons['FIRE'];
@@ -50,7 +50,7 @@ typeIcons['CO DETECTOR'] = typeIcons['ALARM'];
 typeIcons['MULTIPLE ALARM'] = typeIcons['ALARM'];
 
 // typeIcons[''] = typeIcons[''];
-
+// WATER RESCUE
 // 'FIRE OUT'
 //  'FD ASSISTANCE'
 // 'PROPANE LEAK':

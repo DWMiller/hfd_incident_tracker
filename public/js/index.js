@@ -17,7 +17,6 @@ function initMap() {
             activeMarker.InfoWindow.close();
             activeMarker = null;
         }
-
     });
 
     startSocket();
@@ -71,7 +70,7 @@ function addToMap(update) {
         icon: icon
     });
 
-    update.displayDate = moment().millisecond(update.time).format("h:mm a");
+    update.displayDate = moment().millisecond(update.time).format("dddd h:mm a");
 
     marker.addListener('click', function() {
 
