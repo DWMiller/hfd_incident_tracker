@@ -70,7 +70,9 @@ function addToMap(update) {
         icon: icon
     });
 
-    update.displayDate = moment().millisecond(update.time).format("dddd h:mm a");
+    console.log(update.time);
+    update.displayDate = moment(update.time, 'x').format("dddd h:mm a");
+    console.log(update.displayDate);
 
     marker.addListener('click', function() {
 

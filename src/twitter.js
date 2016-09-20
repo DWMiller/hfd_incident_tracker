@@ -19,10 +19,9 @@ const refinedFields = ['id', 'text', 'timestamp_ms'];
 function handleTweet(tweet, callback) {
     tweet = refine(tweet);
 
-    console.log(tweet);
+    console.log('Tweet Received: ' + tweet.text);
 
-    db.tweets.insert(tweet, () =>
-        console.log('tweet logged, ID: ' + tweet.id));
+    db.tweets.insert(tweet)
 
     if (/goo\.gl/.test(tweet.text)) {
         // Can't yet handle content if externerally linked, skip it
@@ -33,7 +32,7 @@ function handleTweet(tweet, callback) {
 
     geocode(tweet, (tweet) => {
         db.updates.insert(tweet, () => {
-            console.log('event logged, ID: ' + tweet.id);
+            // console.log('event logged, ID: ' + tweet.id);
             callback(tweet);
         })
     });
@@ -64,6 +63,7 @@ function geocode(tweet, callback) {
             callback(tweet);
         } else {
             console.log('Geolocation Error B :', data, err, useField);
+            callback(false);
         }
 
     }, {
