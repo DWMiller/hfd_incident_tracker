@@ -73,6 +73,8 @@ module.exports = function(tweet) {
             useStreet = event.streets.crossTwo
         }
 
+//TODO - main street can be blank if location was exactly on intersection
+
         event.intersection = event.streets.main + ' at ' + useStreet + ', ' + event.city;
 
         // console.log(event.intersection);

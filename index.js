@@ -14,6 +14,7 @@ app.use(express.static(__dirname + '/public'));
 
 twitter.connection.on('tweet', (tweet) => {
     twitter.handleTweet(tweet, (tweet) => {
+        console.log('Update pushed: ' + tweet.intersection);
         io.emit('event', tweet);
     });
 })
@@ -34,8 +35,8 @@ io.sockets.on('connection', function(socket) {
         db.updates.find({
             type: "NEW",
             $where: function() {
-                    return this.time > DAY_AGO;
-                }
+                return this.time > DAY_AGO;
+            }
         }, function(err, docs) {
             socket.emit('events', docs);
         });
