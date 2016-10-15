@@ -1,41 +1,37 @@
-var db = require('../src/database.js');
-var twitter = require('../src/twitter.js');
+const db = require('../src/database.js');
+const twitter = require('../src/twitter.js');
 
-var queue;
+let queue;
 
 db.updates.find({
-    formatted_address: {
-        $exists: false
-    },
-    type: 'NEW'
-}, function(err, docs) {
-    queue = docs;
-    geocode();
+  formatted_address: {
+    $exists: false,
+  },
+  type: 'NEW',
+}, (err, docs) => {
+  queue = docs;
+  geocode();
 });
 
 function geocode() {
+  const tweet = queue.shift();
 
-    let tweet = queue.shift();
+  twitter.geocode(tweet, (tweet) => {
+    if (tweet) {
+      console.log(`Geocode complete, ${queue.length} remaining`);
 
-    twitter.geocode(tweet, (tweet) => {
+      db.updates.update({
+        id: tweet.id,
+      }, tweet);
+    }
 
-        if (tweet) {
-            console.log('Geocode complete, ' + queue.length + ' remaining');
-
-            db.updates.update({
-                id: tweet.id
-            }, tweet);
-        }
-
-        if (queue.length) {
-            setTimeout(geocode, 750);
-        }
-    });
-
+    if (queue.length) {
+      setTimeout(geocode, 750);
+    }
+  });
 }
 
 
-
 function save(tweet) {
-    db.updates.insert(tweet);
+  db.updates.insert(tweet);
 }

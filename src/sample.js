@@ -47,7 +47,7 @@ module.exports = {
     default_profile_image: false,
     following: null,
     follow_request_sent: null,
-    notifications: null
+    notifications: null,
   },
   geo: null,
   coordinates: null,
@@ -60,11 +60,11 @@ module.exports = {
     hashtags: [],
     urls: [],
     user_mentions: [],
-    symbols: []
+    symbols: [],
   },
   favorited: false,
   retweeted: false,
   filter_level: 'low',
   lang: 'en',
-  timestamp_ms: '1465866103217'
-}
+  timestamp_ms: '1465866103217',
+};

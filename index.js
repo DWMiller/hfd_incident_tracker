@@ -1,50 +1,54 @@
-var twitter = require('./src/twitter.js');
-var db = require('./src/database.js');
+const twitter = require('./src/twitter.js');
+const db = require('./src/database.js');
 
-var express = require('express'); // call express
-var app = express(); // define our app using express
+const express = require('express'); // call express
 
-var http = require('http');
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+const app = express(); // define our app using express
 
-server.listen(80); //process.env.PORT || 8081);
+const http = require('http');
 
-app.use(express.static(__dirname + '/public'));
+const server = http.createServer(app);
+const io = require('socket.io').listen(server);
 
-twitter.connection.on('tweet', (tweet) => {
-    twitter.handleTweet(tweet, (tweet) => {
-        console.log('Update pushed: ' + tweet.intersection);
-        io.emit('event', tweet);
-    });
-})
+server.listen(80); // process.env.PORT || 8081);
 
-twitter.connection.on('error', function(err) {
-    console.log('Oh no', err);
-})
+app.use(express.static(`${__dirname}/public`));
+
+twitter.connection.on('tweet', tweetReceived);
+
+twitter.connection.on('error', (err) => {
+  console.log('Oh no', err);
+});
 
 twitter.connection.follow('611701456');
 
 const DAY = 86400000;
 const DAY_AGO = (Date.now() - DAY);
-//Create web sockets connection.
-io.sockets.on('connection', function(socket) {
+// Create web sockets connection.
+io.sockets.on('connection', onConnect);
 
-    socket.on("all_events", function() {
-
-        db.updates.find({
-            type: "NEW",
-            $where: function() {
-                return this.time > DAY_AGO;
-            }
-        }, function(err, docs) {
-            socket.emit('events', docs);
-        });
-
+function onConnect(socket) {
+  socket.on('all_events', () => {
+    db.updates.find({
+      type: 'NEW',
+      $where() {
+        return this.time > DAY_AGO;
+      },
+    }, (err, docs) => {
+      socket.emit('events', docs);
     });
+  });
 
     // Emits signal to the client telling them that the
     // they are connected and can start receiving data
-    socket.emit("connected");
+  socket.emit('connected');
+}
 
-});
+function tweetReceived(tweet) {
+  twitter.handleTweet(tweet, tweetProcessed);
+}
+
+function tweetProcessed(tweet) {
+  console.log(`Update pushed: ${tweet.intersection}`);
+  io.emit('event', tweet);
+}
