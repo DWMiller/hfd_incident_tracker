@@ -8,9 +8,9 @@ const app = express(); // define our app using express
 const http = require('http');
 
 const server = http.createServer(app);
-const io = require('socket.io').listen(server);
-
 server.listen(80); // process.env.PORT || 8081);
+
+const io = require('socket.io').listen(server);
 
 app.use(express.static(`${__dirname}/public`));
 
