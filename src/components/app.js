@@ -1,10 +1,10 @@
-import createMap from '../map/map';
-import './App.css';
+import createMap from './map';
+import './app.css';
 
 // store.subscribe(() => {
 //   console.log(store.getState());
 // });
-export default (React) => {
+export default React => {
   const app = ({ alerts }) => {
     const Map = createMap(React);
 
