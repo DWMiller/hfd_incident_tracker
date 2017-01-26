@@ -4,8 +4,6 @@ import './App.css';
 // store.subscribe(() => {
 //   console.log(store.getState());
 // });
-
-
 export default (React) => {
   const app = ({ alerts }) => {
     const Map = createMap(React);
@@ -13,14 +11,11 @@ export default (React) => {
     return (
       <div className="App">
         <Map alerts={alerts} />
-      </div>);
+      </div>
+    );
   };
 
-  app.propTypes = {
-    alerts: React.PropTypes.arrayOf(React.PropTypes.shape({
-      code: React.PropTypes.string.isRequired,
-    })),
-  };
+  app.propTypes = { alerts: React.PropTypes.arrayOf(React.PropTypes.objects) };
 
   return app;
 };

@@ -1,16 +1,15 @@
-import style from './styles.js';
+import style from './styles';
 
 export default (React) => {
-  const marker = ({ alert: { category } }) => (
-    <div style={style(category)} />
-    );
+  const Marker = ({ alert }) => (
+    <div test={alert.category} style={style(alert.category)} />
+  );
 
-
-  marker.propTypes = {
+  Marker.propTypes = {
     alert: React.PropTypes.shape({
       category: React.PropTypes.string.isRequired,
     }),
   };
 
-  return marker;
+  return Marker;
 };
