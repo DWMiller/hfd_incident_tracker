@@ -4,10 +4,12 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "client": "cd client && npm start",
+        "client": "react-scripts start",
         "server": "node server.js",
-        "start": " start npm run client && start npm run server",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "start npm run server && react-scripts start",
+        "test": "react-scripts test --env=jsdom",
+        "build": "react-scripts build",
+        "eject": "react-scripts eject"
     },
     "author": "",
     "license": "ISC",
@@ -20,7 +22,12 @@
         "lodash": "^4.15.0",
         "nedb": "^1.8.0",
         "node-tweet-stream": "^2.0.0",
-        "socket.io": "*"
+        "socket.io": "*",
+        "google-map-react": "^0.20.0",
+        "react": "^15.3.2",
+        "react-dom": "^15.3.2",
+        "redux": "^3.6.0",
+        "socket.io-client": "^1.5.0"
     },
     "devDependencies": {
         "babel-cli": "6.6.5",
@@ -31,6 +38,7 @@
         "eslint-config-airbnb": "^12.0.0",
         "eslint-plugin-import": "^2.0.0",
         "eslint-plugin-jsx-a11y": "^2.2.2",
-        "eslint-plugin-react": "^6.3.0"
+        "eslint-plugin-react": "^6.3.0",
+          "react-scripts": "0.6.1"
     }
 }
