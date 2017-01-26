@@ -15,7 +15,7 @@ export default (React) => {
     );
   };
 
-  app.propTypes = { alerts: React.PropTypes.arrayOf(React.PropTypes.objects) };
+  app.propTypes = { alerts: React.PropTypes.arrayOf(React.PropTypes.object) };
 
   return app;
 };
