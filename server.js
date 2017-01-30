@@ -1,7 +1,7 @@
 const twitter = require('./src/twitter.js');
 const db = require('./src/database.js');
 
-const io = require('socket.io')(80);
+const io = require('socket.io')(process.env.PORT);
 
 twitter.connection.on('tweet', tweetReceived);
 
