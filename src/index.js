@@ -9,7 +9,7 @@ const App = createApp(React);
 const mapProps = { alerts: [] };
 
 function startSocket() {
-  const socket = io.connect('http://localhost:80/');
+  const socket = io.connect('//localhost:80/');
 
   // const socket = io.connect(window.location.href);
   // Listens for a success response from the server to
