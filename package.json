@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "client": "react-scripts build",
-    "server": "node server.js",
+    "server": "react-scripts build && node server.js",
     "start": "start npm run server && react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "build": "react-scripts build",
