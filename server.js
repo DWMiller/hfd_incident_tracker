@@ -1,7 +1,20 @@
 const twitter = require('./src/twitter.js');
 const db = require('./src/database.js');
 
-const io = require('socket.io')(process.env.PORT);
+const express = require('express');
+const path = require('path');
+const app = express();
+
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+const port = process.env.PORT || 3000;
+
+server.listen(port, function() {
+  console.log('Server listening at port %d', port);
+});
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 twitter.connection.on('tweet', tweetReceived);
 
@@ -17,7 +30,7 @@ function tweetReceived(tweet) {
 
 function tweetProcessed(tweet) {
   console.log(`Update pushed: ${tweet.intersection}`);
-  io.emit('event', tweet);
+  io.sockets.emit('event', tweet);
 }
 
 const DAY = 86400000;
@@ -47,7 +60,7 @@ function attachSocketListeners(socket) {
   });
 }
 
-io.sockets.on('connection', socket => {
+io.on('connection', socket => {
   attachSocketListeners(socket);
   socket.emit('connected');
 });
