@@ -31,7 +31,7 @@ function handleTweet(tweet, callback) {
   const parsedTweet = parse(refinedTweet);
 
   geocode(parsedTweet, t => {
-    db.updates.insert(tweet, (err, newDoc) => {
+    db.updates.insert(t, (err, newDoc) => {
       callback(newDoc);
     });
   });
