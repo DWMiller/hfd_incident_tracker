@@ -1,18 +1,19 @@
 const db = require('../src/database.js');
-const twitter = require('../src/twitter.js');
+
+const tweetParser = require('../src/tweet-parser.js');
 
 db.updates.remove({}, {
-  multi: true,
+  multi: true
 });
 
 db.tweets.find({}, (err, docs) => {
-  docs.forEach((doc) => {
+  docs.forEach(doc => {
     if (/goo\.gl/.test(doc.text)) {
-            // Can't yet handle content if externerally linked, skip it
+      // Can't yet handle content if externerally linked, skip it
       return;
     }
 
-    const parsedDoc = twitter.parse(doc);
+    const parsedDoc = tweetParser(doc);
     db.updates.insert(parsedDoc);
   });
 });

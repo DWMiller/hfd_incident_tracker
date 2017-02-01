@@ -1,4 +1,5 @@
 const twitter = require('./src/twitter.js');
+
 const db = require('./src/database.js');
 
 const express = require('express');
@@ -16,17 +17,16 @@ server.listen(port, function() {
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-twitter.connection.on('tweet', tweetReceived);
+const twitterConnection = twitter.connect();
+twitterConnection.follow('611701456');
 
-twitter.connection.on('error', err => {
-  console.log('Oh no', err);
+twitterConnection.on('tweet', tweet => {
+  twitter.handleTweet(tweet, tweetProcessed);
 });
 
-twitter.connection.follow('611701456');
-
-function tweetReceived(tweet) {
-  twitter.handleTweet(tweet, tweetProcessed);
-}
+twitterConnection.on('error', err => {
+  console.log('Oh no', err);
+});
 
 function tweetProcessed(tweet) {
   console.log(`Update pushed: ${tweet.intersection}`);

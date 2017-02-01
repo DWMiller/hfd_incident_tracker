@@ -11,8 +11,6 @@ const mapProps = { alerts: [] };
 function startSocket() {
   const socket = location.port ? io('//localhost:3001') : io();
 
-  console.log(location);
-
   socket.on('connected', () => {
     console.log('connected');
     // Now that we are connected to the server let's tell
