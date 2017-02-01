@@ -9,12 +9,10 @@ const App = createApp(React);
 const mapProps = { alerts: [] };
 
 function startSocket() {
-  const socket = io();
+  const socket = location.port ? io('//localhost:3001') : io();
 
-  //.connect('//localhost:3000');
-  // const socket = io.connect(window.location.href);
-  // Listens for a success response from the server to
-  // say the connection was successful.
+  console.log(location);
+
   socket.on('connected', () => {
     console.log('connected');
     // Now that we are connected to the server let's tell
