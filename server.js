@@ -21,17 +21,32 @@ const twitterConnection = twitter.connect();
 twitterConnection.follow('611701456');
 
 twitterConnection.on('tweet', tweet => {
-  twitter.handleTweet(tweet, tweetProcessed);
+  console.log(`Tweet Received: ${tweet.text}`);
+
+  const refinedTweet = twitter.refineTweet(tweet);
+  db.tweets.insert(refinedTweet);
+
+  if (/goo\.gl/.test(refinedTweet.text)) {
+    // Can't yet handle content if externerally linked, skip it
+    return;
+  }
+
+  const parsedTweet = twitter.parseTweet(refinedTweet);
+
+  twitter
+    .geoCodeTweet(parsedTweet)
+    .then(geoCodedTweet => {
+      db.updates.insert(geoCodedTweet, (err, newDoc) => {
+        console.log(`Update pushed: ${geoCodedTweet.intersection}`);
+        io.sockets.emit('event', newDoc);
+      });
+    })
+    .catch(error => console.log(error));
 });
 
 twitterConnection.on('error', err => {
   console.log('Oh no', err);
 });
-
-function tweetProcessed(tweet) {
-  console.log(`Update pushed: ${tweet.intersection}`);
-  io.sockets.emit('event', tweet);
-}
 
 const DAY = 86400000;
 const DAY_AGO = Date.now() - DAY;
