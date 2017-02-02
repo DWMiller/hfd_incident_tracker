@@ -1,6 +1,6 @@
 // const geocoder = require('geocoder');
 
-const geoCodeKey = 'AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y';
+const geoCodeKey = require('./config/keys').geocoder;
 const googleMapsClient = require('@google/maps').createClient({
   key: geoCodeKey,
   Promise: Promise
@@ -21,7 +21,13 @@ function geoCode(tweet) {
     })
     .asPromise()
     .then(response => response.json.results[0])
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .then(({ geometry, formatted_address }) => {
+      return Object.assign({}, tweet, {
+        coordinates: geometry.location,
+        formatted_address
+      });
+    });
 }
 
 module.exports = geoCode;
