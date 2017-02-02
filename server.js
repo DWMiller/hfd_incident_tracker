@@ -21,17 +21,38 @@ const twitterConnection = twitter.connect();
 twitterConnection.follow('611701456');
 
 twitterConnection.on('tweet', tweet => {
+  console.log('--------------------------------------------------------------');
   console.log(`Tweet Received: ${tweet.text}`);
+
+  if (tweet.user.id !== 611701456) {
+    console.log(`IGNORED: Just a moron responding to a bot`);
+    return;
+  }
 
   const refinedTweet = twitter.refineTweet(tweet);
   db.tweets.insert(refinedTweet);
 
-  if (/goo\.gl/.test(refinedTweet.text)) {
+  if (/t\.co/.test(refinedTweet.text)) {
+    console.log(`NEEDS LINK HANDLING: ${parsedTweet.code}`);
     // Can't yet handle content if externerally linked, skip it
     return;
   }
 
   const parsedTweet = twitter.parseTweet(refinedTweet);
+
+  if (parsedTweet.type !== 'NEW') {
+    console.log(`UPDATE ONLY: ${parsedTweet.code}`);
+    // not set up to handle event updates yet
+    return;
+  }
+
+  if (!parsedTweet.intersection) {
+    console.log(`UNHANDLED TWEET:`);
+    // not set up to handle event updates yet
+    return;
+  }
+
+  console.log(`PARSED: ${parsedTweet.intersection}`);
 
   twitter
     .geoCodeTweet(parsedTweet)

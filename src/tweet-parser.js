@@ -82,8 +82,6 @@ function parse(tweet) {
     useStreet.length = useStreet.length > 2 ? 2 : useStreet.length;
 
     event.intersection = `${useStreet.join(' at ')}, ${event.city}`;
-
-    console.log(event.intersection);
     // event.intersection = `${event.streets.main} at ${useStreet}, ${event.city}`;
     // console.log(event.intersection);
   }

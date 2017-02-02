@@ -20,7 +20,10 @@ function geoCode(tweet) {
       address: useField
     })
     .asPromise()
-    .then(response => response.json.results[0])
+    .then(response => {
+      // console.log(JSON.stringify(response.json.results, null, 4));
+      return response.json.results[0];
+    })
     .catch(err => console.log(err))
     .then(({ geometry, formatted_address }) => {
       return Object.assign({}, tweet, {
