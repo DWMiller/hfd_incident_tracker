@@ -7,11 +7,17 @@ const cheerio = require('cheerio');
  */
 
 function extractLink(text) {
-  return text.match(/https:\/\/t\.co\/[0-9a-z]+/gi)[0];
+  const matches = text.match(/https:\/\/t\.co\/[0-9a-z]+/gi);
+  return matches ? matches[0] : false;
 }
 
 function fetchFullTweet(tweet) {
   const link = extractLink(tweet.text);
+
+  if (!link) {
+    // If tweet does not have a link, return as is
+    return Promise.resolve(tweet);
+  }
 
   return new Promise(function(resolve, reject) {
     request(link, function(error, response, html) {

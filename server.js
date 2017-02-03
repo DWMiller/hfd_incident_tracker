@@ -36,17 +36,11 @@ twitterConnection.on('tweet', tweet => {
     return;
   }
 
-  const refinedTweet = twitter.refineTweet(tweet);
-  db.tweets.insert(refinedTweet);
-
-  if (/t\.co/.test(refinedTweet.text)) {
-    twitter.fetchFullTweet(refinedTweet).then(fullTweet => {
-      twitter.handleTweet(fullTweet, tweetProcessed);
-      return;
-    });
-  }
-
-  twitter.handleTweet(refinedTweet, tweetProcessed);
+  twitter.fetchFullTweet(tweet).then(fullTweet => {
+    const refinedTweet = twitter.refineTweet(fullTweet);
+    db.tweets.insert(refinedTweet);
+    twitter.handleTweet(refinedTweet, tweetProcessed);
+  });
 });
 
 twitterConnection.on('error', err => {
