@@ -17,7 +17,14 @@ server.listen(port, function() {
 
 app.use(express.static(path.join(__dirname, 'build')));
 
+function tweetProcessed(tweet) {
+  console.log(`Broadcast: ${tweet.intersection}`);
+  io.sockets.emit('event', tweet);
+  db.updates.insert(tweet);
+}
+
 const twitterConnection = twitter.connect();
+
 twitterConnection.follow('611701456');
 
 twitterConnection.on('tweet', tweet => {
@@ -25,7 +32,7 @@ twitterConnection.on('tweet', tweet => {
   console.log(`Tweet Received: ${tweet.text}`);
 
   if (tweet.user.id !== 611701456) {
-    console.log(`IGNORED: Just a moron responding to a bot`);
+    console.log(`IGNORED: Just a moron responding to a bot or retweet`);
     return;
   }
 
@@ -33,36 +40,13 @@ twitterConnection.on('tweet', tweet => {
   db.tweets.insert(refinedTweet);
 
   if (/t\.co/.test(refinedTweet.text)) {
-    console.log(`NEEDS LINK HANDLING: ${parsedTweet.code}`);
-    // Can't yet handle content if externerally linked, skip it
-    return;
+    twitter.fetchFullTweet(refinedTweet).then(fullTweet => {
+      twitter.handleTweet(fullTweet, tweetProcessed);
+      return;
+    });
   }
 
-  const parsedTweet = twitter.parseTweet(refinedTweet);
-
-  if (parsedTweet.type !== 'NEW') {
-    console.log(`UPDATE ONLY: ${parsedTweet.code}`);
-    // not set up to handle event updates yet
-    return;
-  }
-
-  if (!parsedTweet.intersection) {
-    console.log(`UNHANDLED TWEET:`);
-    // not set up to handle event updates yet
-    return;
-  }
-
-  console.log(`PARSED: ${parsedTweet.intersection}`);
-
-  twitter
-    .geoCodeTweet(parsedTweet)
-    .then(geoCodedTweet => {
-      db.updates.insert(geoCodedTweet, (err, newDoc) => {
-        console.log(`Update pushed: ${geoCodedTweet.intersection}`);
-        io.sockets.emit('event', newDoc);
-      });
-    })
-    .catch(error => console.log(error));
+  twitter.handleTweet(refinedTweet, tweetProcessed);
 });
 
 twitterConnection.on('error', err => {
@@ -75,9 +59,9 @@ const DAY_AGO = Date.now() - DAY;
 function getRecentEvents(callback) {
   db.updates.find(
     {
-      // $where() {
-      //   return this.time > DAY_AGO * 3;
-      // }
+      $where() {
+        return this.time > DAY_AGO;
+      },
       type: 'NEW'
     },
     callback

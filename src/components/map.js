@@ -6,7 +6,7 @@ export default React => {
 
   function generateMarkers(alerts) {
     return alerts.map(alert => (
-      <Marker key={alert._id} alert={alert} {...alert.coordinates} />
+      <Marker key={alert.code} alert={alert} {...alert.coordinates} />
     ));
   }
 
@@ -29,12 +29,10 @@ export default React => {
   };
 
   Map.propTypes = {
-    alerts: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
+    alerts: React.PropTypes.arrayOf(React.PropTypes.shape({
         coordinates: React.PropTypes.object.isRequired,
         _id: React.PropTypes.string.isRequired
-      })
-    )
+      }))
   };
 
   return Map;
