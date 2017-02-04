@@ -4,7 +4,7 @@ const DAY = 86400000;
 const DAY_AGO = Date.now() - DAY;
 
 function getRecentEvents(callback) {
-  updateModel.find({}, function(err, updates) {
+  updateModel.find({ time: { $gte: DAY_AGO } }, function(err, updates) {
     callback(updates);
   });
 }
