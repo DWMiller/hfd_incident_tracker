@@ -8,7 +8,7 @@ coverage
 
 # production
 build
-/src/config/keys.js
+!/src/config/keys.js
 
 # misc
 .DS_Store
