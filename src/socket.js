@@ -19,6 +19,10 @@ function attachSocketListeners(socket) {
   socket.on('all_events', () => {
     initialEmit(socket);
   });
+
+  socket.on('ping', () => {
+    console.log('activity ping');
+  });
 }
 
 module.exports = function(server) {

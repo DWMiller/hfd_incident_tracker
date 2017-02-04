@@ -16,6 +16,13 @@ function startSocket() {
     // Now that we are connected to the server let's tell
     // the server we are ready to start receiving tweets.
     socket.emit('all_events');
+
+    setInterval(
+      () => {
+        socket.emit('ping');
+      },
+      1.7e6
+    );
   });
 
   return socket;
