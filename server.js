@@ -1,27 +1,23 @@
 const twitter = require('./src/twitter.js');
 
-const db = require('./src/database.js');
+const db = require('./src/nedb.js');
+const mongo = require('./src/mongodb.js');
 
 const express = require('express');
 const path = require('path');
 const app = express();
 
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
 
 const port = process.env.PORT || 3001;
+
+const socket = require('./src/socket.js')(server);
 
 server.listen(port, function() {
   console.log('Server listening at port %d', port);
 });
 
 app.use(express.static(path.join(__dirname, 'build')));
-
-function tweetProcessed(tweet) {
-  console.log(`Broadcast: ${tweet.intersection}`);
-  io.sockets.emit('event', tweet);
-  db.updates.insert(tweet);
-}
 
 const twitterConnection = twitter.connect();
 
@@ -38,43 +34,16 @@ twitterConnection.on('tweet', tweet => {
 
   twitter.fetchFullTweet(tweet).then(fullTweet => {
     const refinedTweet = twitter.refineTweet(fullTweet);
+    mongo.saveToMongo(refinedTweet);
     db.tweets.insert(refinedTweet);
-    twitter.handleTweet(refinedTweet, tweetProcessed);
+
+    twitter.processTweet(refinedTweet, processedTweet => {
+      socket.broadcast(processedTweet);
+      db.updates.insert(processedTweet);
+    });
   });
 });
 
 twitterConnection.on('error', err => {
   console.log('Oh no', err);
-});
-
-const DAY = 86400000;
-const DAY_AGO = Date.now() - DAY;
-
-function getRecentEvents(callback) {
-  db.updates.find(
-    {
-      $where() {
-        return this.time > DAY_AGO;
-      },
-      type: 'NEW'
-    },
-    callback
-  );
-}
-
-function initialEmit(socket) {
-  getRecentEvents((err, docs) => {
-    socket.emit('events', docs);
-  });
-}
-
-function attachSocketListeners(socket) {
-  socket.on('all_events', () => {
-    initialEmit(socket);
-  });
-}
-
-io.on('connection', socket => {
-  attachSocketListeners(socket);
-  socket.emit('connected');
 });
