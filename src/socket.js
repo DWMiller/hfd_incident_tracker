@@ -1,4 +1,3 @@
-const db = require('./nedb.js');
 const updateModel = require('./models/update.js');
 
 const DAY = 86400000;
@@ -6,18 +5,8 @@ const DAY_AGO = Date.now() - DAY;
 
 function getRecentEvents(callback) {
   updateModel.find({}, function(err, updates) {
-    console.log(updates);
     callback(updates);
   });
-  // db.updates.find(
-  //   {
-  //     $where() {
-  //       return this.time > DAY_AGO;
-  //     },
-  //     type: 'NEW'
-  //   },
-  //   callback
-  // );
 }
 
 function initialEmit(socket) {

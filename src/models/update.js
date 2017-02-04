@@ -2,7 +2,10 @@ const mongoose = require('../mongoose-connection');
 const Schema = mongoose.Schema;
 
 const updateSchema = Schema({
-  id: Number,
+  id: {
+    type: Number,
+    unique: true
+  },
   category: String,
   city: String,
   coordinates: {

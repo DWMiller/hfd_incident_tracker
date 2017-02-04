@@ -1,7 +1,5 @@
 const twitter = require('./src/twitter.js');
 
-const db = require('./src/nedb.js');
-
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -36,13 +34,11 @@ twitterConnection.on('tweet', tweet => {
 
   twitter.fetchFullTweet(tweet).then(fullTweet => {
     const refinedTweet = twitter.refineTweet(fullTweet);
-    db.tweets.insert(refinedTweet);
     tweetModel.create(refinedTweet);
 
     twitter.processTweet(refinedTweet, processedTweet => {
       socket.broadcast(processedTweet);
       updateModel.create(processedTweet);
-      db.updates.insert(processedTweet);
     });
   });
 });
