@@ -16,7 +16,7 @@ function fetchFullTweet(tweet) {
   return tweetFetcher.fetchFullTweet(tweet);
 }
 
-function handleTweet(tweet, callback) {
+function processTweet(tweet, callback) {
   const parsedTweet = tweetParser(tweet);
 
   if (parsedTweet.type !== 'NEW') {
@@ -37,7 +37,7 @@ function handleTweet(tweet, callback) {
 }
 
 module.exports = {
-  handleTweet,
+  processTweet,
   connect,
   refineTweet,
   fetchFullTweet

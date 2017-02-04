@@ -1,20 +1,20 @@
 const Datastore = require('nedb');
 
-const db = {
+const nedb = {
   tweets: new Datastore({
     filename: `${__dirname}/../databases/tweets`,
     autoload: true,
-    timestampData: true,
+    timestampData: true
   }),
   updates: new Datastore({
     filename: `${__dirname}/../databases/updates`,
     autoload: true,
-    timestampData: true,
-  }),
+    timestampData: true
+  })
 };
 
-db.updates.ensureIndex({
-  fieldName: 'code',
+nedb.updates.ensureIndex({
+  fieldName: 'code'
 });
 
-module.exports = db;
+module.exports = nedb;
