@@ -6,6 +6,7 @@ const updateSchema = Schema({
     type: Number,
     unique: true
   },
+  code: String,
   category: String,
   city: String,
   coordinates: {
