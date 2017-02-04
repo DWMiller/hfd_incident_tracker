@@ -15,13 +15,6 @@ const DAY_AGO = Date.now() - DAY;
 //   });
 // });
 
+const twitter = require('../src/twitter.js');
 const Update = require('../src/models/update.js');
-
-Update.find(
-  {
-    time: { $gte: DAY_AGO }
-  },
-  function(err, updates) {
-    console.log(updates.length);
-  }
-);
+const Tweet = require('../src/models/tweet.js');

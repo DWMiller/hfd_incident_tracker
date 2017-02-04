@@ -18,21 +18,25 @@ export default React => {
     const apiKey = 'AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y';
 
     return (
-      <GoogleMap
-        defaultCenter={center}
-        defaultZoom={10}
-        bootstrapURLKeys={{ key: apiKey }}
-      >
-        {Markers}
-      </GoogleMap>
+      <div className="map-container" width>
+        <GoogleMap
+          defaultCenter={center}
+          defaultZoom={10}
+          bootstrapURLKeys={{ key: apiKey }}
+        >
+          {Markers}
+        </GoogleMap>
+      </div>
     );
   };
 
   Map.propTypes = {
-    alerts: React.PropTypes.arrayOf(React.PropTypes.shape({
+    alerts: React.PropTypes.arrayOf(
+      React.PropTypes.shape({
         coordinates: React.PropTypes.object.isRequired,
-        _id: React.PropTypes.string.isRequired
-      }))
+        code: React.PropTypes.string.isRequired
+      })
+    )
   };
 
   return Map;
