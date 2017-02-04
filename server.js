@@ -1,7 +1,6 @@
 const twitter = require('./src/twitter.js');
 
 const db = require('./src/nedb.js');
-const mongo = require('./src/mongodb.js');
 
 const express = require('express');
 const path = require('path');
@@ -12,6 +11,9 @@ const server = require('http').createServer(app);
 const port = process.env.PORT || 3001;
 
 const socket = require('./src/socket.js')(server);
+
+const tweetModel = require('./src/models/tweet.js');
+const updateModel = require('./src/models/update.js');
 
 server.listen(port, function() {
   console.log('Server listening at port %d', port);
@@ -34,11 +36,12 @@ twitterConnection.on('tweet', tweet => {
 
   twitter.fetchFullTweet(tweet).then(fullTweet => {
     const refinedTweet = twitter.refineTweet(fullTweet);
-    mongo.saveToMongo(refinedTweet);
     db.tweets.insert(refinedTweet);
+    tweetModel.create(refinedTweet);
 
     twitter.processTweet(refinedTweet, processedTweet => {
       socket.broadcast(processedTweet);
+      updateModel.create(processedTweet);
       db.updates.insert(processedTweet);
     });
   });
