@@ -9,14 +9,38 @@
 
 .map-container {
   height:100%;
-  width:80%;
+  width: calc(100% - 300px);
 }
 
 .event-panel {
   box-sizing: border-box;
   height:100%;
   overflow: auto;
-  width:20%;
+  width:300px;
   padding: 0.5em;
   border-left:1px solid black;
+}
+
+.event-panel-item {
+  padding-bottom: 0.5em;
+  border-bottom:1px solid black;
+}
+
+.event-panel-item span {
+  display:block;
+    text-align: center;
+}
+
+.event-panel-item .location {
+  font-weight: bold;
+
+}
+
+.event-panel-item .address{
+  margin: 0.5em 0;
+}
+
+.event-panel-item .time{
+  font-size: smaller;
+text-align: right;
 }

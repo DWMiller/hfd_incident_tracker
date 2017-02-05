@@ -8,15 +8,12 @@ const updateSchema = Schema({
   },
   code: String,
   category: String,
-  city: String,
   coordinates: {
     lat: Number,
     lng: Number
   },
   formatted_address: String,
-  intersection: String,
-  originalLocation: String,
-  streets: [String],
+  locationName: String,
   time: String,
   type: String
 });

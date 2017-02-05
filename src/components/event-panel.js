@@ -2,13 +2,15 @@ import eventItemCreate from './event-panel-item';
 
 export default React => {
   const EventItem = eventItemCreate(React);
-
-  function onEventHover(...args) {
-    console.log(args);
-  }
+  //
+  // function onEventHover(...args) {
+  //   console.log(args);
+  // }
 
   function renderEventList(events) {
-    return events.map(event => {
+    const sorted = events.sort((a, b) => a.time < b.time ? 1 : -1);
+
+    return sorted.map(event => {
       return <EventItem {...event} key={event._id} />;
     });
   }
