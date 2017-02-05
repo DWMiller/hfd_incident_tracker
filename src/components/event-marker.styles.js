@@ -33,6 +33,11 @@ const typeIcons = {
     file: 'accident.png',
     width: 24,
     height: 35
+  },
+  FLOODING: {
+    file: 'flooding.png',
+    width: 36,
+    height: 36
   }
 };
 
@@ -48,7 +53,7 @@ typeIcons['ALARM CONDITIONS'] = typeIcons.ALARM;
 typeIcons['NATURAL GAS'] = typeIcons.ALARM;
 typeIcons['CO DETECTOR'] = typeIcons.ALARM;
 typeIcons['MULTIPLE ALARM'] = typeIcons.ALARM;
-
+typeIcons['FLOODING'] = typeIcons.FLOODING;
 // typeIcons[''] = typeIcons[''];
 // WATER RESCUE
 // 'FIRE OUT'
