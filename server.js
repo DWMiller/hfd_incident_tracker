@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 const twitterConnection = twitter.connect();
 
-// twitterConnection.follow('611701456');
+twitterConnection.follow('611701456');
 
 twitterConnection.on('tweet', tweet => {
   console.log('--------------------------------------------------------------');
