@@ -1,5 +1,3 @@
-const twitter = require('./src/twitter.js');
-
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -10,39 +8,13 @@ const port = process.env.PORT || 3001;
 
 const socket = require('./src/socket.js')(server);
 
-const tweetModel = require('./src/models/tweet.js');
-const updateModel = require('./src/models/update.js');
-
 server.listen(port, function() {
   console.log('Server listening at port %d', port);
 });
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-const twitterConnection = twitter.connect();
+require('./src/twitter.js')(socket);
 
-twitterConnection.follow('611701456');
-
-twitterConnection.on('tweet', tweet => {
-  console.log('--------------------------------------------------------------');
-  console.log(`Tweet Received: ${tweet.text}`);
-
-  if (tweet.user.id !== 611701456) {
-    console.log(`IGNORED: Just a moron responding to a bot or retweet`);
-    return;
-  }
-
-  twitter.fetchFullTweet(tweet).then(fullTweet => {
-    const refinedTweet = twitter.refineTweet(fullTweet);
-    tweetModel.create(refinedTweet);
-
-    twitter.processTweet(refinedTweet, processedTweet => {
-      socket.broadcast(processedTweet);
-      updateModel.create(processedTweet);
-    });
-  });
-});
-
-twitterConnection.on('error', err => {
-  console.log('Oh no', err);
-});
+const maintenance = require('./src/maintenance.js');
+maintenance.deletedOld();

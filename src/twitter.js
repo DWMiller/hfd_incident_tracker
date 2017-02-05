@@ -4,17 +4,8 @@ const tweetRefiner = require('./tweet-refiner.js');
 const tweetGeoCoder = require('./tweet-geocoder.js');
 const tweetFetcher = require('./tweet-fetcher.js');
 
-function connect() {
-  return new Twitter(require('./config/keys').twitter);
-}
-
-function refineTweet(tweet) {
-  return tweetRefiner(tweet);
-}
-
-function fetchFullTweet(tweet) {
-  return tweetFetcher.fetchFullTweet(tweet);
-}
+const tweetModel = require('./models/tweet.js');
+const updateModel = require('./models/update.js');
 
 function processTweet(tweet, callback) {
   const parsedTweet = tweetParser(tweet);
@@ -36,9 +27,34 @@ function processTweet(tweet, callback) {
   tweetGeoCoder(parsedTweet).then(callback).catch(error => console.log(error));
 }
 
-module.exports = {
-  processTweet,
-  connect,
-  refineTweet,
-  fetchFullTweet
+module.exports = function(socket) {
+  const connection = new Twitter(require('./config/keys').twitter);
+
+  connection.follow('611701456');
+
+  connection.on('tweet', tweet => {
+    console.log(
+      '--------------------------------------------------------------'
+    );
+    console.log(`Tweet Received: ${tweet.text}`);
+
+    if (tweet.user.id !== 611701456) {
+      console.log(`IGNORED: Just a moron responding to a bot or retweet`);
+      return;
+    }
+
+    tweetFetcher.fetchFullTweet(tweet).then(fullTweet => {
+      const refinedTweet = tweetRefiner(fullTweet);
+      tweetModel.create(refinedTweet);
+
+      processTweet(refinedTweet, processedTweet => {
+        socket.broadcast(processedTweet);
+        updateModel.create(processedTweet);
+      });
+    });
+  });
+
+  connection.on('error', err => {
+    console.log('Oh no', err);
+  });
 };
