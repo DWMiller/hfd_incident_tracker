@@ -4,8 +4,15 @@ export default React => {
   const Event = props => {
     const date = moment(parseInt(props.time, 10));
 
+    if (props.isActive) {
+      props.formatted_address = '';
+    }
+
     return (
-      <p className="event-panel-item">
+      <p
+        onMouseOver={() => props.onEventHover(props.id)}
+        className="event-panel-item"
+      >
 
         {props.locationName &&
           <span
@@ -20,7 +27,7 @@ export default React => {
   };
 
   Event.propTypes = {
-    intersection: React.PropTypes.string.isRequired
+    formatted_address: React.PropTypes.string.isRequired
   };
 
   return Event;

@@ -4,50 +4,40 @@ import ReactDOM from 'react-dom';
 import createApp from './components/app';
 import './index.css';
 
+import { createStore } from 'redux';
+// import { Provider } from 'react-redux';
+import eventReducer from './reducers/events';
+
+const store = createStore(eventReducer);
+
+const addEvent = event => store.dispatch({ type: 'ADD_EVENT', event });
+const addEvents = events => store.dispatch({ type: 'ADD_EVENTS', events });
+
 const App = createApp(React);
 
-const mapProps = { alerts: [] };
-
-function startSocket() {
-  const socket = location.port ? io('//localhost:3001') : io();
-
-  socket.on('connected', () => {
-    console.log('connected');
-    // Now that we are connected to the server let's tell
-    // the server we are ready to start receiving tweets.
-    socket.emit('all_events');
-
-    setInterval(
-      () => {
-        socket.emit('ping');
-      },
-      1.7e6
-    );
-  });
-
-  return socket;
-}
+const state = { events: [] };
 
 function render() {
   ReactDOM.render(
-    <App alerts={mapProps.alerts} />,
+    <App alerts={state.events} />,
     document.getElementById('root')
   );
 }
 
-const socket = startSocket();
-
-socket.on('events', data => {
-  console.log('Startup data received: ', data);
-  mapProps.alerts.length = 0;
-  Array.prototype.push.apply(mapProps.alerts, data);
+store.subscribe(() => {
+  state.events = store.getState();
+  console.log(state);
   render();
 });
 
-socket.on('event', update => {
-  console.log('Update received: ', update);
-  mapProps.alerts.push(update);
-  render();
+const socket = location.port ? io('//localhost:3001') : io();
+
+socket.on('connected', () => {
+  socket.emit('all_events');
 });
+
+socket.on('events', addEvents);
+
+socket.on('event', addEvent);
 
 render();

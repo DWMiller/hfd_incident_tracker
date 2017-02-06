@@ -51,6 +51,7 @@ typeIcons['RUBBISH FIRE'] = typeIcons.FIRE;
 typeIcons['APPLIANCE FIRE'] = typeIcons.FIRE;
 typeIcons['ALARM CONDITIONS'] = typeIcons.ALARM;
 typeIcons['NATURAL GAS'] = typeIcons.ALARM;
+typeIcons['ODOURS'] = typeIcons.ALARM;
 typeIcons['CO DETECTOR'] = typeIcons.ALARM;
 typeIcons['MULTIPLE ALARM'] = typeIcons.ALARM;
 typeIcons['FLOODING'] = typeIcons.FLOODING;

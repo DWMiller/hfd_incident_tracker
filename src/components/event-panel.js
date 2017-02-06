@@ -2,16 +2,33 @@ import eventItemCreate from './event-panel-item';
 
 export default React => {
   const EventItem = eventItemCreate(React);
-  //
-  // function onEventHover(...args) {
-  //   console.log(args);
-  // }
+
+  const state = {
+    activeEvent: null
+  };
+
+  function onEventHover(eventId) {
+    if (state.activeEvent === eventId) {
+      return;
+    }
+
+    state.activeEvent = eventId;
+  }
 
   function renderEventList(events) {
     const sorted = events.sort((a, b) => a.time < b.time ? 1 : -1);
 
     return sorted.map(event => {
-      return <EventItem {...event} key={event._id} />;
+      const isActive = event.id === state.activeEventl;
+
+      return (
+        <EventItem
+          onEventHover={onEventHover}
+          isActive={isActive}
+          {...event}
+          key={event._id}
+        />
+      );
     });
   }
 
