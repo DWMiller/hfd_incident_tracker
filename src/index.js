@@ -4,11 +4,7 @@ import ReactDOM from 'react-dom';
 import createApp from './components/app';
 import './index.css';
 
-import { createStore } from 'redux';
-// import { Provider } from 'react-redux';
-import eventReducer from './reducers/events';
-
-const store = createStore(eventReducer);
+import store from './reducers/store';
 
 const addEvent = event => store.dispatch({ type: 'ADD_EVENT', event });
 const addEvents = events => store.dispatch({ type: 'ADD_EVENTS', events });
@@ -25,7 +21,7 @@ function render() {
 }
 
 store.subscribe(() => {
-  state.events = store.getState();
+  state.events = store.getState().events;
   console.log(state);
   render();
 });
