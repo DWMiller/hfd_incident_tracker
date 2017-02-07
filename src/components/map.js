@@ -6,7 +6,7 @@ export default React => {
 
   function generateMarkers(alerts) {
     return alerts.map(alert => (
-      <Marker key={alert.code} alert={alert} {...alert.coordinates} />
+      <Marker key={alert.id} alert={alert} {...alert.coordinates} />
     ));
   }
 

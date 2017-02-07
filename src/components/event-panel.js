@@ -26,7 +26,7 @@ export default React => {
           onEventHover={onEventHover}
           isActive={isActive}
           {...event}
-          key={event._id}
+          key={event.id}
         />
       );
     });
