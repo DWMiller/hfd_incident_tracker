@@ -1,0 +1,30 @@
+.event-panel-item {
+  padding: 0.5em 0 0.5em 1em;
+  border-bottom: 1px solid black;
+}
+
+.event-panel-item span {
+  display: block;
+}
+
+.event-panel-item img {
+  float: right;
+}
+
+.event-panel-item .location {
+  font-weight: bold;
+}
+
+.event-panel-item .category {
+  font-size: smaller;
+  font-variant: small-caps;
+}
+
+.event-panel-item .address {
+  margin: 0.5em 0;
+}
+
+.event-panel-item .time {
+  font-size: smaller;
+  text-align: right;
+}

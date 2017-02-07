@@ -32,7 +32,10 @@ socket.on('connected', () => {
   socket.emit('all_events');
 });
 
-socket.on('events', addEvents);
+socket.on('events', events => {
+  store.dispatch({ type: 'CLEAR_EVENTS', events });
+  addEvents(events);
+});
 
 socket.on('event', addEvent);
 

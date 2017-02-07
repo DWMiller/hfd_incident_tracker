@@ -4,6 +4,8 @@ export default (state = [], { type, event, events } = {}) => {
       return [...state, event];
     case 'ADD_EVENTS':
       return [...state, ...events];
+    case 'CLEAR_EVENTS':
+      return [];
     default:
       return state;
   }
