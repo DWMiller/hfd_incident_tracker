@@ -1,8 +1,14 @@
 import style from './event-marker.styles';
 
 export default React => {
-  const Marker = ({ alert }) => {
-    return <div style={style(alert.category)} />;
+  const Marker = ({ alert, isActive = false, onEventHover }) => {
+    return (
+      <div
+        className="event-marker"
+        onMouseOver={() => onEventHover(alert.id)}
+        style={style(alert, isActive)}
+      />
+    );
   };
 
   Marker.propTypes = {

@@ -6,17 +6,13 @@ export default React => {
   const Event = props => {
     const date = moment(parseInt(props.time, 10));
 
-    if (props.isActive) {
-      props.formatted_address = '';
-    }
-
     const eventType = eventTypes[props.category];
     const icon = eventType.icon;
 
     return (
       <div
         onMouseOver={() => props.onEventHover(props.id)}
-        className="event-panel-item"
+        className={'event-panel-item ' + (props.isActive ? 'active' : '')}
       >
 
         <img

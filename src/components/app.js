@@ -3,19 +3,23 @@ import createEventPanel from './event-panel';
 import './app.css';
 
 export default React => {
-  const app = ({ alerts }) => {
-    const Map = createMap(React);
-    const Panel = createEventPanel(React);
+  const Map = createMap(React);
+  const Panel = createEventPanel(React);
 
+  const App = props => {
     return (
       <div className="App">
-        <Map alerts={alerts} />
-        <Panel events={alerts} />
+        <Map
+          active={props.state.eventPanel.active}
+          settings={props.state.map}
+          alerts={props.state.events}
+        />
+        <Panel events={props.state.events} />
       </div>
     );
   };
-
-  app.propTypes = { alerts: React.PropTypes.arrayOf(React.PropTypes.object) };
-
-  return app;
+  App.propTypes = {
+    state: React.PropTypes.object
+  };
+  return App;
 };

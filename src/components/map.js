@@ -1,27 +1,49 @@
 import GoogleMap from 'google-map-react';
 import eventMarkerCreate from './event-marker';
 
+import store from '../reducers/store';
+
 export default React => {
   const Marker = eventMarkerCreate(React);
 
-  function generateMarkers(alerts) {
-    return alerts.map(alert => (
-      <Marker key={alert.id} alert={alert} {...alert.coordinates} />
-    ));
+  function onEventHover(eventId) {
+    store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId });
   }
 
-  const Map = ({ alerts }) => {
-    const center = { lat: 43.254401, lng: -79.863552 };
+  function generateMarkers(active, alerts) {
+    return alerts.map(alert => {
+      const isActive = alert.id === active;
+      return (
+        <Marker
+          onEventHover={onEventHover}
+          key={alert.id}
+          isActive={isActive}
+          alert={alert}
+          {...alert.coordinates}
+        />
+      );
+    });
+  }
 
-    const Markers = generateMarkers(alerts);
+  function onMapPropsChange(settings) {
+    store.dispatch({ type: 'MAP_CHANGE', settings });
+  }
 
-    const apiKey = 'AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y';
+  const apiKey = 'AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y';
+  const defaultCenter = { lat: 43.254401, lng: -79.863552 };
 
+  const Map = ({ active, alerts, settings }) => {
+    const Markers = generateMarkers(active, alerts);
+
+    const { zoom, center } = settings;
     return (
       <div className="map-container" width>
         <GoogleMap
-          defaultCenter={center}
+          onChange={onMapPropsChange}
+          defaultCenter={defaultCenter}
+          center={center}
           defaultZoom={10}
+          zoom={zoom}
           bootstrapURLKeys={{ key: apiKey }}
         >
           {Markers}

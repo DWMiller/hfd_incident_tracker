@@ -11,20 +11,15 @@ const addEvents = events => store.dispatch({ type: 'ADD_EVENTS', events });
 
 const App = createApp(React);
 
-const state = { events: [] };
-
 function render() {
-  ReactDOM.render(
-    <App alerts={state.events} />,
-    document.getElementById('root')
-  );
+  const props = {
+    state: store.getState()
+  };
+
+  ReactDOM.render(<App {...props} />, document.getElementById('root'));
 }
 
-store.subscribe(() => {
-  state.events = store.getState().events;
-  console.log(state);
-  render();
-});
+store.subscribe(render);
 
 const socket = location.port ? io('//localhost:3001') : io();
 
@@ -38,5 +33,3 @@ socket.on('events', events => {
 });
 
 socket.on('event', addEvent);
-
-render();

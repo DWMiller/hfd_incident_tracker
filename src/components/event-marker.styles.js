@@ -1,14 +1,17 @@
 import types from '../config/event-types';
 
-const styles = {
+const defaultStyles = {
   // initially any map object has left top corner at lat lng coordinates
   // it's on you to set object origin to 0,0 coordinates
   position: 'absolute',
   backgroundSize: 'contain',
-  backgroundRepeat: 'no-repeat'
+  backgroundRepeat: 'no-repeat',
+  zIndex: 1
 };
 
-function style(category) {
+function style(alert, isActive) {
+  const category = alert.category;
+
   let eventType = types[category];
 
   if (typeof eventType === 'undefined') {
@@ -17,14 +20,24 @@ function style(category) {
 
   const icon = eventType.icon;
 
-  return Object.assign({}, styles, {
+  let eventStyles = {
     backgroundImage: `url(img/${icon.file})`,
     width: icon.width,
     height: icon.height,
     left: (-icon.width) / 2,
     bottom: 0
     // top: -iconFile.height / 2,
-  });
+  };
+
+  if (isActive) {
+    eventStyles = Object.assign(eventStyles, {
+      width: eventStyles.width *= 1.25,
+      height: eventStyles.height *= 1.25,
+      zIndex: 2
+    });
+  }
+
+  return Object.assign({}, defaultStyles, eventStyles);
 }
 
 export default style;

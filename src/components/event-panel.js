@@ -1,25 +1,28 @@
 import eventItemCreate from './event-panel-item';
+import store from '../reducers/store';
 
 export default React => {
   const EventItem = eventItemCreate(React);
 
   const state = {
-    activeEvent: null
+    active: null
   };
 
-  function onEventHover(eventId) {
-    if (state.activeEvent === eventId) {
-      return;
-    }
+  store.subscribe(() => {
+    state.active = store.getState().eventPanel.active;
+  });
 
-    state.activeEvent = eventId;
+  function onEventHover(eventId) {
+    if (state.active !== eventId) {
+      store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId });
+    }
   }
 
   function renderEventList(events) {
     const sorted = events.sort((a, b) => a.time < b.time ? 1 : -1);
 
     return sorted.map(event => {
-      const isActive = event.id === state.activeEventl;
+      const isActive = event.id === state.active;
 
       return (
         <EventItem
