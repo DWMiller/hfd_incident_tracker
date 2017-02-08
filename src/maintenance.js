@@ -1,13 +1,14 @@
 const tweetModel = require('./models/tweet.js');
-const updateModel = require('./models/update.js');
+const incidentModel = require('./models/incident.js');
 
 const DAY = 86400000;
-const TWO_DAYS_AGO = Date.now() - DAY * 2;
+const ONE_DAY_AGO = Date.now() - DAY;
+const TWO_DAYS_AGO = ONE_DAY_AGO - DAY;
 
 const api = {
   deletedOld: () => {
     console.log('Maintenance: Old database data cleared');
-    updateModel
+    incidentModel
       .find({
         time: { $lt: TWO_DAYS_AGO }
       })

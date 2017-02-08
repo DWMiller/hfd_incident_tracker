@@ -5,7 +5,7 @@ const tweetGeoCoder = require('./tweet-geocoder.js');
 const tweetFetcher = require('./tweet-fetcher.js');
 
 const tweetModel = require('./models/tweet.js');
-const updateModel = require('./models/update.js');
+const incidentModel = require('./models/incident.js');
 
 function processTweet(tweet, callback) {
   const parsedTweet = tweetParser(tweet);
@@ -49,7 +49,7 @@ module.exports = function(socket) {
 
       processTweet(refinedTweet, processedTweet => {
         socket.broadcast(processedTweet);
-        updateModel.create(processedTweet);
+        incidentModel.create(processedTweet);
       });
     });
   });

@@ -1,11 +1,11 @@
-const updateModel = require('./models/update.js');
+const incidentModel = require('./models/incident.js');
 
 const DAY = 86400000;
 const DAY_AGO = Date.now() - DAY;
 
 function getRecentEvents(callback) {
-  updateModel.find({ time: { $gte: DAY_AGO } }, function(err, updates) {
-    callback(updates);
+  incidentModel.find({ time: { $gte: DAY_AGO } }, function(err, incidents) {
+    callback(incidents);
   });
 }
 

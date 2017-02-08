@@ -1,7 +1,7 @@
 const mongoose = require('../mongoose-connection');
 const Schema = mongoose.Schema;
 
-const updateSchema = Schema({
+const incidentSchema = Schema({
   id: {
     type: Number,
     unique: true
@@ -18,4 +18,4 @@ const updateSchema = Schema({
   type: String
 });
 
-module.exports = mongoose.model('Update', updateSchema);
+module.exports = mongoose.model('Incident', incidentSchema);
