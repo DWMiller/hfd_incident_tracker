@@ -1,12 +1,34 @@
-const twitter = require('../src/twitter.js');
-const Update = require('../src/models/update.js');
+const tweetParser = require('../src/tweet-parser.js');
+const tweetGeoCoder = require('../src/tweet-geocoder.js');
+
+const Incident = require('../src/models/incident.js');
 const Tweet = require('../src/models/tweet.js');
 
+function processTweet(tweet, callback) {
+  const parsedTweet = tweetParser(tweet);
+
+  if (parsedTweet.type !== 'NEW') {
+    console.log(`UPDATE ONLY: ${parsedTweet.code}`);
+    // not set up to handle event updates yet
+    return;
+  }
+
+  if (!parsedTweet.intersection) {
+    console.log(`UNHANDLED TWEET:`);
+    // not set up to handle event updates yet
+    return;
+  }
+
+  console.log(`PARSED: ${parsedTweet.intersection}`);
+
+  tweetGeoCoder(parsedTweet).then(callback).catch(error => console.log(error));
+}
+
 function processTweets(tweets) {
-  twitter.processTweet(tweets.pop(), processedTweet => {
+  processTweet(tweets.pop(), processedTweet => {
     if (processedTweet) {
       console.log(`${tweets.length} remaining: ${processedTweet.intersection}`);
-      Update.create(processedTweet);
+      Incident.create(processedTweet);
     }
   });
 
@@ -23,7 +45,7 @@ function processTweets(tweets) {
 }
 
 //Wipe all existing update data
-Update.find({}).remove().exec();
+Incident.find({}).remove().exec();
 
 Tweet.find({}).exec(function(err, tweets) {
   processTweets(tweets);
