@@ -11,7 +11,8 @@ export default React => {
 
     return (
       <div
-        onMouseOver={() => props.onEventHover(props.id)}
+        onMouseOver={() => props.onEventHover(props)}
+        onClick={() => props.onEventSelect(props)}
         className={'event-panel-item ' + (props.isActive ? 'active' : '')}
       >
 

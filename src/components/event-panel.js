@@ -12,13 +12,13 @@ export default React => {
     state.active = store.getState().eventPanel.active;
   });
 
-  function onEventHover(eventId) {
-    if (state.active !== eventId) {
-      store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId });
+  function onEventHover({ id }) {
+    if (state.active !== id) {
+      store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId: id });
     }
   }
 
-  function renderEventList(events) {
+  function renderEventList(events, onEventSelect) {
     const sorted = events.sort((a, b) => a.time < b.time ? 1 : -1);
 
     return sorted.map(event => {
@@ -27,6 +27,7 @@ export default React => {
       return (
         <EventItem
           onEventHover={onEventHover}
+          onEventSelect={onEventSelect}
           isActive={isActive}
           {...event}
           key={event.id}
@@ -35,13 +36,11 @@ export default React => {
     });
   }
 
-  const Panel = ({ events }) => {
-    const eventList = renderEventList(events);
+  const Panel = ({ events, onEventSelect }) => {
+    const eventList = renderEventList(events, onEventSelect);
     return (
       <div className="event-panel">
-
         {eventList}
-
       </div>
     );
   };
@@ -51,7 +50,8 @@ export default React => {
       React.PropTypes.shape({
         coordinates: React.PropTypes.object.isRequired
       })
-    )
+    ),
+    onEventSelect: React.PropTypes.func.isRequired
   };
 
   return Panel;
