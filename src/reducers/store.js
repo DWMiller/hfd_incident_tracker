@@ -10,6 +10,7 @@ const middleware = [ReduxThunk, logger];
 const defaultState = Object.assign(
   {
     events: [],
+    eventFilter:[],
     eventPanel: { active: null, isVisible: false },
     map: {
       zoom: 12,

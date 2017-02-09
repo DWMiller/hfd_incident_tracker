@@ -1,0 +1,23 @@
+.event-filter-panel {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  /*height: 5em;*/
+  background: white;
+  max-width: calc(100% - 350px);
+}
+
+.event-filter-panel-type {
+  display: inline-block;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.event-filter-panel-type.selected {
+  background-color: rgba(41, 128, 185, 1.0);
+}
+
+.event-filter-panel-type img {
+  width: 20px;
+  height: 20px;
+}
