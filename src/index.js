@@ -19,7 +19,10 @@ function render() {
   ReactDOM.render(<App {...props} />, document.getElementById('root'));
 }
 
-store.subscribe(render);
+store.subscribe(() => {
+  render();
+  localStorage.setItem('redux', JSON.stringify(store.getState()));
+});
 
 const socket = location.port ? io('//localhost:3001') : io();
 

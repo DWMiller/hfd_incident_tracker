@@ -6,7 +6,10 @@ const defaultStyles = {
   position: 'absolute',
   backgroundSize: 'contain',
   backgroundRepeat: 'no-repeat',
-  zIndex: 1
+  zIndex: 1,
+  boxSizing: 'border-box',
+  padding: '5px',
+  backgroundPosition: 'center center'
 };
 
 function style(alert, isActive) {
@@ -31,8 +34,8 @@ function style(alert, isActive) {
 
   if (isActive) {
     eventStyles = Object.assign(eventStyles, {
-      width: eventStyles.width *= 1.25,
-      height: eventStyles.height *= 1.25,
+      height: eventStyles.height *= 1.1,
+      width: eventStyles.width *= 1.1,
       zIndex: 2
     });
   }

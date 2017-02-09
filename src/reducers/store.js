@@ -7,16 +7,21 @@ import rootReducer from './root-reducer';
 const logger = createLogger();
 const middleware = [ReduxThunk, logger];
 
-const store = createStore(
-  rootReducer,
+const defaultState = Object.assign(
   {
     events: [],
-    eventPanel: { active: null },
+    eventPanel: { active: null, isVisible: false },
     map: {
       zoom: 12,
       center: { lat: 43.254401, lng: -79.863552 }
     }
   },
+  JSON.parse(localStorage.getItem('redux'))
+);
+
+const store = createStore(
+  rootReducer,
+  defaultState,
   compose(
     applyMiddleware(...middleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f
