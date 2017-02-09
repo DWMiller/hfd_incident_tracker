@@ -10,11 +10,14 @@ export default React => {
   };
 
   const toggleButtonStyle = {
+    backgroundColor: 'white',
     position: 'absolute',
     right: '100%',
     height: '35px',
     width: '100px',
-    boxShadow: '-2px 2px 5px -2px rgba(0, 0, 0, 0.8)'
+    boxShadow: '-2px 2px 5px -2px rgba(0, 0, 0, 0.8)',
+    borderTop: 'none',
+    borderRight: '1px dotted black'
   };
 
   store.subscribe(() => {

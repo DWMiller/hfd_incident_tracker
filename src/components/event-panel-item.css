@@ -1,11 +1,19 @@
 .event-panel-item {
+  margin: 0.5em;
   padding: 0.5em 0.5em 0.5em 1em;
-  border-bottom: 1px solid black;
   cursor: pointer;
+  background: rgba(236, 240, 241, 1.0);
+  box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.8);
+}
+
+.event-panel-item:active {
+  box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
+  transform: translate(1px, 1px);
+  border: none;
 }
 
 .event-panel-item.active {
-  background-color: lightblue;
+  background-color: rgba(241, 196, 15, 1.0);
 }
 
 .event-panel-item span {
