@@ -1,6 +1,10 @@
 import icons from './icons';
 
 const types = {
+  'CHIMNEY FIRE': {
+    text: 'Chimney Fire',
+    icon: icons.FIRE
+  },
   MEDICAL: {
     text: 'Medical',
     icon: icons.MEDICAL
@@ -33,27 +37,78 @@ const types = {
     text: 'Flooding',
     icon: icons.FLOODING
   },
-  'BURN COMPLAINT': { text: 'Burn Victim', icon: icons.MEDICAL },
-  'SMOKE DETECTOR': { text: 'Smoke Detector', icon: icons.FIRE },
-  SMOKE: { text: 'Smoke Reported', icon: icons.FIRE },
-  'GRASS FIRE': { text: 'Grass Fire', icon: icons.FIRE },
-  'UNKNOWN FIRE': { text: 'Fire', icon: icons.FIRE },
-  'STRUCTURE FIRE': { text: 'Structure Fire', icon: icons.FIRE },
-  'RUBBISH FIRE': { text: 'Rubbish Fire', icon: icons.FIRE },
-  'APPLIANCE FIRE': { text: 'Appliance Fire', icon: icons.FIRE },
-  'ALARM CONDITIONS': { text: 'Alarm Conditions', icon: icons.ALARM },
-  'NATURAL GAS': { text: 'Natural Gas Leak', icon: icons.ALARM },
-  ODOURS: { text: 'Odours Reported', icon: icons.ALARM },
-  'CO DETECTOR': { text: 'CO Detector', icon: icons.ALARM },
-  'MULTIPLE ALARM': { text: 'Alarms', icon: icons.ALARM },
-  'WATER RESCUE': { text: 'Water Rescue', icon: icons.UNKNOWN },
-  'FIRE OUT': { text: 'Fire Out', icon: icons.UNKNOWN },
+  'BURN COMPLAINT': {
+    text: 'Burn Victim',
+    icon: icons.MEDICAL
+  },
+  'SMOKE DETECTOR': {
+    text: 'Smoke Detector',
+    icon: icons.FIRE
+  },
+  SMOKE: {
+    text: 'Smoke Reported',
+    icon: icons.FIRE
+  },
+  'GRASS FIRE': {
+    text: 'Grass Fire',
+    icon: icons.FIRE
+  },
+  'UNKNOWN FIRE': {
+    text: 'Fire',
+    icon: icons.FIRE
+  },
+  'STRUCTURE FIRE': {
+    text: 'Structure Fire',
+    icon: icons.FIRE
+  },
+  'RUBBISH FIRE': {
+    text: 'Rubbish Fire',
+    icon: icons.FIRE
+  },
+  'APPLIANCE FIRE': {
+    text: 'Appliance Fire',
+    icon: icons.FIRE
+  },
+  'ALARM CONDITIONS': {
+    text: 'Alarm Conditions',
+    icon: icons.ALARM
+  },
+  'NATURAL GAS': {
+    text: 'Natural Gas Leak',
+    icon: icons.ALARM
+  },
+  ODOURS: {
+    text: 'Odours Reported',
+    icon: icons.ALARM
+  },
+  'CO DETECTOR': {
+    text: 'CO Detector',
+    icon: icons.ALARM
+  },
+  'MULTIPLE ALARM': {
+    text: 'Alarms',
+    icon: icons.ALARM
+  },
+  'WATER RESCUE': {
+    text: 'Water Rescue',
+    icon: icons.UNKNOWN
+  },
+  'FIRE OUT': {
+    text: 'Fire Out',
+    icon: icons.UNKNOWN
+  },
   'FD ASSISTANCE': {
     text: 'Fire Department Assistance',
     icon: icons.FIRE_TRUCK
   },
-  'PROPANE LEAK': { text: 'Propane Leak', icon: icons.UNKNOWN },
-  'ROPE RESCUE': { text: 'Rope Rescue', icon: icons.UNKNOWN }
+  'PROPANE LEAK': {
+    text: 'Propane Leak',
+    icon: icons.UNKNOWN
+  },
+  'ROPE RESCUE': {
+    text: 'Rope Rescue',
+    icon: icons.UNKNOWN
+  }
 };
 
 export default types;

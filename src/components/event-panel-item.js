@@ -6,7 +6,10 @@ export default React => {
   const Event = props => {
     const date = moment(parseInt(props.time, 10));
 
-    const eventType = eventTypes[props.category];
+    const eventType = eventTypes[props.category]
+      ? eventTypes[props.category]
+      : eventTypes['UNKNOWN'];
+
     const icon = eventType.icon;
 
     return (

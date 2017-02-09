@@ -23,6 +23,10 @@ export default React => {
     return types.map((type, index) => {
       const isSelected = filter.some(filter => filter === type);
 
+      const icon = eventTypes[type]
+        ? eventTypes[type].icon
+        : eventTypes['UNKNOWN'].icon;
+
       return (
         <div
           onClick={() => {
@@ -34,7 +38,7 @@ export default React => {
             'event-filter-panel-type ' + (isSelected ? 'selected' : '')
           }
         >
-          <img role="presentation" src={'img/' + eventTypes[type].icon.file} />
+          <img role="presentation" src={'img/' + icon.file} />
         </div>
       );
     });
