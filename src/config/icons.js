@@ -1,13 +1,13 @@
 const icons = {
   MEDICAL: {
     file: 'medical.png',
-    width: 25,
-    height: 25
+    width: 20,
+    height: 20
   },
   FIRE: {
     file: 'fire.png',
     width: 24,
-    height: 35
+    height: 24
   },
   FIRE_TRUCK: {
     file: 'fire-truck.png',
@@ -17,7 +17,7 @@ const icons = {
   ALARM: {
     file: 'alarm.png',
     width: 24,
-    height: 35
+    height: 20
   },
   CAR_FIRE: {
     file: 'car-fire.png',
@@ -26,13 +26,13 @@ const icons = {
   },
   UNKNOWN: {
     file: 'question.png',
-    width: 24,
-    height: 35
+    width: 20,
+    height: 20
   },
   ELECTRICAL: {
     file: 'electrical.png',
-    width: 24,
-    height: 35
+    width: 20,
+    height: 26
   },
   ACCIDENT: {
     file: 'accident.png',

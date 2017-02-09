@@ -2,7 +2,7 @@
   position: absolute;
   right: -300px;
   width: 300px;
-  background: white;
+  background: rgba(236, 240, 241, 1.0);
   transition-duration: 0.195s;
   transition-timing-function: ease-out;
   box-sizing: border-box;

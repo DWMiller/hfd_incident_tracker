@@ -1,8 +1,8 @@
 .event-panel-item {
-  margin: 0.5em;
+  margin: 0.5em 0.25em;
   padding: 0.5em 0.5em 0.5em 1em;
   cursor: pointer;
-  background: rgba(236, 240, 241, 1.0);
+  background: white;
   box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.8);
 }
 
@@ -13,7 +13,8 @@
 }
 
 .event-panel-item.active {
-  background-color: rgba(241, 196, 15, 1.0);
+  background-color: rgba(41, 128, 185, 1.0);
+  color: white;
 }
 
 .event-panel-item span {
