@@ -22,7 +22,7 @@ const types = {
     icon: icons.CAR_FIRE
   },
   UNKNOWN: {
-    text: 'Unkown Event',
+    text: 'Unknown Event',
     icon: icons.UNKNOWN
   },
   'ELECTRICAL PROBLEM': {

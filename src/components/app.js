@@ -2,6 +2,7 @@ import createMap from './map';
 import createEventPanel from './event-panel';
 import createEventFilterPanel from './event-filter';
 import './app.css';
+import eventTypes from '../config/event-types';
 import store from '../reducers/store';
 
 export default React => {
@@ -19,9 +20,13 @@ export default React => {
   }
 
   const App = props => {
-    const filteredEvents = props.state.events.filter(
-      event => props.state.eventFilter.some(filter => filter === event.category)
-    );
+    const filteredEvents = props.state.events.filter(event => {
+      const type = eventTypes[event.category]
+        ? eventTypes[event.category]
+        : eventTypes['UNKNOWN'];
+
+      return props.state.eventFilter.some(icon => icon === type.icon.file);
+    });
 
     return (
       <div className="App">
