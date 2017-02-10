@@ -41,7 +41,6 @@ export default React => {
 
   const FilterPanel = ({ events, filter }) => {
     const types = getEventTypes(events);
-    console.log(types, filter);
     const Types = renderTypes(types, filter);
 
     return <div className={'event-filter-panel'}>{Types}</div>;

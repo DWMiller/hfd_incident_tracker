@@ -1,4 +1,5 @@
 .event-panel-item {
+  position: relative;
   margin: 0.5em 0.25em;
   padding: 0.5em 0.5em 0.5em 1em;
   cursor: pointer;
@@ -22,7 +23,9 @@
 }
 
 .event-panel-item img {
-  float: right;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
 }
 
 .event-panel-item .location {
