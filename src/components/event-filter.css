@@ -2,20 +2,26 @@
   position: absolute;
   bottom: 1em;
   left: 1em;
-  /*height: 5em;*/
-  background: white;
   max-width: calc(100% - 350px);
 }
 
 .event-filter-panel-type {
+  background-color: white;
   display: inline-block;
   padding: 1em;
+  margin: 0.25em;
   cursor: pointer;
+  box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.8);
 }
 
-.event-filter-panel-type.selected {
-  background-color: rgba(41, 128, 185, 1.0);
+.event-filter-panel-type:active, .event-filter-panel-type.selected {
+  background-color: whitesmoke;
+  box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
+  transform: translate(1px, 1px);
+  border: none;
 }
+
+.event-filter-panel-type.selected {}
 
 .event-filter-panel-type img {
   width: 20px;
