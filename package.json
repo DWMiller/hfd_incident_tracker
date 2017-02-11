@@ -4,8 +4,9 @@
   "private": true,
   "description": "",
   "scripts": {
-    "client": "react-scripts build",
-    "server": "react-scripts build && node server.js",
+    "deploy": "react-scripts build && node server.js",
+    "client": "react-scripts start",
+    "server": "node server.js",
     "start": "start npm run server && react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "build": "react-scripts build",
