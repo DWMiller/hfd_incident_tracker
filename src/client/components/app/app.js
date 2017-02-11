@@ -1,9 +1,9 @@
-import createMap from './map';
-import createEventPanel from './event-panel';
-import createEventFilterPanel from './event-filter';
+import createMap from '../map';
+import createEventPanel from '../event-panel';
+import createEventFilterPanel from '../event-filter';
 import './app.css';
-import eventTypes from '../config/event-types';
-import store from '../reducers/store';
+import eventTypes from '../../config/event-types';
+import store from '../../reducers/store';
 
 export default React => {
   const Map = createMap(React);

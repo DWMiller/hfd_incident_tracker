@@ -1,5 +1,5 @@
 const moment = require('moment');
-import eventTypes from '../config/event-types';
+import eventTypes from '../../config/event-types';
 import './event-panel-item.css';
 
 export default React => {

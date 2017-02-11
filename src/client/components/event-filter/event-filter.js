@@ -1,5 +1,5 @@
-import eventTypes from '../config/event-types';
-import store from '../reducers/store';
+import eventTypes from '../../config/event-types';
+import store from '../../reducers/store';
 import './event-filter.css';
 
 import eventFilterTypeButtonCreate from './event-filter-button';

@@ -1,4 +1,4 @@
-import types from '../config/event-types';
+import types from '../../config/event-types';
 
 const defaultStyles = {
   // initially any map object has left top corner at lat lng coordinates

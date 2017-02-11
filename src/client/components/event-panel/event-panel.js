@@ -1,6 +1,6 @@
 import eventItemCreate from './event-panel-item';
 import panelToggleCreate from './event-panel-toggle';
-import store from '../reducers/store';
+import store from '../../reducers/store';
 import './event-panel.css';
 
 export default React => {

@@ -1,7 +1,7 @@
 import GoogleMap from 'google-map-react';
 import eventMarkerCreate from './event-marker';
 
-import store from '../reducers/store';
+import store from '../../reducers/store';
 import './map.css';
 
 export default React => {
