@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import ReactDOM from 'react-dom';
 import createApp from './components/app';
 import './index.css';
+// import Perf from 'react-addons-perf';
 
 import store from './reducers/store';
 
@@ -16,11 +17,16 @@ function render() {
     state: store.getState()
   };
 
+  // Perf.start();
   ReactDOM.render(<App {...props} />, document.getElementById('root'));
+  // Perf.stop();
+  // const measurements = Perf.getLastMeasurements();
+  // Perf.printWasted(measurements);
 }
 
 store.subscribe(() => {
   render();
+
   localStorage.setItem('redux', JSON.stringify(store.getState()));
 });
 
