@@ -34,6 +34,6 @@
     "socket.io-client": "^1.5.0"
   },
   "devDependencies": {
-    "react-scripts": "0.8.5"
+    "react-scripts": "0.9.0"
   }
 }
