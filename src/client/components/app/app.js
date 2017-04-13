@@ -1,50 +1,56 @@
-import createMap from '../map';
-import createEventPanel from '../event-panel';
-import createEventFilterPanel from '../event-filter';
-import './app.css';
-import eventTypes from '../../config/event-types';
-import store from '../../reducers/store';
+import React, { Component } from "react";
 
-export default React => {
-  const Map = createMap(React);
-  const EventPanel = createEventPanel(React);
-  const EventFilterPanel = createEventFilterPanel(React);
+import Map from "../map";
+import createEventPanel from "../event-panel";
+import createEventFilterPanel from "../event-filter";
+import "./app.css";
+import eventTypes from "../../config/event-types";
+import store from "../../reducers/store";
 
-  function onEventSelect(event) {
+const EventPanel = createEventPanel(React);
+const EventFilterPanel = createEventFilterPanel(React);
+
+class App extends Component {
+  onEventSelect(event) {
     store.dispatch({
-      type: 'MAP_CHANGE',
+      type: "MAP_CHANGE",
       settings: {
         center: event.coordinates
       }
     });
   }
 
-  const App = props => {
-    const filteredEvents = props.state.events.filter(event => {
+  render() {
+    const filteredEvents = this.props.state.events.filter(event => {
       const type = eventTypes[event.category]
         ? eventTypes[event.category]
-        : eventTypes['UNKNOWN'];
+        : eventTypes["UNKNOWN"];
 
-      return props.state.eventFilter.some(icon => icon === type.icon.file);
+      return this.props.state.eventFilter.some(icon => icon === type.icon.file);
     });
 
     return (
       <div className="App">
         <Map
-          active={props.state.eventPanel.active}
-          settings={props.state.map}
+          active={this.props.state.eventPanel.active}
+          settings={this.props.state.map}
           alerts={filteredEvents}
         />
         <EventFilterPanel
-          filter={props.state.eventFilter}
-          events={props.state.events}
+          filter={this.props.state.eventFilter}
+          events={this.props.state.events}
         />
-        <EventPanel events={filteredEvents} onEventSelect={onEventSelect} />
+        <EventPanel
+          events={filteredEvents}
+          onEventSelect={this.onEventSelect}
+        />
       </div>
     );
-  };
-  App.propTypes = {
-    state: React.PropTypes.object
-  };
-  return App;
+  }
+}
+
+App.propTypes = {
+  state: React.PropTypes.object
 };
+
+module.exports = App;
