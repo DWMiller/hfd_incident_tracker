@@ -7,7 +7,7 @@ import rootReducer from './root-reducer';
 import icons from '../config/icons';
 
 const logger = createLogger();
-const middleware = [ReduxThunk, logger];
+const middleware = []; //[ReduxThunk, logger];
 
 const storedState = JSON.parse(localStorage.getItem('redux'));
 
@@ -18,8 +18,8 @@ const defaultState = Object.assign(
     eventPanel: { active: null, isVisible: false },
     map: {
       zoom: 12,
-      center: { lat: 43.254401, lng: -79.863552 }
-    }
+      center: { lat: 43.254401, lng: -79.863552 },
+    },
   },
   storedState || {}
 );

@@ -1,11 +1,13 @@
+require('dotenv').config({ path: __dirname + '/../variables.env' });
+
 const Twitter = require('node-tweet-stream');
 const tweetParser = require('./tweet-parser.js');
 const tweetRefiner = require('./tweet-refiner.js');
 const tweetGeoCoder = require('./tweet-geocoder.js');
 const tweetFetcher = require('./tweet-fetcher.js');
 
-const tweetModel = require('./models/tweet.js');
-const incidentModel = require('./models/incident.js');
+const Tweet = require('./models/Tweet.js');
+const Incident = require('./models/Incident.js');
 
 function processTweet(tweet, callback) {
   const parsedTweet = tweetParser(tweet);
@@ -28,7 +30,13 @@ function processTweet(tweet, callback) {
 }
 
 module.exports = function(socket) {
-  const connection = new Twitter(require('./config/keys').twitter);
+  
+  const connection = new Twitter({
+    consumer_key:process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret:process.env.TWITTER_CONSUMER_SECRET,
+    token: process.env.TWITTER_TOKEN,
+    token_secret: process.env.TWITTER_TOKEN_SECRET,
+  });
 
   connection.follow('611701456');
 
@@ -45,11 +53,11 @@ module.exports = function(socket) {
 
     tweetFetcher.fetchFullTweet(tweet).then(fullTweet => {
       const refinedTweet = tweetRefiner(fullTweet);
-      tweetModel.create(refinedTweet);
+      Tweet.create(refinedTweet);
 
       processTweet(refinedTweet, processedTweet => {
         socket.broadcast(processedTweet);
-        incidentModel.create(processedTweet);
+        Incident.create(processedTweet);
       });
     });
   });

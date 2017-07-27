@@ -1,21 +1,22 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import GoogleMap from "google-map-react";
-import Marker from "./event-marker";
+import GoogleMap from 'google-map-react';
+import Marker from './event-marker';
 
-import store from "../../reducers/store";
-import "./map.css";
+import store from '../../reducers/store';
+import './map.css';
 
-const apiKey = "AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y";
+const apiKey = 'AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y';
 const defaultCenter = { lat: 43.254401, lng: -79.863552 };
 
 class Map extends Component {
   onEventHover(eventId) {
-    store.dispatch({ type: "SET_ACTIVE_EVENT", eventId });
+    store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId });
   }
 
   onMapPropsChange(settings) {
-    store.dispatch({ type: "MAP_CHANGE", settings });
+    store.dispatch({ type: 'MAP_CHANGE', settings });
   }
 
   generateMarkers(active, alerts) {
@@ -55,12 +56,12 @@ class Map extends Component {
 }
 
 Map.propTypes = {
-  alerts: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      coordinates: React.PropTypes.object.isRequired,
-      code: React.PropTypes.string.isRequired
+  alerts: PropTypes.arrayOf(
+    PropTypes.shape({
+      coordinates: PropTypes.object.isRequired,
+      code: PropTypes.string.isRequired,
     })
-  )
+  ),
 };
 
-module.exports = Map;
+export default Map;

@@ -1,19 +1,19 @@
-import React, { Component } from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import style from "./event-marker.styles";
+import style from './event-marker.styles';
 
-const Marker = ({ alert, isActive = false, onEventHover }) => (
+const Marker = ({ alert, isActive = false, onEventHover }) =>
   <div
     className="event-marker"
     onMouseOver={() => onEventHover(alert.id)}
     style={style(alert, isActive)}
-  />
-);
+  />;
 
 Marker.propTypes = {
-  alert: React.PropTypes.shape({
-    category: React.PropTypes.string.isRequired
-  })
+  alert: PropTypes.shape({
+    category: PropTypes.string.isRequired,
+  }),
 };
 
-module.exports = Marker;
+export default Marker;

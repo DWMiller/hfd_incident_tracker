@@ -1,24 +1,24 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import eventTypes from '../../config/event-types';
 import store from '../../reducers/store';
 import './event-filter.css';
 
-import eventFilterTypeButtonCreate from './event-filter-button';
+import EventFilterTypeButton from './event-filter-button';
 
 /**
  * Returns an object containing the present event types only
  * object keys are the type icons
  */
-function getEventTypes(events) {
+function getEventTypes(events = []) {
   return Object.keys(
-    events.reduce(
-      (accumulator, event) => {
-        const type = eventTypes[event.category]
-          ? eventTypes[event.category]
-          : eventTypes.UNKNOWN;
-        return Object.assign({}, accumulator, { [type.icon.file]: true });
-      },
-      {}
-    )
+    events.reduce((accumulator, event) => {
+      const type = eventTypes[event.category]
+        ? eventTypes[event.category]
+        : eventTypes.UNKNOWN;
+      return Object.assign({}, accumulator, { [type.icon.file]: true });
+    }, {})
   );
 }
 
@@ -34,45 +34,40 @@ function deselectAll() {
   store.dispatch({ type: 'DESELECT_ALL' });
 }
 
-export default React => {
-  const EventFilterTypeButton = eventFilterTypeButtonCreate(React);
+const FilterPanel = ({ events, filter }) => {
+  const types = getEventTypes(events);
 
-  const FilterPanel = ({ events, filter }) => {
-    const types = getEventTypes(events);
-
-    return (
-      <div className={'event-filter-panel'}>
-        {types.map((icon, key) => {
-          const props = {
-            icon,
-            onSelect,
-            isSelected: filter.some(f => f === icon),
-            key,
-          };
-
-          return <EventFilterTypeButton {...props} />;
-        })}
-        <button
-          onClick={() => selectAll(types)}
-          className={'event-filter-panel-type'}
-        >
-          All
-        </button>
-        <button onClick={deselectAll} className={'event-filter-panel-type'}>
-          None
-        </button>
-      </div>
-    );
-  };
-
-  FilterPanel.propTypes = {
-    filter: React.PropTypes.arrayOf(React.PropTypes.string),
-    events: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        category: React.PropTypes.string.isRequired,
-      })
-    ),
-  };
-
-  return FilterPanel;
+  return (
+    <div className={'event-filter-panel'}>
+      {types.map((icon, key) => {
+        const props = {
+          icon,
+          onSelect,
+          isSelected: filter.some(f => f === icon),
+          key,
+        };
+        return <EventFilterTypeButton {...props} />;
+      })}
+      <button
+        onClick={() => selectAll(types)}
+        className={'event-filter-panel-type'}
+      >
+        All
+      </button>
+      <button onClick={deselectAll} className={'event-filter-panel-type'}>
+        None
+      </button>
+    </div>
+  );
 };
+
+FilterPanel.propTypes = {
+  filter: PropTypes.arrayOf(PropTypes.string),
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string.isRequired,
+    })
+  ),
+};
+
+export default FilterPanel;

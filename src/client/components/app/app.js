@@ -1,22 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import Map from "../map";
-import createEventPanel from "../event-panel";
-import createEventFilterPanel from "../event-filter";
-import "./app.css";
-import eventTypes from "../../config/event-types";
-import store from "../../reducers/store";
+import Map from '../map';
+import EventPanel from '../event-panel';
+import EventFilterPanel from '../event-filter';
+import './app.css';
 
-const EventPanel = createEventPanel(React);
-const EventFilterPanel = createEventFilterPanel(React);
+import eventTypes from '../../config/event-types';
+import store from '../../reducers/store';
 
 class App extends Component {
   onEventSelect(event) {
     store.dispatch({
-      type: "MAP_CHANGE",
+      type: 'MAP_CHANGE',
       settings: {
-        center: event.coordinates
-      }
+        center: event.coordinates,
+      },
     });
   }
 
@@ -24,7 +23,7 @@ class App extends Component {
     const filteredEvents = this.props.state.events.filter(event => {
       const type = eventTypes[event.category]
         ? eventTypes[event.category]
-        : eventTypes["UNKNOWN"];
+        : eventTypes['UNKNOWN'];
 
       return this.props.state.eventFilter.some(icon => icon === type.icon.file);
     });
@@ -50,7 +49,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  state: React.PropTypes.object
+  state: PropTypes.object,
 };
 
-module.exports = App;
+export default App;

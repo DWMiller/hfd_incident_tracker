@@ -1,10 +1,10 @@
-const incidentModel = require('./models/incident.js');
+const Incident = require('./models/Incident.js');
 
 const DAY = 86400000;
 const DAY_AGO = Date.now() - DAY;
 
 function getRecentEvents(callback) {
-  incidentModel.find({ time: { $gte: DAY_AGO } }, function(err, incidents) {
+  Incident.find({ time: { $gte: DAY_AGO } }, function(err, incidents) {
     callback(incidents);
   });
 }
@@ -37,6 +37,6 @@ module.exports = function(server) {
     broadcast(tweet) {
       io.sockets.emit('event', tweet);
       console.log(`Broadcast: ${tweet.intersection}`);
-    }
+    },
   };
 };

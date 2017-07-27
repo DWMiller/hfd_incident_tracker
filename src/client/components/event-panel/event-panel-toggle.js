@@ -1,15 +1,14 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import './event-panel-toggle.css';
 
-export default React => {
-  const Button = ({ onClick }) => (
-    <button onClick={onClick} className="event-pannel-toggle">
-      View Events
-    </button>
-  );
+const eventPanelToggle = ({ onClick }) =>
+  <button onClick={onClick} className="event-pannel-toggle">
+    View Events
+  </button>;
 
-  Button.propTypes = {
-    onClick: React.PropTypes.func.isRequired
-  };
-
-  return Button;
+eventPanelToggle.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
+
+export default eventPanelToggle;

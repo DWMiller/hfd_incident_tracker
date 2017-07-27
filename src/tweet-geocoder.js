@@ -1,9 +1,9 @@
 // const geocoder = require('geocoder');
+require('dotenv').config({ path: __dirname + '/../variables.env' });
 
-const geoCodeKey = require('./config/keys').geocoder;
 const googleMapsClient = require('@google/maps').createClient({
-  key: geoCodeKey,
-  Promise: Promise
+  key: process.env.GEOCODE_KEY,
+  Promise: Promise,
 });
 
 function geoCode(tweet) {
@@ -17,7 +17,7 @@ function geoCode(tweet) {
 
   return googleMapsClient
     .geocode({
-      address: useField
+      address: useField,
     })
     .asPromise()
     .then(response => {
@@ -28,7 +28,7 @@ function geoCode(tweet) {
     .then(({ geometry, formatted_address }) => {
       return Object.assign({}, tweet, {
         coordinates: geometry.location,
-        formatted_address
+        formatted_address,
       });
     });
 }

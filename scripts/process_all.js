@@ -1,8 +1,8 @@
 const tweetParser = require('../src/tweet-parser.js');
 const tweetGeoCoder = require('../src/tweet-geocoder.js');
 
-const Incident = require('../src/models/incident.js');
-const Tweet = require('../src/models/tweet.js');
+const Incident = require('../src/models/Incident.js');
+const Tweet = require('../src/models/Tweet.js');
 
 function processTweet(tweet, callback) {
   const parsedTweet = tweetParser(tweet);
