@@ -4,9 +4,10 @@ const tweetGeoCoder = require('./tweet-geocoder.js');
 
 const {
   parsed: parsedTweet,
-  geoCoded: expectedGeoCodedTweet
+  geoCoded: expectedGeoCodedTweet,
 } = require('./config/samples.js');
 
+//TODO - Test is false positive, doesn't work with async
 test('geocoding worked', () => {
   tweetGeoCoder(parsedTweet)
     .then(geoCodedTweet => {

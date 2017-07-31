@@ -24,19 +24,18 @@ function render() {
 
 store.subscribe(() => {
   render();
-
   localStorage.setItem('redux', JSON.stringify(store.getState()));
 });
 
 const socket = window.location.port ? io('//localhost:3001') : io();
+socket.on('event', addEvent);
 
-socket.on('connected', () => {
-  socket.emit('all_events');
-});
+const fetchRecentIncidents = async () => {
+  const response = await fetch('//localhost:3001/recent');
+  return await response.json();
+};
 
-socket.on('events', events => {
-  store.dispatch({ type: 'CLEAR_EVENTS', events });
+fetchRecentIncidents().then(events => {
+  store.dispatch({ type: 'CLEAR_EVENTS' }); // clears local storage duplicates
   addEvents(events);
 });
-
-socket.on('event', addEvent);

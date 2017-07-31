@@ -1,4 +1,5 @@
-const mongoose = require('../mongoose-connection');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 const tweetSchema = mongoose.Schema({
   id: {
@@ -6,7 +7,7 @@ const tweetSchema = mongoose.Schema({
     unique: true,
   },
   text: String,
-  timestamp_ms: String,
+  time: String,
 });
 
 module.exports = mongoose.model('Tweet', tweetSchema);

@@ -14,7 +14,10 @@ class App extends Component {
     store.dispatch({
       type: 'MAP_CHANGE',
       settings: {
-        center: event.coordinates,
+        center: {
+          lng: event.location.coordinates[0],
+          lat: event.location.coordinates[1],
+        },
       },
     });
   }

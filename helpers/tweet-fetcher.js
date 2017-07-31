@@ -38,6 +38,4 @@ function fetchFullTweet(tweet) {
   });
 }
 
-module.exports = {
-  fetchFullTweet
-};
+exports.default = fetchFullTweet;

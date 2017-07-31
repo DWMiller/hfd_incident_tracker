@@ -8,7 +8,7 @@ import './event-panel-item.css';
 const moment = require('moment');
 
 const Event = props => {
-  const date = moment(parseInt(props.time, 10));
+  const date = moment(props.created);
 
   const eventType = eventTypes[props.category]
     ? eventTypes[props.category]
@@ -39,7 +39,7 @@ const Event = props => {
       </span>
 
       <span className="address">
-        {props.formatted_address}
+        {props.location.address}
       </span>
       <span className="time">
         {date.format('MMMM Do h:mm a')}
@@ -49,7 +49,9 @@ const Event = props => {
 };
 
 Event.propTypes = {
-  formatted_address: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    address: PropTypes.string.isRequired,
+  }),
 };
 
 export default Event;

@@ -3,26 +3,32 @@ const twitter = require('../src/twitter.js');
 
 let queue;
 
-db.updates.find({
-  formatted_address: {
-    $exists: false,
+db.updates.find(
+  {
+    formatted_address: {
+      $exists: false,
+    },
+    type: 'NEW',
   },
-  type: 'NEW',
-}, (err, docs) => {
-  queue = docs;
-  geocode();
-});
+  (err, docs) => {
+    queue = docs;
+    geocode();
+  }
+);
 
 function geocode() {
   const tweet = queue.shift();
 
-  twitter.geocode(tweet, (tweet) => {
+  twitter.geocode(tweet, tweet => {
     if (tweet) {
       console.log(`Geocode complete, ${queue.length} remaining`);
 
-      db.updates.update({
-        id: tweet.id,
-      }, tweet);
+      db.updates.update(
+        {
+          id: tweet.id,
+        },
+        tweet
+      );
     }
 
     if (queue.length) {
@@ -31,7 +37,6 @@ function geocode() {
   });
 }
 
-
-function save(tweet) {
-  db.updates.insert(tweet);
-}
+// function save(tweet) {
+//   db.updates.insert(tweet);
+// }

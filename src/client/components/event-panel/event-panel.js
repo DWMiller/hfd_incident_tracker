@@ -58,7 +58,7 @@ const Panel = ({ events, onEventSelect }) => {
 Panel.propTypes = {
   events: PropTypes.arrayOf(
     PropTypes.shape({
-      coordinates: PropTypes.object.isRequired,
+      location: PropTypes.object.isRequired,
     })
   ),
   onEventSelect: PropTypes.func.isRequired,

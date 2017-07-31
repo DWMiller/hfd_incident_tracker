@@ -1,52 +1,42 @@
-const tweetParser = require('../src/tweet-parser.js');
-const tweetGeoCoder = require('../src/tweet-geocoder.js');
+const R = require('ramda');
 
-const Incident = require('../src/models/Incident.js');
-const Tweet = require('../src/models/Tweet.js');
+const mongoose = require('./../src/mongoose-connection');
+require('../models/Incident.js');
+require('../models/Tweet.js');
 
-function processTweet(tweet, callback) {
-  const parsedTweet = tweetParser(tweet);
+const twitterController = require('../controllers/twitterController');
 
-  if (parsedTweet.type !== 'NEW') {
-    console.log(`UPDATE ONLY: ${parsedTweet.code}`);
-    // not set up to handle event updates yet
-    return;
-  }
+const Incident = require('../models/Incident.js');
+const Tweet = require('../models/Tweet.js');
 
-  if (!parsedTweet.intersection) {
-    console.log(`UNHANDLED TWEET:`);
-    // not set up to handle event updates yet
-    return;
-  }
+const processTweet = R.pipeP(
+  twitterController.parseTweetDetails,
+  twitterController.geoCodeTweet,
+  twitterController.saveIncident
+);
 
-  console.log(`PARSED: ${parsedTweet.intersection}`);
+async function processTweets(tweets) {
+  try {
+    await processTweet(tweets.pop());
+  } catch (error) {}
 
-  tweetGeoCoder(parsedTweet).then(callback).catch(error => console.log(error));
-}
-
-function processTweets(tweets) {
-  processTweet(tweets.pop(), processedTweet => {
-    if (processedTweet) {
-      console.log(`${tweets.length} remaining: ${processedTweet.intersection}`);
-      Incident.create(processedTweet);
-    }
-  });
+  console.log(`${tweets.length} remaining`);
 
   if (tweets.length) {
-    setTimeout(
-      () => {
-        processTweets(tweets);
-      },
-      1000
-    );
+    setTimeout(() => {
+      processTweets(tweets);
+    }, 1000);
   } else {
     console.log('done');
   }
 }
 
-//Wipe all existing update data
-Incident.find({}).remove().exec();
+async function run() {
+  //Wipe all existing update data
+  Incident.find({}).remove().exec();
 
-Tweet.find({}).exec(function(err, tweets) {
+  const tweets = await Tweet.find();
   processTweets(tweets);
-});
+}
+
+run();

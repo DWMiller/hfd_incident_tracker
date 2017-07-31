@@ -1,8 +1,9 @@
 const tweetRefiner = require('./tweet-refiner.js');
 
-const { tweet: sampleTweet, refined: expectedRefinedTweet } = require(
-  './config/samples.js'
-);
+const {
+  tweet: sampleTweet,
+  refined: expectedRefinedTweet,
+} = require('../config/samples.js');
 
 test('refined tweet in correct format', () => {
   const refinedTweet = tweetRefiner(sampleTweet);

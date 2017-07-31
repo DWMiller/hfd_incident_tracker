@@ -1,10 +1,11 @@
 const tweetParser = require('./tweet-parser.js');
 
-const { tweet: sampleTweet, parsed: expectedParsedTweet } = require(
-  './config/samples.js'
-);
+const {
+  refined,
+  parsed: expectedParsedTweet,
+} = require('../config/samples.js');
 
 test('parsed tweet in correct format', () => {
-  const parsedTweet = tweetParser(sampleTweet);
+  const parsedTweet = tweetParser(refined);
   expect(parsedTweet).toEqual(expectedParsedTweet);
 });

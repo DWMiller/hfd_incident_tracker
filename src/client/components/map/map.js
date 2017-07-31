@@ -22,13 +22,17 @@ class Map extends Component {
   generateMarkers(active, alerts) {
     return alerts.map(alert => {
       const isActive = alert.id === active;
+
+      const [lng, lat] = alert.location.coordinates;
+
       return (
         <Marker
           onEventHover={this.onEventHover}
           key={alert.id}
           isActive={isActive}
           alert={alert}
-          {...alert.coordinates}
+          lat={lat}
+          lng={lng}
         />
       );
     });
@@ -55,13 +59,13 @@ class Map extends Component {
   }
 }
 
-Map.propTypes = {
-  alerts: PropTypes.arrayOf(
-    PropTypes.shape({
-      coordinates: PropTypes.object.isRequired,
-      code: PropTypes.string.isRequired,
-    })
-  ),
-};
+// Map.propTypes = {
+//   alerts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       coordinates: PropTypes.object.isRequired,
+//       code: PropTypes.string.isRequired,
+//     })
+//   ),
+// };
 
 export default Map;

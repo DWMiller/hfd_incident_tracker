@@ -13,15 +13,16 @@ const cityCodes = {
   SC: 'Stoney Creek',
   AN: 'Ancaster',
   DU: 'Dundas',
-  GL: 'Glanbrook'
+  GL: 'Glanbrook',
 };
 
-function parse(tweet) {
+exports.default = tweet => {
   const fields = tweet.text.split('|').map(field => field.trim());
 
   const event = {
     id: tweet.id,
-    time: tweet.timestamp_ms
+    created: new Date(tweet.time),
+    updated: new Date(tweet.time),
   };
 
   event.code = fields.find(field => HPD_CODE.test(field));
@@ -55,8 +56,8 @@ function parse(tweet) {
 
     // console.log(event.location);
 
-    const locationNameIndex = locationBits.findIndex(
-      field => LOCATION_NAME.test(field)
+    const locationNameIndex = locationBits.findIndex(field =>
+      LOCATION_NAME.test(field)
     );
 
     if (locationNameIndex !== -1) {
@@ -67,9 +68,8 @@ function parse(tweet) {
     }
 
     locationBits.forEach((bit, index) => {
-      locationBits[index] = bit === 'DEAD END' || bit === 'PRIVATE RD'
-        ? ''
-        : bit;
+      locationBits[index] =
+        bit === 'DEAD END' || bit === 'PRIVATE RD' ? '' : bit;
     });
 
     // FIXME - Tweet might only have a CN, not streets
@@ -87,6 +87,4 @@ function parse(tweet) {
   }
 
   return event;
-}
-
-module.exports = parse;
+};
