@@ -31,7 +31,8 @@ const socket = window.location.port ? io('//localhost:3001') : io();
 socket.on('event', addEvent);
 
 const fetchRecentIncidents = async () => {
-  const response = await fetch('//localhost:3001/recent');
+  const path = window.location.port ? '//localhost:3001' : '/';
+  const response = await fetch(`${path}/recent`);
   return await response.json();
 };
 
