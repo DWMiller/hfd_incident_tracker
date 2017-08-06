@@ -44,11 +44,7 @@ exports.cleanTweet = async (tweet = {}) => {
 exports.saveTweet = async (tweet = {}) => {
   const newTweet = new Tweet(tweet);
 
-  try {
-    await newTweet.save();
-  } catch (error) {
-    return undefined;
-  }
+  await newTweet.save();
 
   return newTweet;
 };

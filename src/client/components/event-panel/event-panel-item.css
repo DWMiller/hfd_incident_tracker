@@ -45,3 +45,12 @@
   font-size: smaller;
   text-align: right;
 }
+
+.event-panel-item .link {
+  font-size: smaller;
+  float: left;
+}
+
+.event-panel-item.active .link a {
+  color: white;
+}

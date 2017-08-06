@@ -3,8 +3,7 @@ mongoose.Promise = global.Promise;
 
 const tweetSchema = mongoose.Schema({
   id: {
-    type: Number,
-    unique: true,
+    type: String,
   },
   text: String,
   time: String,

@@ -3,8 +3,7 @@ mongoose.Promise = global.Promise;
 
 const incidentSchema = mongoose.Schema({
   id: {
-    type: Number,
-    unique: true,
+    type: String,
   },
   code: String,
   category: String,
@@ -34,6 +33,10 @@ const incidentSchema = mongoose.Schema({
       required: 'Incident address missing',
     },
   },
+});
+
+incidentSchema.index({
+  location: '2dsphere',
 });
 
 module.exports = mongoose.model('Incident', incidentSchema);

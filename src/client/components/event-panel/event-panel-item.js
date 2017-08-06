@@ -41,6 +41,16 @@ const Event = props => {
       <span className="address">
         {props.location.address}
       </span>
+
+      <span className="link">
+        <a
+          onClick={e => e.stopPropagation()}
+          href={'https://twitter.com/HFD_Incidents/status/' + props.id}
+        >
+          View on Twitter
+        </a>
+      </span>
+
       <span className="time">
         {date.format('MMMM Do h:mm a')}
       </span>

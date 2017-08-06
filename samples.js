@@ -76,14 +76,14 @@ exports.tweet = {
 };
 
 exports.refined = {
-  id: 742522370645200900,
+  id: '742522370645200896',
   text:
     'NEW | F16019090 | MEDICAL | Loc: 0 Block APPLEBLOSSOM DR HAM @ CHESTER AV/BRIGADOON DR /CN: HELEN ZURHBRIGG NON-PROFIT HOME | Units: 1 | 6/13/16 21:00',
   time: 'Tue Jun 14 01:01:43 +0000 2016',
 };
 
 exports.parsed = {
-  id: 742522370645200900,
+  id: '742522370645200896',
   code: 'F16019090',
   time: new Date('Tue Jun 14 01:01:43 +0000 2016'),
   type: 'NEW',
@@ -97,7 +97,7 @@ exports.parsed = {
 };
 
 exports.geoCoded = {
-  id: 742522370645200900,
+  id: '742522370645200896',
   time: '1465866103217',
   code: 'F16019090',
   type: 'NEW',

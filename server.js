@@ -42,7 +42,7 @@ twitterConnection.on('tweet', async tweet => {
   try {
     const processedTweet = await processTweet(tweet);
     io.sockets.emit('event', processedTweet);
-    console.log(`Broadcast: ${processedTweet.location.addresss}`);
+    console.log(`Broadcast: ${processedTweet.location.address}`);
   } catch (error) {
     console.log(`E - ${error}`);
   }
