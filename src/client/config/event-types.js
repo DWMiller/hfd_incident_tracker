@@ -95,11 +95,11 @@ const types = {
   },
   'WATER RESCUE': {
     text: 'Water Rescue',
-    icon: icons.UNKNOWN,
+    icon: icons.FIRE_TRUCK,
   },
   'FIRE OUT': {
     text: 'Fire Out',
-    icon: icons.UNKNOWN,
+    icon: icons.FIRE,
   },
   'FD ASSISTANCE': {
     text: 'Fire Department Assistance',
@@ -107,11 +107,11 @@ const types = {
   },
   'PROPANE LEAK': {
     text: 'Propane Leak',
-    icon: icons.UNKNOWN,
+    icon: icons.ALARM,
   },
   'ROPE RESCUE': {
     text: 'Rope Rescue',
-    icon: icons.UNKNOWN,
+    icon: icons.FIRE_TRUCK,
   },
 };
 
