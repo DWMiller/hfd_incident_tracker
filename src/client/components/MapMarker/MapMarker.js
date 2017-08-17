@@ -5,7 +5,9 @@ import './map-marker.css';
 
 import style from './MapMarker.styles';
 
-const MapMarker = ({ alert, isActive = false, onEventHover }) => {
+const MapMarker = props => {
+  const { alert, isActive = false, onEventHover } = props;
+
   const onHover = () => onEventHover(alert.id);
 
   return (

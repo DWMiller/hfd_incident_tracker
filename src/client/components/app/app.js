@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import * as actionCreators from '../../actions/actionCreators';
 
 import Map from '../Map';
 import EventPanel from '../EventPanel';
@@ -21,40 +25,34 @@ class App extends Component {
     });
   };
 
-  toggleEventPanel = () => {
-    this.props.store.dispatch({ type: 'TOGGLE_EVENT_PANEL' });
-  };
-
   getFilteredEvents = event => {
     const type = eventTypes[event.category]
       ? eventTypes[event.category]
       : eventTypes['UNKNOWN'];
 
-    return this.props.state.eventFilter.some(icon => icon === type.icon.file);
+    return this.props.eventFilter.some(icon => icon === type.icon.file);
   };
 
   render() {
-    const filteredEvents = this.props.state.events.filter(
-      this.getFilteredEvents
-    );
+    const filteredEvents = this.props.events.filter(this.getFilteredEvents);
 
-    const isEventPanelActive = this.props.state.eventPanel.isVisible;
+    const isEventPanelActive = this.props.eventPanel.isVisible;
 
     return (
       <div className="App">
         <Map
-          store={this.props.store}
-          active={this.props.state.eventPanel.active}
-          settings={this.props.state.map}
+          {...this.props}
+          active={this.props.eventPanel.active}
+          settings={this.props.map}
           alerts={filteredEvents}
         />
         <EventFilter
-          store={this.props.store}
-          filter={this.props.state.eventFilter}
-          events={this.props.state.events}
+          {...this.props}
+          filter={this.props.eventFilter}
+          events={this.props.events}
         />
         <button
-          onClick={this.toggleEventPanel}
+          onClick={this.props.toggleEventPanel}
           className={
             'event-panel-toggle ' + (isEventPanelActive ? 'active' : '')
           }
@@ -62,8 +60,8 @@ class App extends Component {
           View Events
         </button>
         <EventPanel
-          {...this.props.state.eventPanel}
-          store={this.props.store}
+          {...this.props}
+          {...this.props.eventPanel}
           events={filteredEvents}
           onEventSelect={this.eventSelected}
         />
@@ -76,4 +74,17 @@ class App extends Component {
   };
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    events: state.events,
+    eventPanel: state.eventPanel,
+    eventFilter: state.eventFilter,
+    map: state.map,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(actionCreators, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

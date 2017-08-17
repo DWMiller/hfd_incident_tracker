@@ -10,7 +10,7 @@ export default (state = [], { type, category } = {}) => {
     case 'DESELECT_ALL': {
       return [];
     }
-    case 'SELECT_ALL': {
+    case 'SELECT_MULTIPLE': {
       return [...category];
     }
     default:

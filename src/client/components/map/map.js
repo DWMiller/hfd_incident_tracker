@@ -11,11 +11,11 @@ const defaultCenter = { lat: 43.254401, lng: -79.863552 };
 
 class Map extends Component {
   onEventHover = eventId => {
-    this.props.store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId });
+    this.props.setActiveEvent(eventId);
   };
 
   onMapPropsChange = settings => {
-    this.props.store.dispatch({ type: 'MAP_CHANGE', settings });
+    this.props.mapChange(settings);
   };
 
   generateMarkers(active, alerts) {

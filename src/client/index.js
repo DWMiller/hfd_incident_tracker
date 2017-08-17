@@ -1,5 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+
 import io from 'socket.io-client';
 import App from './components/app';
 import './index.css';
@@ -7,29 +9,26 @@ import './index.css';
 
 import store from './store';
 
-const addEvent = event => store.dispatch({ type: 'ADD_EVENT', event });
-const addEvents = events => store.dispatch({ type: 'ADD_EVENTS', events });
+import { addEvent, addEvents, clearEvents } from './actions/actionCreators';
 
-function render() {
-  const props = {
-    state: store.getState(),
-    store,
-  };
+const Root = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-  // Perf.start();
-  ReactDOM.render(<App {...props} />, document.getElementById('root'));
-  // Perf.stop();
-  // const measurements = Perf.getLastMeasurements();
-  // Perf.printWasted(measurements);
-}
+// Perf.start();
+render(Root, document.getElementById('root'));
+// Perf.stop();
+// const measurements = Perf.getLastMeasurements();
+// Perf.printWasted(measurements);
 
 store.subscribe(() => {
-  render();
   localStorage.setItem('redux', JSON.stringify(store.getState()));
 });
 
 const socket = window.location.port ? io('//localhost:3001') : io();
-socket.on('event', addEvent);
+socket.on('event', event => store.dispatch(addEvent(event)));
 
 const fetchRecentIncidents = async () => {
   const path = window.location.port ? '//localhost:3001' : '';
@@ -38,6 +37,6 @@ const fetchRecentIncidents = async () => {
 };
 
 fetchRecentIncidents().then(events => {
-  store.dispatch({ type: 'CLEAR_EVENTS' }); // clears local storage duplicates
-  addEvents(events);
+  store.dispatch(clearEvents()); // clears local storage duplicates
+  store.dispatch(addEvents(events));
 });

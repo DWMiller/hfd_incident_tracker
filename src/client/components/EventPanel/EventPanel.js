@@ -6,9 +6,9 @@ import EventPanelItem from '../EventPanelItem';
 import './event-panel.css';
 
 export class EventPanel extends Component {
-  onEventHover = id => {
-    if (this.props.active !== id) {
-      this.props.store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId: id });
+  onEventHover = eventId => {
+    if (this.props.active !== eventId) {
+      this.props.setActiveEvent(eventId);
     }
   };
 

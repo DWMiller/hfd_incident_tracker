@@ -21,15 +21,15 @@ export class EventFilter extends Component {
   }
 
   onSelect = type => {
-    this.props.store.dispatch({ type: 'TOGGLE_EVENT_FILTER', category: type });
+    this.props.toggleEventFilter(type);
   };
 
   selectAll = types => {
-    this.props.store.dispatch({ type: 'SELECT_ALL', category: types });
+    this.props.selectMultipleEventFilters(types);
   };
 
   deselectAll = () => {
-    this.props.store.dispatch({ type: 'DESELECT_ALL' });
+    this.props.deselectAllEventFilters();
   };
 
   renderFilterButtons = (types, filter) => {
