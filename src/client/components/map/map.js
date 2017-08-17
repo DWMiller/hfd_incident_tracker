@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import GoogleMap from 'google-map-react';
-import Marker from './event-marker';
+import MapMarker from '../MapMarker/MapMarker';
 
-import store from '../../reducers/store';
 import './map.css';
 
 const apiKey = 'AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y';
 const defaultCenter = { lat: 43.254401, lng: -79.863552 };
 
 class Map extends Component {
-  onEventHover(eventId) {
-    store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId });
-  }
+  onEventHover = eventId => {
+    this.props.store.dispatch({ type: 'SET_ACTIVE_EVENT', eventId });
+  };
 
-  onMapPropsChange(settings) {
-    store.dispatch({ type: 'MAP_CHANGE', settings });
-  }
+  onMapPropsChange = settings => {
+    this.props.store.dispatch({ type: 'MAP_CHANGE', settings });
+  };
 
   generateMarkers(active, alerts) {
     return alerts.map(alert => {
@@ -26,9 +25,9 @@ class Map extends Component {
       const [lng, lat] = alert.location.coordinates;
 
       return (
-        <Marker
+        <MapMarker
           onEventHover={this.onEventHover}
-          key={alert.id}
+          key={alert._id}
           isActive={isActive}
           alert={alert}
           lat={lat}

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
-import App from './components/app';
+import App from './components/App';
 import './index.css';
 // import Perf from 'react-addons-perf';
 
-import store from './reducers/store';
+import store from './store';
 
 const addEvent = event => store.dispatch({ type: 'ADD_EVENT', event });
 const addEvents = events => store.dispatch({ type: 'ADD_EVENTS', events });
@@ -13,6 +13,7 @@ const addEvents = events => store.dispatch({ type: 'ADD_EVENTS', events });
 function render() {
   const props = {
     state: store.getState(),
+    store,
   };
 
   // Perf.start();

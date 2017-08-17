@@ -8,7 +8,7 @@ import './event-panel-item.css';
 const moment = require('moment');
 
 const Event = props => {
-  const date = moment(props.created);
+  const date = moment(props.created).format('MMMM Do h:mm a');
 
   const eventType = eventTypes[props.category]
     ? eventTypes[props.category]
@@ -16,10 +16,14 @@ const Event = props => {
 
   const icon = eventType.icon;
 
+  const onEventHover = () => props.onEventHover(props.id);
+  const onEventSelect = () => props.onEventSelect(props);
+  const twitterLinkClick = e => e.stopPropagation();
+
   return (
     <div
-      onMouseOver={() => props.onEventHover(props)}
-      onClick={() => props.onEventSelect(props)}
+      onMouseOver={onEventHover}
+      onClick={onEventSelect}
       className={'event-panel-item ' + (props.isActive ? 'active' : '')}
     >
       <img
@@ -44,7 +48,7 @@ const Event = props => {
 
       <span className="link">
         <a
-          onClick={e => e.stopPropagation()}
+          onClick={twitterLinkClick}
           href={'https://twitter.com/HFD_Incidents/status/' + props.id}
         >
           View on Twitter
@@ -52,13 +56,15 @@ const Event = props => {
       </span>
 
       <span className="time">
-        {date.format('MMMM Do h:mm a')}
+        {date}
       </span>
     </div>
   );
 };
 
 Event.propTypes = {
+  onEventHover: PropTypes.func.isRequired,
+  onEventSelect: PropTypes.func.isRequired,
   location: PropTypes.shape({
     address: PropTypes.string.isRequired,
   }),

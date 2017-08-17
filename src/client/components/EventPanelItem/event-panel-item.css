@@ -30,6 +30,7 @@
 
 .event-panel-item .location {
   font-weight: bold;
+  max-width: 220px;
 }
 
 .event-panel-item .category {

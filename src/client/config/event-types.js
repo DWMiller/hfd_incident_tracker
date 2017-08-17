@@ -81,6 +81,10 @@ const types = {
     text: 'Natural Gas Leak',
     icon: icons.ALARM,
   },
+  'GAS SPILL': {
+    text: 'Gas Spill',
+    icon: icons.FIRE_TRUCK,
+  },
   ODOURS: {
     text: 'Odours Reported',
     icon: icons.ALARM,

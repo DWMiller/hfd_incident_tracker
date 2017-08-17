@@ -1,0 +1,12 @@
+.event-marker {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 5px;
+  background-position: center center;
+}
+
+.event-marker.active {
+}
