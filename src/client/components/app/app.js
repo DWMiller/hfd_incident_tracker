@@ -14,13 +14,10 @@ import eventTypes from '../../config/event-types';
 
 class App extends Component {
   eventSelected = event => {
-    this.props.store.dispatch({
-      type: 'MAP_CHANGE',
-      settings: {
-        center: {
-          lng: event.location.coordinates[0],
-          lat: event.location.coordinates[1],
-        },
+    this.props.mapChange({
+      center: {
+        lng: event.location.coordinates[0],
+        lat: event.location.coordinates[1],
       },
     });
   };
