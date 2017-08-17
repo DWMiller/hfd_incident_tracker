@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
-import App from './components/App';
+import App from './components/app';
 import './index.css';
 // import Perf from 'react-addons-perf';
 
