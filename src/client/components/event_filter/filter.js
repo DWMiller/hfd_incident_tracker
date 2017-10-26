@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
-import eventTypes from '../../config/event-types';
+import { eventListType, filterType } from '../../types';
+
+import { eventDefinitions } from '../../config/event-definitions';
 import './event-filter.css';
 
 export class EventFilter extends Component {
   /**
- * Returns an object containing the present event types only
- * object keys are the type icons
- */
-  getEventTypes(events = []) {
+   * Returns an object containing the present event types only
+   * object keys are the type icons
+   */
+  getEventDefinitions(events = []) {
     return Object.keys(
       events.reduce((accumulator, event) => {
-        const type = eventTypes[event.category]
-          ? eventTypes[event.category]
-          : eventTypes.UNKNOWN;
+        const type = eventDefinitions[event.category]
+          ? eventDefinitions[event.category]
+          : eventDefinitions.UNKNOWN;
         return Object.assign({}, accumulator, { [type.icon.file]: true });
       }, {})
     );
@@ -53,7 +54,7 @@ export class EventFilter extends Component {
 
   render() {
     const { events } = this.props;
-    const types = this.getEventTypes(events);
+    const types = this.getEventDefinitions(events);
 
     return (
       <div className={'event-filter-panel'}>
@@ -75,12 +76,8 @@ export class EventFilter extends Component {
   }
 
   static propTypes = {
-    filter: PropTypes.arrayOf(PropTypes.string),
-    events: PropTypes.arrayOf(
-      PropTypes.shape({
-        category: PropTypes.string.isRequired,
-      })
-    ),
+    filter: filterType,
+    events: eventListType,
   };
 }
 

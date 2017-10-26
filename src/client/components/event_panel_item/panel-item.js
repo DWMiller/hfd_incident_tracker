@@ -1,23 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { genericHandlerType, eventType } from '../../types';
 
-import eventTypes from '../../config/event-types';
+import { eventDefinitions } from '../../config/event-definitions';
 
 import './event-panel-item.css';
 
 const moment = require('moment');
 
 const Event = props => {
-  const date = moment(props.created).format('MMMM Do h:mm a');
+  const date = moment(props.event.created).format('MMMM Do h:mm a');
 
-  const eventType = eventTypes[props.category]
-    ? eventTypes[props.category]
-    : eventTypes['UNKNOWN'];
+  const type = eventDefinitions[props.event.category]
+    ? eventDefinitions[props.event.category]
+    : eventDefinitions['UNKNOWN'];
 
-  const icon = eventType.icon;
+  const icon = type.icon;
 
-  const onEventHover = () => props.onEventHover(props.id);
-  const onEventSelect = () => props.onEventSelect(props);
+  const onEventHover = () => props.onEventHover(props.event.id);
+  const onEventSelect = () => props.onEventSelect(props.event);
   const twitterLinkClick = e => e.stopPropagation();
 
   return (
@@ -31,43 +31,36 @@ const Event = props => {
         width={icon.width}
         height={icon.height}
         src={`img/${icon.file}`}
-        alt={eventType.text}
+        alt={type.text}
       />
-      {props.locationName &&
+      {props.event.locationName && (
         <span
           className="location"
-          dangerouslySetInnerHTML={{ __html: props.locationName }}
-        />}
-      <span className="category">
-        {eventType.text}
-      </span>
+          dangerouslySetInnerHTML={{ __html: props.event.locationName }}
+        />
+      )}
+      <span className="category">{type.text}</span>
 
-      <span className="address">
-        {props.location.address}
-      </span>
+      <span className="address">{props.event.location.address}</span>
 
       <span className="link">
         <a
           onClick={twitterLinkClick}
-          href={'https://twitter.com/HFD_Incidents/status/' + props.id}
+          href={'https://twitter.com/HFD_Incidents/status/' + props.event.id}
         >
           View on Twitter
         </a>
       </span>
 
-      <span className="time">
-        {date}
-      </span>
+      <span className="time">{date}</span>
     </div>
   );
 };
 
 Event.propTypes = {
-  onEventHover: PropTypes.func.isRequired,
-  onEventSelect: PropTypes.func.isRequired,
-  location: PropTypes.shape({
-    address: PropTypes.string.isRequired,
-  }),
+  onEventHover: genericHandlerType,
+  onEventSelect: genericHandlerType,
+  event: eventType,
 };
 
 export default Event;

@@ -12,7 +12,7 @@ import EventPanel from '../event_panel/panel';
 import EventFilter from '../event_filter/filter';
 import './app.css';
 
-import eventTypes from '../../config/event-types';
+import { eventDefinitions } from '../../config/event-definitions';
 
 const fetchRecentIncidents = async () => {
   const path = window.location.port ? '//localhost:3001' : '';
@@ -46,9 +46,9 @@ class App extends Component {
   };
 
   getFilteredEvents = event => {
-    const type = eventTypes[event.category]
-      ? eventTypes[event.category]
-      : eventTypes['UNKNOWN'];
+    const type = eventDefinitions[event.category]
+      ? eventDefinitions[event.category]
+      : eventDefinitions['UNKNOWN'];
 
     return this.props.eventFilter.some(icon => icon === type.icon.file);
   };

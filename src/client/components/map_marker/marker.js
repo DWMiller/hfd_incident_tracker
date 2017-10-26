@@ -1,5 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+import { genericBooleanType, genericHandlerType, eventType } from '../../types';
 
 import './map-marker.css';
 
@@ -20,10 +21,9 @@ const MapMarker = props => {
 };
 
 MapMarker.propTypes = {
-  isActive: PropTypes.bool,
-  alert: PropTypes.shape({
-    category: PropTypes.string.isRequired,
-  }),
+  isActive: genericBooleanType.isRequired,
+  alert: eventType.isRequired,
+  onEventHover: genericHandlerType,
 };
 
 export default MapMarker;

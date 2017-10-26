@@ -1,12 +1,12 @@
-import types from '../../config/event-types';
+import { eventDefinitions } from '../../config/event-definitions';
 
 function style(alert, isActive) {
   const category = alert.category;
 
-  let eventType = types[category];
+  let eventType = eventDefinitions[category];
 
   if (typeof eventType === 'undefined') {
-    eventType = types.UNKNOWN;
+    eventType = eventDefinitions.UNKNOWN;
   }
 
   const icon = eventType.icon;

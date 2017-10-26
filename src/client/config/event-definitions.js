@@ -1,6 +1,6 @@
 import icons from './icons';
 
-const types = {
+export const eventDefinitions = {
   'CHIMNEY FIRE': {
     text: 'Chimney Fire',
     icon: icons.FIRE,
@@ -118,5 +118,3 @@ const types = {
     icon: icons.FIRE_TRUCK,
   },
 };
-
-export default types;

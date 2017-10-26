@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { eventListType, genericHandlerType } from '../../types';
 
 import EventPanelItem from '../event_panel_item/panel-item';
 
@@ -23,7 +23,7 @@ export class EventPanel extends Component {
           onEventHover={this.onEventHover}
           onEventSelect={this.props.onEventSelect}
           isActive={isActive}
-          {...event}
+          event={event}
           key={event._id}
         />
       );
@@ -43,12 +43,8 @@ export class EventPanel extends Component {
   }
 
   static propTypes = {
-    events: PropTypes.arrayOf(
-      PropTypes.shape({
-        location: PropTypes.object.isRequired,
-      })
-    ),
-    onEventSelect: PropTypes.func.isRequired,
+    events: eventListType,
+    onEventSelect: genericHandlerType.isRequired,
   };
 }
 

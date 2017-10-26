@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+
+import { eventListType, genericHandlerType } from '../../types';
 
 import GoogleMap from 'google-map-react';
 import MapMarker from '../map_marker/marker';
@@ -58,13 +59,10 @@ class Map extends Component {
   }
 }
 
-// Map.propTypes = {
-//   alerts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       coordinates: PropTypes.object.isRequired,
-//       code: PropTypes.string.isRequired,
-//     })
-//   ),
-// };
+Map.propTypes = {
+  mapChange: genericHandlerType,
+  setActiveEvent: genericHandlerType,
+  alerts: eventListType,
+};
 
 export default Map;
