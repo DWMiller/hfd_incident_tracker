@@ -3,16 +3,39 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import io from 'socket.io-client';
+
 import * as actionCreators from '../../actions/actionCreators';
 
-import Map from '../Map';
-import EventPanel from '../EventPanel';
-import EventFilter from '../EventFilter';
+import Map from '../map/map';
+import EventPanel from '../event_panel/panel';
+import EventFilter from '../event_filter/filter';
 import './app.css';
 
 import eventTypes from '../../config/event-types';
 
+const fetchRecentIncidents = async () => {
+  const path = window.location.port ? '//localhost:3001' : '';
+  const response = await fetch(`${path}/recent`);
+  return await response.json();
+};
+
 class App extends Component {
+  constructor() {
+    super();
+
+    const socket = window.location.port ? io('//localhost:3001') : io();
+    socket.on('event', event => {
+      console.log(event);
+      this.props.addEvent(event);
+    });
+
+    fetchRecentIncidents().then(events => {
+      this.props.clearEvents();
+      this.props.addEvents(events);
+    });
+  }
+
   eventSelected = event => {
     this.props.mapChange({
       center: {

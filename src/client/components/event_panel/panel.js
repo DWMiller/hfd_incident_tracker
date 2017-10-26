@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import EventPanelItem from '../EventPanelItem';
+import EventPanelItem from '../event_panel_item/panel-item';
 
 import './event-panel.css';
 

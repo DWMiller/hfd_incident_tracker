@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './map-marker.css';
 
-import style from './MapMarker.styles';
+import style from './marker.styles';
 
 const MapMarker = props => {
   const { alert, isActive = false, onEventHover } = props;

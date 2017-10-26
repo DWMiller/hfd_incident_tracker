@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
 import GoogleMap from 'google-map-react';
-import MapMarker from '../MapMarker/MapMarker';
+import MapMarker from '../map_marker/marker';
 
 import './map.css';
 

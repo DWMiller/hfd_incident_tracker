@@ -10,7 +10,7 @@ import icons from './config/icons';
 // const logger = createLogger();
 // const middleware = [ReduxThunk, logger];
 
-const storedState = JSON.parse(localStorage.getItem('redux'));
+const storedState = JSON.parse(localStorage.getItem('hfd-state'));
 
 const defaultState = Object.assign(
   {
