@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { eventListType, genericHandlerType } from '../../types';
 
 import EventPanelItem from '../event_panel_item/panel-item';
 
 import './event-panel.css';
 
-export class EventPanel extends Component {
+export class EventPanel extends PureComponent {
   onEventHover = eventId => {
     if (this.props.active !== eventId) {
       this.props.setActiveEvent(eventId);

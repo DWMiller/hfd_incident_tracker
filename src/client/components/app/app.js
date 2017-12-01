@@ -21,8 +21,8 @@ const fetchRecentIncidents = async () => {
 };
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     const socket = window.location.port ? io('//localhost:3001') : io();
     socket.on('event', event => {

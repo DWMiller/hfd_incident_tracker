@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { eventListType, genericHandlerType } from '../../types';
 
@@ -10,7 +10,7 @@ import './map.css';
 const apiKey = 'AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y';
 const defaultCenter = { lat: 43.254401, lng: -79.863552 };
 
-class Map extends Component {
+class Map extends PureComponent {
   onEventHover = eventId => {
     this.props.setActiveEvent(eventId);
   };
