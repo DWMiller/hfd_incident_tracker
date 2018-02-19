@@ -1,6 +1,6 @@
 module.exports = {
-  extends: 'airbnb',
-  plugins: ['react', 'jsx-a11y', 'import'],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
+  plugins: ['react', 'jsx-a11y', 'import', 'prettier'],
   env: { browser: true, node: true, mocha: true },
   rules: {
     'no-console': 0,
@@ -11,5 +11,12 @@ module.exports = {
     'no-unused-prop-types': 0,
     'linebreak-style': 0,
     'arrow-parens': [1, 'as-needed'],
+    'prettier/prettier': [
+      "error",
+      {
+        'trailingComma': 'es5',
+        'singleQuote': true,
+      }
+    ]
   },
 };
