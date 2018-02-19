@@ -1,4 +1,3 @@
-const express = require('express');
 const ramda = require('ramda');
 
 // import environmental variables from our variables.env file
@@ -10,10 +9,11 @@ require('./models/Tweet');
 require('./models/Incident');
 
 const app = require('./app');
-app.set('port', process.env.PORT || 3001);
 
-const server = app.listen(app.get('port'), () => {
-  console.log(`Express running → PORT ${server.address().port}`);
+const port = process.env.PORT || 3001;
+
+const server = app.listen(port, () => {
+  console.log(`koa running → PORT ${server.address().port}`);
 });
 
 const io = require('socket.io')(server);

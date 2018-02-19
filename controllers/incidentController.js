@@ -6,12 +6,12 @@ const DAY_AGO = Date.now() - DAY;
 const WEEK_AGO = Date.now() - DAY * 7;
 const YEAR_AGO = Date.now() - DAY * 365;
 
-exports.recent = async (req, res) => {
+exports.recent = async (ctx, next) => {
   const incidents = await Incident.find({ updated: { $gte: WEEK_AGO } })
     .sort({
       updated: 'desc',
     })
     .limit(100);
 
-  res.json(incidents);
+  ctx.body = incidents;
 };

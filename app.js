@@ -1,25 +1,30 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const Koa = require('koa');
+const serve = require('koa-static');
+const bodyParser = require('koa-bodyparser');
+const cors = require('koa-cors');
 const path = require('path');
-const routes = require('./routes/index');
+const logger = require('koa-logger');
+
+const router = require('./routes/index');
 const errorHandlers = require('./handlers/errorHandlers');
 
-const app = express();
+const app = new Koa();
+
+if (app.env === 'development') {
+  /* Development Error Handler - Prints stack trace */
+  app.use(logger());
+}
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(serve(path.join(__dirname, 'build')));
 
-// Takes the raw requests and turns them into usable properties on req.body
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use('/', routes);
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.use(errorHandlers.notFound);
 
-if (app.get('env') === 'development') {
+if (app.env === 'development') {
   /* Development Error Handler - Prints stack trace */
   app.use(errorHandlers.developmentErrors);
 }

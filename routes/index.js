@@ -1,5 +1,7 @@
-const express = require('express');
-const router = express.Router();
+const Koa = require('koa');
+const Router = require('koa-router');
+
+const router = new Router();
 
 const { catchErrors } = require('../handlers/errorHandlers');
 
