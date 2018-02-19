@@ -1,0 +1,7 @@
+- text search filter in event list
+    - component state only, no redux
+
+- event filter icons in collapasable menu
+    - default to collapsed in mobile
+
+- migrate to koa
