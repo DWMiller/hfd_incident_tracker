@@ -5,3 +5,7 @@
     - default to collapsed in mobile
 
 - migrate to koa
+
+- does the api for events need to go to the db? 
+    - Server could pull in all events data on load and persist
+    - Tradeoff: saves db requests, requires local filtering functions to meet needs of requests
