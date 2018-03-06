@@ -2,20 +2,43 @@ import React, { PureComponent } from 'react';
 import { eventListType, genericHandlerType } from '../../types';
 
 import EventPanelItem from '../event_panel_item/panel-item';
+import EventPanelTextFilter from '../event_panel_text_filter/filter';
 
 import './event-panel.css';
 
 export class EventPanel extends PureComponent {
+  static propTypes = {
+    events: eventListType,
+    onEventSelect: genericHandlerType.isRequired,
+  };
+
+  state = {
+    filterText: '',
+  };
+
+  updateFilter = filterText => {
+    this.setState({
+      filterText,
+    });
+  };
+
   onEventHover = eventId => {
     if (this.props.active !== eventId) {
       this.props.setActiveEvent(eventId);
     }
   };
 
-  renderEventList = events => {
-    const sorted = events.sort((a, b) => (a.time < b.time ? 1 : -1));
+  renderEventList = (events, filterText) => {
+    const filteredEvents = events.filter(event => {
+      const normalizedFilterFields = (
+        event.location.address +
+        event.locationName +
+        event.category
+      ).toUpperCase();
+      return normalizedFilterFields.includes(filterText.toUpperCase());
+    });
 
-    return sorted.map(event => {
+    const renderedEvents = filteredEvents.map(event => {
       const isActive = event.id === this.props.active;
 
       return (
@@ -28,24 +51,24 @@ export class EventPanel extends PureComponent {
         />
       );
     });
+
+    return renderedEvents;
   };
 
   render() {
-    const { events, isVisible } = this.props;
+    if (!this.props.isVisible) {
+      return <div className="event-panel" />;
+    }
 
     return (
-      <div className={'event-panel ' + (isVisible ? 'show' : '')}>
+      <div className={'event-panel show'}>
+        <EventPanelTextFilter filterText={this.state.filterText} updateFilter={this.updateFilter} />
         <div className="event-panel-list">
-          {isVisible && this.renderEventList(events)}
+          {this.renderEventList(this.props.events, this.state.filterText)}
         </div>
       </div>
     );
   }
-
-  static propTypes = {
-    events: eventListType,
-    onEventSelect: genericHandlerType.isRequired,
-  };
 }
 
 export default EventPanel;
