@@ -65,17 +65,12 @@ class App extends Component {
           active={this.props.eventPanel.active}
           settings={this.props.map}
           alerts={filteredEvents}
+          onEventClick={this.eventSelected}
         />
-        <EventFilter
-          {...this.props}
-          filter={this.props.eventFilter}
-          events={this.props.events}
-        />
+        <EventFilter {...this.props} filter={this.props.eventFilter} events={this.props.events} />
         <button
           onClick={this.props.toggleEventPanel}
-          className={
-            'event-panel-toggle ' + (isEventPanelActive ? 'active' : '')
-          }
+          className={'event-panel-toggle ' + (isEventPanelActive ? 'active' : '')}
         >
           View Events
         </button>
