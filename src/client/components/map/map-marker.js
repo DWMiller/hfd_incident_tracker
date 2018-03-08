@@ -27,23 +27,16 @@ class MapMarker extends PureComponent {
   static propTypes = {
     isActive: PropTypes.bool.isRequired,
     alert: eventType.isRequired,
-    onEventHover: PropTypes.func.isRequired,
-    onEventClick: PropTypes.func.isRequired,
   };
 
   state = {
     isOpen: false,
   };
 
-  onHover = () => {
-    this.props.onEventHover(this.props.alert.id);
-  };
-
   onClick = () => {
     this.setState({
       isOpen: !this.state.isOpen,
     });
-    // this.props.onEventClick(this.props.alert);
   };
 
   render() {
@@ -52,7 +45,6 @@ class MapMarker extends PureComponent {
         position={{ lat: this.props.lat, lng: this.props.lng }}
         icon={getIconPath(this.props.alert)}
         onClick={this.onClick}
-        onMouseOver={this.onHover}
       >
         {0 &&
           this.state.isOpen && (

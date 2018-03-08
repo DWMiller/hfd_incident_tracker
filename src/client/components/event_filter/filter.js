@@ -10,6 +10,9 @@ export class EventFilter extends Component {
   static propTypes = {
     filter: filterType,
     events: PropTypes.arrayOf(eventType),
+    toggleEventFilter: PropTypes.func.isRequired,
+    deselectAllEventFilters: PropTypes.func.isRequired,
+    selectMultipleEventFilters: PropTypes.func.isRequired,
   };
 
   /**

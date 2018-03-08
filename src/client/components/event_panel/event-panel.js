@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { eventType } from '../../types';
 
-import EventPanelItem from '../event_panel_item/panel-item';
-import EventPanelTextFilter from '../event_panel_text_filter/filter';
+import EventPanelItem from './event-panel-item';
+import EventPanelTextFilter from './event-panel-filter';
 
 import './event-panel.css';
 
@@ -12,6 +12,7 @@ export class EventPanel extends PureComponent {
   static propTypes = {
     events: PropTypes.arrayOf(eventType),
     onEventSelect: PropTypes.func.isRequired,
+    setActiveEvent: PropTypes.func.isRequired,
   };
 
   state = {

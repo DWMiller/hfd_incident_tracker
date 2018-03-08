@@ -7,9 +7,10 @@ import io from 'socket.io-client';
 
 import * as actionCreators from '../../actions/actionCreators';
 
-import Map from '../map/map';
-import EventPanel from '../event_panel/panel';
+import MapContainer from '../map';
+import EventPanel from '../event_panel';
 import EventFilter from '../event_filter/filter';
+
 import './app.css';
 
 import { eventDefinitions } from '../../config/event-definitions';
@@ -64,14 +65,19 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Map
-          {...this.props}
+        <MapContainer
+          mapChange={this.props.mapChange}
           active={this.props.eventPanel.active}
           settings={this.props.map}
           alerts={filteredEvents}
-          onEventClick={this.eventSelected}
         />
-        <EventFilter {...this.props} filter={this.props.eventFilter} events={this.props.events} />
+        <EventFilter
+          toggleEventFilter={this.props.toggleEventFilter}
+          deselectAllEventFilters={this.props.deselectAllEventFilters}
+          selectMultipleEventFilters={this.props.selectMultipleEventFilters}
+          filter={this.props.eventFilter}
+          events={this.props.events}
+        />
         <button
           onClick={this.props.toggleEventPanel}
           className={'event-panel-toggle ' + (isEventPanelActive ? 'active' : '')}
@@ -79,8 +85,8 @@ class App extends Component {
           View Events
         </button>
         <EventPanel
-          {...this.props}
           {...this.props.eventPanel}
+          setActiveEvent={this.props.setActiveEvent}
           events={filteredEvents}
           onEventSelect={this.eventSelected}
         />
