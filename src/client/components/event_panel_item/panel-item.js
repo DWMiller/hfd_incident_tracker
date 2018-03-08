@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
-import { genericHandlerType, eventType } from '../../types';
+import PropTypes from 'prop-types';
+
+import { eventType } from '../../types';
 
 import { eventDefinitions } from '../../config/event-definitions';
 
@@ -45,10 +47,7 @@ class Event extends PureComponent {
           alt={type.text}
         />
         {event.locationName && (
-          <span
-            className="location"
-            dangerouslySetInnerHTML={{ __html: event.locationName }}
-          />
+          <span className="location" dangerouslySetInnerHTML={{ __html: event.locationName }} />
         )}
         <span className="category">{type.text}</span>
 
@@ -69,8 +68,8 @@ class Event extends PureComponent {
   }
 
   static propTypes = {
-    onEventHover: genericHandlerType,
-    onEventSelect: genericHandlerType,
+    onEventHover: PropTypes.func.isRequired,
+    onEventSelect: PropTypes.func.isRequired,
     event: eventType,
   };
 }

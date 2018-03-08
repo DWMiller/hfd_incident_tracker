@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
 import { Marker, InfoWindow } from 'react-google-maps';
 
-import { genericBooleanType, genericHandlerType, eventType } from '../../types';
+import { eventType } from '../../types';
 import { eventDefinitions } from '../../config/event-definitions';
 
 import './map-marker.css';
@@ -23,10 +25,10 @@ function getIconPath(alert) {
 
 class MapMarker extends PureComponent {
   static propTypes = {
-    isActive: genericBooleanType.isRequired,
+    isActive: PropTypes.bool.isRequired,
     alert: eventType.isRequired,
-    onEventHover: genericHandlerType.isRequired,
-    onEventClick: genericHandlerType.isRequired,
+    onEventHover: PropTypes.func.isRequired,
+    onEventClick: PropTypes.func.isRequired,
   };
 
   state = {

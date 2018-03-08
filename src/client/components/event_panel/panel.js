@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
-import { eventListType, genericHandlerType } from '../../types';
+import PropTypes from 'prop-types';
+
+import { eventType } from '../../types';
 
 import EventPanelItem from '../event_panel_item/panel-item';
 import EventPanelTextFilter from '../event_panel_text_filter/filter';
@@ -8,8 +10,8 @@ import './event-panel.css';
 
 export class EventPanel extends PureComponent {
   static propTypes = {
-    events: eventListType,
-    onEventSelect: genericHandlerType.isRequired,
+    events: PropTypes.arrayOf(eventType),
+    onEventSelect: PropTypes.func.isRequired,
   };
 
   state = {

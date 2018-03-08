@@ -1,4 +1,4 @@
-import { arrayOf, bool, func, shape, string } from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 
 export const filterType = arrayOf(string);
 
@@ -10,9 +10,3 @@ export const eventType = shape({
   locationName: string,
   id: string,
 });
-
-export const eventListType = arrayOf(eventType);
-
-export const genericHandlerType = func;
-
-export const genericBooleanType = bool;

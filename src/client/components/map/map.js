@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { eventListType, genericHandlerType } from '../../types';
+import { eventType } from '../../types';
 
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
@@ -58,10 +59,10 @@ const MyMapComponent = withScriptjs(
 
 class Map extends Component {
   static propTypes = {
-    mapChange: genericHandlerType,
-    setActiveEvent: genericHandlerType,
-    alerts: eventListType,
-    onEventClick: genericHandlerType,
+    mapChange: PropTypes.func.isRequired,
+    setActiveEvent: PropTypes.func.isRequired,
+    alerts: PropTypes.arrayOf(eventType),
+    onEventClick: PropTypes.func.isRequired,
   };
 
   mapRef = React.createRef(); //passe to MyMapComponent component to be bound to GoogleMap component

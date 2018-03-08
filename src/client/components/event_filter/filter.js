@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { eventListType, filterType } from '../../types';
+import { eventType, filterType } from '../../types';
 
 import { eventDefinitions } from '../../config/event-definitions';
 import './event-filter.css';
 
 export class EventFilter extends Component {
+  static propTypes = {
+    filter: filterType,
+    events: PropTypes.arrayOf(eventType),
+  };
+
   /**
    * Returns an object containing the present event types only
    * object keys are the type icons
@@ -42,9 +48,7 @@ export class EventFilter extends Component {
         <div
           key={key}
           onClick={onSelect}
-          className={
-            'event-filter-panel-type ' + (isSelected ? 'selected' : '')
-          }
+          className={'event-filter-panel-type ' + (isSelected ? 'selected' : '')}
         >
           <img alt={'Filter' + icon} src={'img/' + icon} />
         </div>
@@ -59,26 +63,15 @@ export class EventFilter extends Component {
     return (
       <div className={'event-filter-panel'}>
         {this.renderFilterButtons(types)}
-        <button
-          onClick={() => this.selectAll(types)}
-          className={'event-filter-panel-type'}
-        >
+        <button onClick={() => this.selectAll(types)} className={'event-filter-panel-type'}>
           All
         </button>
-        <button
-          onClick={this.deselectAll}
-          className={'event-filter-panel-type'}
-        >
+        <button onClick={this.deselectAll} className={'event-filter-panel-type'}>
           None
         </button>
       </div>
     );
   }
-
-  static propTypes = {
-    filter: filterType,
-    events: eventListType,
-  };
 }
 
 export default EventFilter;

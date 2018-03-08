@@ -21,6 +21,10 @@ const fetchRecentIncidents = async () => {
 };
 
 class App extends Component {
+  static propTypes = {
+    state: PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
 
@@ -83,10 +87,6 @@ class App extends Component {
       </div>
     );
   }
-
-  static propTypes = {
-    state: PropTypes.object,
-  };
 }
 
 const mapStateToProps = state => {
