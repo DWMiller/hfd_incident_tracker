@@ -5,10 +5,10 @@ require('dotenv').config({ path: 'variables.env' });
 
 const mongoose = require('./src/mongoose-connection');
 
-require('./models/Tweet');
-require('./models/Incident');
+require('./src/models/Tweet');
+require('./src/models/Incident');
 
-const app = require('./app');
+const app = require('./src/app');
 
 const port = process.env.PORT || 3001;
 
@@ -22,7 +22,7 @@ const io = require('socket.io')(server);
 //   socket.emit('connected');
 // });
 
-const twitterController = require('./controllers/twitterController');
+const twitterController = require('./src/controllers/twitterController');
 const twitterConnection = twitterController.connection;
 
 // const log = async x => {
