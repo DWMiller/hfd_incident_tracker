@@ -57,3 +57,10 @@ export function deselectAllEventFilters() {
     type: 'DESELECT_ALL',
   };
 }
+
+export function setTextFilter(text) {
+  return {
+    type: 'SET_TEXT_FILTER',
+    text,
+  };
+}

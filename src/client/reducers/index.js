@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
 import events from './events';
-import eventFilter from './event-filter';
+import { typeFilterReducer, textFilterReducer } from './event-filters';
 import eventPanel from './event-panel';
 import map from './map';
 
 const rootReducer = combineReducers({
   events,
-  eventFilter,
+  filters: combineReducers({ types: typeFilterReducer, text: textFilterReducer }),
   eventPanel,
-  map
+  map,
 });
 
 export default rootReducer;

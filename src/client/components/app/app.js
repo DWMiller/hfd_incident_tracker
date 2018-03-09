@@ -6,14 +6,14 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
 import * as actionCreators from '../../actions/actionCreators';
+import { filteredEventsSelector } from '../../reducers/events';
+import { availableEventTypesSelector } from '../../reducers/event-filters';
 
 import MapContainer from '../map';
 import EventPanel from '../event_panel';
 import EventFilter from '../event_filter/filter';
 
 import './app.css';
-
-import { eventDefinitions } from '../../config/event-definitions';
 
 const fetchRecentIncidents = async () => {
   const path = window.location.port ? '//localhost:3001' : '';
@@ -35,10 +35,14 @@ class App extends Component {
       this.props.addEvent(event);
     });
 
-    fetchRecentIncidents().then(events => {
-      this.props.clearEvents();
-      this.props.addEvents(events);
-    });
+    fetchRecentIncidents()
+      .then(events => {
+        this.props.clearEvents();
+        this.props.addEvents(events);
+      })
+      .catch(err => {
+        console.log('Could not fetch recent incidents from server');
+      });
   }
 
   eventSelected = event => {
@@ -50,45 +54,35 @@ class App extends Component {
     });
   };
 
-  getFilteredEvents = event => {
-    const type = eventDefinitions[event.category]
-      ? eventDefinitions[event.category]
-      : eventDefinitions['UNKNOWN'];
-
-    return this.props.eventFilter.some(icon => icon === type.icon.file);
-  };
-
   render() {
-    const filteredEvents = this.props.events.filter(this.getFilteredEvents);
-
-    const isEventPanelActive = this.props.eventPanel.isVisible;
-
     return (
       <div className="App">
         <MapContainer
           mapChange={this.props.mapChange}
           active={this.props.eventPanel.active}
           settings={this.props.map}
-          alerts={filteredEvents}
+          alerts={this.props.filteredEvents}
         />
         <EventFilter
           toggleEventFilter={this.props.toggleEventFilter}
           deselectAllEventFilters={this.props.deselectAllEventFilters}
           selectMultipleEventFilters={this.props.selectMultipleEventFilters}
-          filter={this.props.eventFilter}
-          events={this.props.events}
+          filter={this.props.filters.types}
+          availableEventTypes={this.props.availableEventTypes}
         />
         <button
           onClick={this.props.toggleEventPanel}
-          className={'event-panel-toggle ' + (isEventPanelActive ? 'active' : '')}
+          className={'event-panel-toggle ' + (this.props.eventPanel.isVisible ? 'active' : '')}
         >
           View Events
         </button>
         <EventPanel
           {...this.props.eventPanel}
           setActiveEvent={this.props.setActiveEvent}
-          events={filteredEvents}
+          events={this.props.filteredEvents}
           onEventSelect={this.eventSelected}
+          textFilter={this.props.filters.text}
+          setTextFilter={this.props.setTextFilter}
         />
       </div>
     );
@@ -97,9 +91,11 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
+    filteredEvents: filteredEventsSelector(state),
+    availableEventTypes: availableEventTypesSelector(state),
     events: state.events,
     eventPanel: state.eventPanel,
-    eventFilter: state.eventFilter,
+    filters: state.filters,
     map: state.map,
   };
 };

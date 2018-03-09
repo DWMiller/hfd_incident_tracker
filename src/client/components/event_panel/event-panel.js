@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { eventType } from '../../types';
@@ -8,21 +8,18 @@ import EventPanelTextFilter from './event-panel-filter';
 
 import './event-panel.css';
 
-export class EventPanel extends PureComponent {
+export class EventPanel extends Component {
   static propTypes = {
     events: PropTypes.arrayOf(eventType),
     onEventSelect: PropTypes.func.isRequired,
     setActiveEvent: PropTypes.func.isRequired,
-  };
-
-  state = {
-    filterText: '',
+    active: PropTypes.string,
+    isVisible: PropTypes.bool.isRequired,
+    textFilter: PropTypes.string,
   };
 
   updateFilter = filterText => {
-    this.setState({
-      filterText,
-    });
+    this.props.setTextFilter(filterText);
   };
 
   onEventHover = eventId => {
@@ -32,16 +29,7 @@ export class EventPanel extends PureComponent {
   };
 
   renderEventList = (events, filterText) => {
-    const filteredEvents = events.filter(event => {
-      const normalizedFilterFields = (
-        event.location.address +
-        event.locationName +
-        event.category
-      ).toUpperCase();
-      return normalizedFilterFields.includes(filterText.toUpperCase());
-    });
-
-    const renderedEvents = filteredEvents.map(event => {
+    const renderedEvents = events.map(event => {
       const isActive = event.id === this.props.active;
 
       return (
@@ -58,17 +46,31 @@ export class EventPanel extends PureComponent {
     return renderedEvents;
   };
 
+  shouldComponentUpdate(nextProps, nextState) {
+    //TODO - This seems like a bit much, think on alternatives to skip re-rendering the list
+    if (
+      nextProps.textFilter !== this.props.textFilter ||
+      nextProps.active !== this.props.active ||
+      nextProps.events.length !== this.props.events.length ||
+      nextProps.isVisible !== this.props.isVisible
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     if (!this.props.isVisible) {
       return <div className="event-panel" />;
     }
 
+    const Events = this.renderEventList(this.props.events, this.props.textFilter);
+
     return (
       <div className={'event-panel show'}>
-        <EventPanelTextFilter filterText={this.state.filterText} updateFilter={this.updateFilter} />
-        <div className="event-panel-list">
-          {this.renderEventList(this.props.events, this.state.filterText)}
-        </div>
+        <EventPanelTextFilter filterText={this.props.textFilter} updateFilter={this.updateFilter} />
+        <div className="event-panel-list">{Events}</div>
       </div>
     );
   }

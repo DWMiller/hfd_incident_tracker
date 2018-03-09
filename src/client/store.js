@@ -15,7 +15,10 @@ const storedState = JSON.parse(localStorage.getItem('hfd-state'));
 const defaultState = Object.assign(
   {
     events: [],
-    eventFilter: Object.values(icons).map(({ file }) => file),
+    filters: {
+      text: '',
+      types: Object.values(icons).map(({ file }) => file),
+    },
     eventPanel: { active: null, isVisible: false },
     map: {
       zoom: 12,
