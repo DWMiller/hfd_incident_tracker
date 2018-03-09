@@ -17,7 +17,7 @@ if (app.env === 'development') {
 
 app.use(cors());
 
-app.use(serve(path.join(__dirname, 'build')));
+app.use(serve('build'));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
