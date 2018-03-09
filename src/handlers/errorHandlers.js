@@ -42,38 +42,40 @@ exports.notFound = (ctx, next) => {
 
   In development we show good error messages so if we hit a syntax error or any other previously un-handled error, we can show good info on what happened
 */
-exports.developmentErrors = (err, next) => {
-  console.log(err);
-  // err.stack = err.stack || '';
-  // const errorDetails = {
-  //   message: err.message,
-  //   status: err.status,
-  //   stackHighlighted: err.stack.replace(
-  //     /[a-z_-\d]+.js:\d+:\d+/gi,
-  //     '<mark>$&</mark>'
-  //   ),
-  // };
-  // res.status(err.status || 500);
-  // res.format({
-  //   // Based on the `Accept` http header
-  //   'text/html': () => {
-  //     res.json(errorDetails);
-  //     // res.render('error', errorDetails);
-  //   }, // Form Submit, Reload the page
-  //   'application/json': () => res.json(errorDetails), // Ajax call, send JSON back
-  // });
-};
+// exports.developmentErrors = (err, next) => {
+// console.log(err);
+// err.stack = err.stack || '';
+// const errorDetails = {
+//   message: err.message,
+//   status: err.status,
+//   stackHighlighted: err.stack.replace(
+//     /[a-z_-\d]+.js:\d+:\d+/gi,
+//     '<mark>$&</mark>'
+//   ),
+// };
+// res.status(err.status || 500);
+// res.format({
+//   // Based on the `Accept` http header
+//   'text/html': () => {
+//     res.json(errorDetails);
+//     // res.render('error', errorDetails);
+//   }, // Form Submit, Reload the page
+//   'application/json': () => res.json(errorDetails), // Ajax call, send JSON back
+// });
+// };
 
 /*
   Production Error Handler
 
   No stacktraces are leaked to user
 */
-exports.productionErrors = (err, next) => {
-  res.status(err.status || 500);
-  res.json(err);
-  // res.render('error', {
-  //   message: err.message,
-  //   error: {},
-  // });
-};
+// exports.productionErrors = (ctx, next) => {
+// ctx.status(ctx.status || 500);
+
+// ctx.body = json;
+// res.json(err);
+// res.render('error', {
+//   message: err.message,
+//   error: {},
+// });
+// };

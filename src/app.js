@@ -24,12 +24,12 @@ app.use(router.allowedMethods());
 
 app.use(errorHandlers.notFound);
 
-if (app.env === 'development') {
-  /* Development Error Handler - Prints stack trace */
-  app.use(errorHandlers.developmentErrors);
-}
+// if (app.env === 'development') {
+/* Development Error Handler - Prints stack trace */
+// app.use(errorHandlers.developmentErrors);
+// }
 
 // production error handler
-app.use(errorHandlers.productionErrors);
+// app.use(errorHandlers.productionErrors);
 
 module.exports = app;
