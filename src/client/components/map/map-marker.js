@@ -43,7 +43,7 @@ class MapMarker extends PureComponent {
     return (
       <Marker
         position={{ lat: this.props.lat, lng: this.props.lng }}
-        icon={getIconPath(this.props.alert)}
+        defaultIcon={getIconPath(this.props.alert)}
         onClick={this.onClick}
       >
         {0 &&
