@@ -42,7 +42,7 @@ export class EventFilter extends Component {
           onClick={onSelect}
           className={'event-filter-panel-type ' + (isSelected ? 'selected' : '')}
         >
-          <img alt={'Filter' + icon} src={'img/' + icon} />
+          <img alt={'Filter' + icon} src={icon} />
         </div>
       );
     });

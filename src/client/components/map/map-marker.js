@@ -19,7 +19,7 @@ function getIconPath(alert) {
 
   return {
     scaledSize: { height: icon.height, width: icon.width },
-    url: `img/${icon.file}`,
+    url: icon.file,
   };
 }
 

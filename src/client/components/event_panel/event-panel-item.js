@@ -43,7 +43,7 @@ class Event extends PureComponent {
           className="icon"
           width={icon.width}
           height={icon.height}
-          src={`img/${icon.file}`}
+          src={icon.file}
           alt={type.text}
         />
         {event.locationName && (

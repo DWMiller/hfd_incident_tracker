@@ -1,46 +1,46 @@
 const icons = {
   MEDICAL: {
-    file: 'medical.png',
+    file: require('../assets/icons/medical.png'),
     width: 20,
     height: 20,
   },
   FIRE: {
-    file: 'fire.png',
+    file: require('../assets/icons/fire.png'),
     width: 24,
     height: 24,
   },
   FIRE_TRUCK: {
-    file: 'fire-truck.png',
+    file: require('../assets/icons/fire-truck.png'),
     width: 24,
     height: 25,
   },
   ALARM: {
-    file: 'alarm.png',
+    file: require('../assets/icons/alarm.png'),
     width: 24,
     height: 20,
   },
   CAR_FIRE: {
-    file: 'car-fire.png',
+    file: require('../assets/icons/car-fire.png'),
     width: 24,
     height: 35,
   },
   UNKNOWN: {
-    file: 'question.png',
+    file: require('../assets/icons/question.png'),
     width: 20,
     height: 20,
   },
   ELECTRICAL: {
-    file: 'electrical.png',
+    file: require('../assets/icons/electrical.png'),
     width: 20,
     height: 26,
   },
   ACCIDENT: {
-    file: 'accident.png',
+    file: require('../assets/icons/accident.png'),
     width: 30,
     height: 25,
   },
   FLOODING: {
-    file: 'flooding.png',
+    file: require('../assets/icons/flooding.png'),
     width: 36,
     height: 36,
   },
