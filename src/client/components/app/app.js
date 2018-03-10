@@ -77,7 +77,7 @@ class App extends Component {
           View Events
         </button>
         <EventPanel
-          {...this.props.eventPanel}
+          isVisible={this.props.eventPanel.isVisible}
           setActiveEvent={this.props.setActiveEvent}
           events={this.props.filteredEvents}
           onEventSelect={this.eventSelected}

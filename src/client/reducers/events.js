@@ -39,7 +39,6 @@ const filterByText = (event, text) => {
 export const filteredEventsSelector = createSelector(
   [eventsSelector, eventTypeFilterSelector, eventTextFilterSelector],
   (events, filterTypes, filterText) => {
-    console.log('running');
     return events
       .filter(event => filterByTypes(event, filterTypes))
       .filter(event => filterByText(event, filterText));

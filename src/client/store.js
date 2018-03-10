@@ -2,35 +2,20 @@
 import { createStore, compose } from 'redux';
 // import { createLogger } from 'redux-logger';
 // import ReduxThunk from 'redux-thunk';
-
 import rootReducer from './reducers';
 
-import icons from './config/icons';
+import { initialState } from './config';
 
 // const logger = createLogger();
 // const middleware = [ReduxThunk, logger];
 
 const storedState = JSON.parse(localStorage.getItem('hfd-state'));
 
-const defaultState = Object.assign(
-  {
-    events: [],
-    filters: {
-      text: '',
-      types: Object.values(icons).map(({ file }) => file),
-    },
-    eventPanel: { active: null, isVisible: false },
-    map: {
-      zoom: 12,
-      center: { lat: 43.254401, lng: -79.863552 },
-    },
-  },
-  storedState || {}
-);
+const resolvedState = Object.assign({}, initialState, storedState || {});
 
 const store = createStore(
   rootReducer,
-  defaultState,
+  resolvedState,
   compose(
     // applyMiddleware(...middleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f

@@ -6,8 +6,7 @@ import { eventType } from '../../types';
 import Map from './map';
 import './map.css';
 
-const apiKey = 'AIzaSyBDX9TpI_4wnD1Q-JVmLjfhc9B-vPgwc0Y';
-const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`;
+import { googleMapURL } from './../../config';
 
 class MapContainer extends PureComponent {
   static propTypes = {
