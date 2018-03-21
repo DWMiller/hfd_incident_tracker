@@ -11,11 +11,11 @@ const incidentSchema = mongoose.Schema({
   type: String,
   created: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   updated: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   location: {
     type: {
