@@ -10,24 +10,16 @@ import './event-panel-item.css';
 const moment = require('moment');
 
 class Event extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      date: moment(props.event.created).format('MMMM Do h:mm a'),
-    };
-
-    this.state.type = eventDefinitions[props.event.category]
-      ? eventDefinitions[props.event.category]
-      : eventDefinitions['UNKNOWN'];
-  }
-
   onEventHover = () => this.props.onEventHover(this.props.event.id);
   onEventSelect = () => this.props.onEventSelect(this.props.event);
   twitterLinkClick = e => e.stopPropagation();
 
   render() {
-    const { date, type } = this.state;
+    const date = moment(this.props.event.created).format('MMMM Do h:mm a');
+
+    const type = eventDefinitions[this.props.event.category]
+      ? eventDefinitions[this.props.event.category]
+      : eventDefinitions['UNKNOWN'];
 
     const { isActive, event } = this.props;
 
