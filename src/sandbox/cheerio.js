@@ -1,5 +1,3 @@
-// const { tweetFetcher } = require('../twitter/tweetFetcher.js');
-
 const request = require('request-promise-native');
 const cheerio = require('cheerio');
 

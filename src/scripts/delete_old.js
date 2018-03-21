@@ -1,4 +1,4 @@
-const mongoose = require('../src/mongoose-connection');
+const mongoose = require('../mongoose-connection');
 
 const Tweet = require('../models/Tweet');
 const Incident = require('../models/Incident');
@@ -6,8 +6,12 @@ const Incident = require('../models/Incident');
 // const DAY = 86400000;
 // const TWO_DAYS_AGO = Date.now() - DAY * 2;
 
-Incident.find({}).remove().exec();
-Tweet.find({}).remove().exec();
+Incident.find({})
+  .remove()
+  .exec();
+Tweet.find({})
+  .remove()
+  .exec();
 
 // db.updates.remove(
 //   {

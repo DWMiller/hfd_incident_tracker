@@ -6,9 +6,9 @@ const { tweetReceiver } = require('../twitter/tweetReceiver');
 
 const tweet = {
   created_at: new Date(),
-  id_str: '976271847674310656',
+  id_str: '976490090154295298',
   text:
-    'NEW | F18010495 | MEDICAL | Loc: 0 Block MACNAB ST S HAM @ KING ST W/MAIN ST W /CN: HSR BUS TERMINAL | Units: R1 | 03/20/18 21:36',
+    'NEW | F18010587 | CO DETECTOR | Loc: 28 WELLINGTON ST S DU @ JAMES ST/HATT ST | Units: E23 | 03/21/18 12:02',
   user: { id: 611701456 },
 };
 
