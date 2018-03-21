@@ -1,11 +1,8 @@
-const tweetGeoCoder = require('./tweet-geocoder.js');
+const { tweetGeoCoder } = require('./tweetGeocoder');
 
 // jest.unmock('./tweet-geocoder.js');
 
-const {
-  parsed: parsedTweet,
-  geoCoded: expectedGeoCodedTweet,
-} = require('./config/samples.js');
+const { parsed: parsedTweet, geoCoded: expectedGeoCodedTweet } = require('../../samples.js');
 
 //TODO - Test is false positive, doesn't work with async
 test('geocoding worked', () => {

@@ -6,7 +6,7 @@ const path = require('path');
 const logger = require('koa-logger');
 
 const router = require('./routes/index');
-const errorHandlers = require('./handlers/errorHandlers');
+const { notFound } = require('./helpers');
 
 const app = new Koa();
 
@@ -22,7 +22,7 @@ app.use(serve('build'));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.use(errorHandlers.notFound);
+app.use(notFound);
 
 // if (app.env === 'development') {
 /* Development Error Handler - Prints stack trace */

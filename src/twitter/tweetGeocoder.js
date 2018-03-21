@@ -6,7 +6,7 @@ const googleMapsClient = require('@google/maps').createClient({
   Promise: Promise,
 });
 
-async function geoCode(tweet) {
+exports.tweetGeoCoder = async tweet => {
   // if (tweet.locationName) {
   // CN field is not neccessarily correct or listed in google,
   // should attempt to resolve it but need to fall back to intersection on failure
@@ -27,6 +27,4 @@ async function geoCode(tweet) {
       address: formatted_address,
     },
   });
-}
-
-exports.default = geoCode;
+};

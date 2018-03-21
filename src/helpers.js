@@ -1,3 +1,8 @@
+exports.log = async x => {
+  console.log(x);
+  return x;
+};
+
 /*
   Catch Errors Handler
 

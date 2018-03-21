@@ -16,13 +16,14 @@ const cityCodes = {
   GL: 'Glanbrook',
 };
 
-exports.default = tweet => {
+exports.tweetParser = async tweet => {
   const fields = tweet.text.split('|').map(field => field.trim());
 
   const event = {
     id: tweet.id,
-    created: new Date(tweet.time),
-    updated: new Date(tweet.time),
+    time: new Date(tweet.time),
+    // created: new Date(tweet.time),
+    // updated: new Date(tweet.time),
   };
 
   event.code = fields.find(field => HPD_CODE.test(field));
@@ -33,9 +34,7 @@ exports.default = tweet => {
 
     event.originalLocation = fields.find(field => LOCATION.test(field));
 
-    const locationBits = event.originalLocation
-      .split(/[\/@]/)
-      .map(bit => bit.trim());
+    const locationBits = event.originalLocation.split(/[\/@]/).map(bit => bit.trim());
 
     const main = locationBits
       .shift()
@@ -56,20 +55,15 @@ exports.default = tweet => {
 
     // console.log(event.location);
 
-    const locationNameIndex = locationBits.findIndex(field =>
-      LOCATION_NAME.test(field)
-    );
+    const locationNameIndex = locationBits.findIndex(field => LOCATION_NAME.test(field));
 
     if (locationNameIndex !== -1) {
-      event.locationName = locationBits[locationNameIndex]
-        .replace('CN:', '')
-        .trim();
+      event.locationName = locationBits[locationNameIndex].replace('CN:', '').trim();
       locationBits.pop();
     }
 
     locationBits.forEach((bit, index) => {
-      locationBits[index] =
-        bit === 'DEAD END' || bit === 'PRIVATE RD' ? '' : bit;
+      locationBits[index] = bit === 'DEAD END' || bit === 'PRIVATE RD' ? '' : bit;
     });
 
     // FIXME - Tweet might only have a CN, not streets
@@ -85,6 +79,20 @@ exports.default = tweet => {
     // event.intersection = `${event.streets.main} at ${useStreet}, ${event.city}`;
     // console.log(event.intersection);
   }
+
+  if (event.type !== 'NEW') {
+    // console.log(`UPDATE ONLY: ${parsedTweet.code}`);
+    // not set up to handle event updates yet
+    return false;
+  }
+
+  if (!event.intersection) {
+    // console.log(`UNHANDLED TWEET:`);
+    // not set up to handle event updates yet
+    return false;
+  }
+
+  // console.log(`PARSED: ${parsedTweet.intersection}`);
 
   return event;
 };

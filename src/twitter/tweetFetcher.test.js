@@ -1,4 +1,4 @@
-const tweetFetcher = require('./tweet-fetcher.js');
+const { tweetFetcher } = require('./tweetFetcher');
 
 const sampleTweet = {
   id: 827022955351769100,
