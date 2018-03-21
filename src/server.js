@@ -11,7 +11,7 @@ const app = require('./app');
 const port = process.env.PORT || 3001;
 
 const server = app.listen(port, () => {
-  console.log(`koa running → PORT ${server.address().port}`);
+  console.log(`Koa Running → PORT ${server.address().port} -> Started at: ${new Date()}`);
 });
 
 const io = require('socket.io')(server);
@@ -25,7 +25,7 @@ const { tweetReceiver } = require('./twitter/tweetReceiver');
 
 const handleTweet = async tweet => {
   try {
-    const incidentData = tweetReceiver(tweet);
+    const incidentData = await tweetReceiver(tweet);
     io.sockets.emit('event', incidentData);
     console.log(`Broadcast: ${incidentData.location.address}`);
   } catch (error) {
