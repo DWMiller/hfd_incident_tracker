@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
-import { eventDefinitions } from '../config/event-definitions';
+import { incidentDefinitions } from '../config/incident-definitions';
 
-import { eventsSelector } from './events';
+import { incidentsSelector } from './incidents';
 
 export const typeFilterReducer = (state = [], { type, category } = {}) => {
   switch (type) {
-    case 'TOGGLE_EVENT_FILTER': {
+    case 'TOGGLE_INCIDENT_FILTER': {
       const isActive = state.findIndex(t => t === category);
       if (isActive === -1) {
         return [...state, category];
@@ -33,13 +33,16 @@ export const textFilterReducer = (state = '', { type, text } = {}) => {
   }
 };
 
-export const availableEventTypesSelector = createSelector([eventsSelector], (events = []) => {
-  return Object.keys(
-    events.reduce((accumulator, event) => {
-      const type = eventDefinitions[event.category]
-        ? eventDefinitions[event.category]
-        : eventDefinitions.UNKNOWN;
-      return Object.assign({}, accumulator, { [type.icon]: true });
-    }, {})
-  );
-});
+export const availableIncidentTypesSelector = createSelector(
+  [incidentsSelector],
+  (incidents = []) => {
+    return Object.keys(
+      incidents.reduce((accumulator, incident) => {
+        const type = incidentDefinitions[incident.category]
+          ? incidentDefinitions[incident.category]
+          : incidentDefinitions.UNKNOWN;
+        return Object.assign({}, accumulator, { [type.icon]: true });
+      }, {})
+    );
+  }
+);

@@ -1,11 +1,11 @@
-.event-filter-panel {
+.incident-filter-panel {
   position: absolute;
   bottom: 1em;
   left: 1em;
   max-width: calc(100% - 350px);
 }
 
-.event-filter-panel-type {
+.incident-filter-panel-type {
   background-color: white;
   display: inline-block;
   padding: 1em;
@@ -14,20 +14,22 @@
   box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.8);
 }
 
-.event-filter-panel-type:active, .event-filter-panel-type.selected {
+.incident-filter-panel-type:active,
+.incident-filter-panel-type.selected {
   box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
   transform: translate(1px, 1px);
   border: none;
   background-color: whitesmoke;
 }
 
-.event-filter-panel-type:hover {
+.incident-filter-panel-type:hover {
   background-color: whitesmoke;
 }
 
-.event-filter-panel-type.selected {}
+.incident-filter-panel-type.selected {
+}
 
-.event-filter-panel-type img {
+.incident-filter-panel-type img {
   width: 20px;
   height: 20px;
 }

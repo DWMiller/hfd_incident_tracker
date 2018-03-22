@@ -1,8 +1,8 @@
-.event-panel {
+.incident-panel {
   position: absolute;
   right: -300px;
   width: 300px;
-  background: rgba(236, 240, 241, 1.0);
+  background: rgba(236, 240, 241, 1);
   transition-duration: 0.195s;
   transition-timing-function: ease-out;
   box-sizing: border-box;
@@ -11,18 +11,18 @@
   box-shadow: -2px 2px 5px -2px rgba(0, 0, 0, 0.8);
 }
 
-.event-panel.show {
+.incident-panel.show {
   transition-duration: 0.225s;
   transition-timing-function: ease-in;
   right: 0;
 }
 
-.event-panel-list {
+.incident-panel-list {
   height: 100%;
   overflow-y: auto;
 }
 
-.event-panel-toggle {
+.incident-panel-toggle {
   transition-duration: 0.225s;
   transition-timing-function: ease-in;
 
@@ -39,20 +39,20 @@
   cursor: pointer;
 }
 
-.event-panel-toggle.active {
+.incident-panel-toggle.active {
   right: 300px;
 }
 
-.event-panel-toggle:hover {
-  background-color: rgba(41, 128, 185, 1.0);
+.incident-panel-toggle:hover {
+  background-color: rgba(41, 128, 185, 1);
   color: white;
 }
 
-.event-panel-toggle:active {
+.incident-panel-toggle:active {
   box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
   transform: translate(0, 1px);
 }
 
-.event-panel-toggle:focus {
+.incident-panel-toggle:focus {
   outline: 0;
 }

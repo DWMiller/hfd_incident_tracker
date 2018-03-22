@@ -1,27 +1,27 @@
-export function addEvent(event) {
+export function addIncident(incident) {
   return {
-    type: 'ADD_EVENT',
-    event,
+    type: 'ADD_INCIDENT',
+    incident,
   };
 }
 
-export function addEvents(events) {
+export function addIncidents(incidents) {
   return {
-    type: 'ADD_EVENTS',
-    events,
+    type: 'ADD_INCIDENTS',
+    incidents,
   };
 }
 
-export function clearEvents() {
+export function clearIncidents() {
   return {
-    type: 'CLEAR_EVENTS',
+    type: 'CLEAR_INCIDENTS',
   };
 }
 
-export function setActiveEvent(eventId) {
+export function setActiveIncident(incidentId) {
   return {
-    type: 'SET_ACTIVE_EVENT',
-    eventId,
+    type: 'SET_ACTIVE_INCIDENT',
+    incidentId,
   };
 }
 
@@ -32,27 +32,27 @@ export function mapChange(settings) {
   };
 }
 
-export function toggleEventPanel() {
+export function toggleIncidentPanel() {
   return {
-    type: 'TOGGLE_EVENT_PANEL',
+    type: 'TOGGLE_INCIDENT_PANEL',
   };
 }
 
-export function toggleEventFilter(category) {
+export function toggleIncidentFilter(category) {
   return {
-    type: 'TOGGLE_EVENT_FILTER',
+    type: 'TOGGLE_INCIDENT_FILTER',
     category,
   };
 }
 
-export function selectMultipleEventFilters(category) {
+export function selectMultipleIncidentFilters(category) {
   return {
     type: 'SELECT_MULTIPLE',
     category,
   };
 }
 
-export function deselectAllEventFilters() {
+export function deselectAllIncidentFilters() {
   return {
     type: 'DESELECT_ALL',
   };

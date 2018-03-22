@@ -26,7 +26,7 @@ const { tweetReceiver } = require('./twitter/tweetReceiver');
 const handleTweet = async tweet => {
   try {
     const incidentData = await tweetReceiver(tweet);
-    io.sockets.emit('event', incidentData);
+    io.sockets.emit('incident', incidentData);
     console.log(`Broadcast: ${incidentData.location.address}`);
   } catch (error) {
     console.log(`E - ${error}`);

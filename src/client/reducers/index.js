@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 
-import events from './events';
-import { typeFilterReducer, textFilterReducer } from './event-filters';
-import eventPanel from './event-panel';
+import incidents from './incidents';
+import { typeFilterReducer, textFilterReducer } from './incident-filters';
+import incidentPanel from './incident-panel';
 import map from './map';
 
 const rootReducer = combineReducers({
-  events,
+  incidents,
   filters: combineReducers({ types: typeFilterReducer, text: textFilterReducer }),
-  eventPanel,
+  incidentPanel,
   map,
 });
 

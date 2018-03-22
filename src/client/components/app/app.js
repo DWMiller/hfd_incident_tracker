@@ -6,12 +6,12 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
 import * as actionCreators from '../../actions/actionCreators';
-import { filteredEventsSelector } from '../../reducers/events';
-import { availableEventTypesSelector } from '../../reducers/event-filters';
+import { filteredIncidentsSelector } from '../../reducers/incidents';
+import { availableIncidentTypesSelector } from '../../reducers/incident-filters';
 
 import MapContainer from '../Map/MapContainer';
-import EventPanel from '../EventPanel/EventPanel';
-import EventFilter from '../EventFilter/EventFilter';
+import IncidentPanel from '../IncidentPanel/IncidentPanel';
+import IncidentFilter from '../IncidentFilter/IncidentFilter';
 
 import './App.css';
 
@@ -30,32 +30,32 @@ class App extends Component {
     super(props);
 
     const socket = window.location.port ? io('//localhost:3001') : io();
-    socket.on('event', event => {
-      console.log(event);
+    socket.on('incident', incident => {
+      console.log(incident);
 
-      if (!event) {
+      if (!incident) {
         // Server parsing is still a work in progress, skip saving an undefined object if one comes in
         return;
       }
 
-      this.props.addEvent(event);
+      this.props.addIncident(incident);
     });
 
     fetchRecentIncidents()
-      .then(events => {
-        this.props.clearEvents();
-        this.props.addEvents(events);
+      .then(incidents => {
+        this.props.clearIncidents();
+        this.props.addIncidents(incidents);
       })
       .catch(err => {
         console.log('Could not fetch recent incidents from server');
       });
   }
 
-  eventSelected = event => {
+  incidentSelected = incident => {
     this.props.mapChange({
       center: {
-        lng: event.location.coordinates[0],
-        lat: event.location.coordinates[1],
+        lng: incident.location.coordinates[0],
+        lat: incident.location.coordinates[1],
       },
     });
   };
@@ -65,28 +65,30 @@ class App extends Component {
       <div className="App">
         <MapContainer
           mapChange={this.props.mapChange}
-          active={this.props.eventPanel.active}
+          active={this.props.incidentPanel.active}
           settings={this.props.map}
-          alerts={this.props.filteredEvents}
+          alerts={this.props.filteredIncidents}
         />
-        <EventFilter
-          toggleEventFilter={this.props.toggleEventFilter}
-          deselectAllEventFilters={this.props.deselectAllEventFilters}
-          selectMultipleEventFilters={this.props.selectMultipleEventFilters}
+        <IncidentFilter
+          toggleIncidentFilter={this.props.toggleIncidentFilter}
+          deselectAllIncidentFilters={this.props.deselectAllIncidentFilters}
+          selectMultipleIncidentFilters={this.props.selectMultipleIncidentFilters}
           filter={this.props.filters.types}
-          availableEventTypes={this.props.availableEventTypes}
+          availableIncidentTypes={this.props.availableIncidentTypes}
         />
         <button
-          onClick={this.props.toggleEventPanel}
-          className={'event-panel-toggle ' + (this.props.eventPanel.isVisible ? 'active' : '')}
+          onClick={this.props.toggleIncidentPanel}
+          className={
+            'incident-panel-toggle ' + (this.props.incidentPanel.isVisible ? 'active' : '')
+          }
         >
-          View Events
+          Incidents
         </button>
-        <EventPanel
-          isVisible={this.props.eventPanel.isVisible}
-          setActiveEvent={this.props.setActiveEvent}
-          events={this.props.filteredEvents}
-          onEventSelect={this.eventSelected}
+        <IncidentPanel
+          isVisible={this.props.incidentPanel.isVisible}
+          setActiveIncident={this.props.setActiveIncident}
+          incidents={this.props.filteredIncidents}
+          onIncidentSelect={this.incidentSelected}
           textFilter={this.props.filters.text}
           setTextFilter={this.props.setTextFilter}
         />
@@ -97,10 +99,10 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    filteredEvents: filteredEventsSelector(state),
-    availableEventTypes: availableEventTypesSelector(state),
-    events: state.events,
-    eventPanel: state.eventPanel,
+    filteredIncidents: filteredIncidentsSelector(state),
+    availableIncidentTypes: availableIncidentTypesSelector(state),
+    incidents: state.incidents,
+    incidentPanel: state.incidentPanel,
     filters: state.filters,
     map: state.map,
   };

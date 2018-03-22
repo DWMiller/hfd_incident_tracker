@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { eventType } from '../../types';
+import { incidentType } from '../../types';
 
 import Map from './Map';
 import './Map.css';
@@ -11,7 +11,7 @@ import { googleMapURL } from './../../config';
 class MapContainer extends PureComponent {
   static propTypes = {
     mapChange: PropTypes.func.isRequired,
-    alerts: PropTypes.arrayOf(eventType),
+    alerts: PropTypes.arrayOf(incidentType),
   };
 
   mapRef = React.createRef(); //passe to MyMapComponent component to be bound to GoogleMap component

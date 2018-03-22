@@ -7,7 +7,7 @@ import MapMarker from './MapMarker';
 
 import { initialState, googleMapURL } from './../../config';
 
-const fauxEvent = {
+const fauxIncident = {
   category: 'MEDICAL',
   location: {
     address: '123 Fake Street',
@@ -25,7 +25,7 @@ it('map container renders without crashing', () => {
       mapChange={() => {}}
       active="123"
       settings={initialState.map}
-      alerts={[fauxEvent]}
+      alerts={[fauxIncident]}
     />,
     div
   );
@@ -46,7 +46,7 @@ it('map renders renders without crashing', () => {
       mapRef={ref}
       settings={initialState.map}
       onCenterChanged={() => {}}
-      alerts={[fauxEvent]}
+      alerts={[fauxIncident]}
       active="123"
     />,
     div
@@ -56,10 +56,10 @@ it('map renders renders without crashing', () => {
 it.skip('map marker renders without crashing', () => {
   const div = document.createElement('div');
 
-  const [lng, lat] = fauxEvent.location.coordinates;
+  const [lng, lat] = fauxIncident.location.coordinates;
 
   render(
-    <MapMarker key={fauxEvent._id} isActive={false} alert={fauxEvent} lat={lat} lng={lng} />,
+    <MapMarker key={fauxIncident._id} isActive={false} alert={fauxIncident} lat={lat} lng={lng} />,
     div
   );
 });

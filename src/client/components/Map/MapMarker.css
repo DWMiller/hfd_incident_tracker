@@ -1,4 +1,4 @@
-.event-marker {
+.incident-marker {
   position: absolute;
   background-size: contain;
   background-repeat: no-repeat;
@@ -8,5 +8,5 @@
   background-position: center center;
 }
 
-.event-marker.active {
+.incident-marker.active {
 }

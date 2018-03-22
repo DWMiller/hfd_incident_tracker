@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 
 import { Marker, InfoWindow } from 'react-google-maps';
 
-import { eventType } from '../../types';
-import { eventDefinitions } from '../../config/event-definitions';
+import { incidentType } from '../../types';
+import { incidentDefinitions } from '../../config/incident-definitions';
 
 import icons from '../../config/icons';
 
 import './MapMarker.css';
 
 function getIconPath(alert) {
-  let eventType = eventDefinitions[alert.category];
+  let incidentType = incidentDefinitions[alert.category];
 
-  if (typeof eventType === 'undefined') {
-    eventType = eventDefinitions.UNKNOWN;
+  if (typeof incidentType === 'undefined') {
+    incidentType = incidentDefinitions.UNKNOWN;
   }
 
-  const icon = icons[eventType.icon];
+  const icon = icons[incidentType.icon];
 
   return {
     scaledSize: { height: icon.height, width: icon.width },
@@ -28,7 +28,7 @@ function getIconPath(alert) {
 class MapMarker extends PureComponent {
   static propTypes = {
     isActive: PropTypes.bool.isRequired,
-    alert: eventType.isRequired,
+    alert: incidentType.isRequired,
   };
 
   state = {

@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import './EventPanelFilter.css';
+import './IncidentPanelFilter.css';
 
-export default class EventPanelTextFilter extends PureComponent {
+export default class IncidentPanelTextFilter extends PureComponent {
   static propTypes = {
     filterText: PropTypes.string,
     updateFilter: PropTypes.func.isRequired,
@@ -21,8 +21,8 @@ export default class EventPanelTextFilter extends PureComponent {
     return (
       <React.Fragment>
         <input
-          className="event-panel__text-filter"
-          placeholder="Filter events"
+          className="incident-panel__text-filter"
+          placeholder="Filter incidents"
           onChange={this.handleChange}
           value={this.props.filterText}
         />

@@ -1,4 +1,4 @@
-export const eventDefinitions = {
+export const incidentDefinitions = {
   'CHIMNEY FIRE': {
     text: 'Chimney Fire',
     icon: 'FIRE',
@@ -20,7 +20,7 @@ export const eventDefinitions = {
     icon: 'CAR_FIRE',
   },
   UNKNOWN: {
-    text: 'Unknown Event',
+    text: 'Unknown Incident',
     icon: 'UNKNOWN',
   },
   'ELECTRICAL PROBLEM': {
