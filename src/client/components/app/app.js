@@ -10,7 +10,7 @@ import { filteredEventsSelector } from '../../reducers/events';
 import { availableEventTypesSelector } from '../../reducers/event-filters';
 
 import MapContainer from '../map';
-import EventPanel from '../event_panel';
+import EventPanel from '../EventPanel/EventPanel';
 import EventFilter from '../event_filter/filter';
 
 import './app.css';

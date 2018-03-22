@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import './event-panel-filter.css';
+import './EventPanelFilter.css';
 
 export default class EventPanelTextFilter extends PureComponent {
   static propTypes = {

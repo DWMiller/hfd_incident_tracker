@@ -7,7 +7,7 @@ import { eventDefinitions } from '../../config/event-definitions';
 
 import icons from '../../config/icons';
 
-import './event-panel-item.css';
+import './EventPanelItem.css';
 
 const moment = require('moment');
 

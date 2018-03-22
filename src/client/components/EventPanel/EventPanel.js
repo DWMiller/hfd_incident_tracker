@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { eventType } from '../../types';
 
-import EventPanelItem from './event-panel-item';
-import EventPanelTextFilter from './event-panel-filter';
+import EventPanelItem from './EventPanelItem';
+import EventPanelTextFilter from './EventPanelFilter';
 
-import './event-panel.css';
+import './EventPanel.css';
 
 export class EventPanel extends Component {
   static propTypes = {
