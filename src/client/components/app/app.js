@@ -32,6 +32,12 @@ class App extends Component {
     const socket = window.location.port ? io('//localhost:3001') : io();
     socket.on('event', event => {
       console.log(event);
+
+      if (!event) {
+        // Server parsing is still a work in progress, skip saving an undefined object if one comes in
+        return;
+      }
+
       this.props.addEvent(event);
     });
 
