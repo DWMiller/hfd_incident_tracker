@@ -8,7 +8,7 @@ import { eventDefinitions } from '../../config/event-definitions';
 
 import icons from '../../config/icons';
 
-import './map-marker.css';
+import './MapMarker.css';
 
 function getIconPath(alert) {
   let eventType = eventDefinitions[alert.category];

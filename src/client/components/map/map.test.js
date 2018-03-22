@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import MapContainer from './map-container';
-import Map from './map';
-import MapMarker from './map-marker';
+import MapContainer from './MapContainer';
+import Map from './Map';
+import MapMarker from './MapMarker';
 
 import { initialState, googleMapURL } from './../../config';
 

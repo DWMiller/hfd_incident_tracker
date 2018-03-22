@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { eventType } from '../../types';
 
-import Map from './map';
-import './map.css';
+import Map from './Map';
+import './Map.css';
 
 import { googleMapURL } from './../../config';
 

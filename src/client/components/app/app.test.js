@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store'; //ES6 modules
 
 import { initialState } from './../../config';
 
-import App from './app';
+import App from './App';
 
 const mockStore = configureStore([]);
 

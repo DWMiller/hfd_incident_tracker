@@ -9,11 +9,11 @@ import * as actionCreators from '../../actions/actionCreators';
 import { filteredEventsSelector } from '../../reducers/events';
 import { availableEventTypesSelector } from '../../reducers/event-filters';
 
-import MapContainer from '../map';
+import MapContainer from '../Map/MapContainer';
 import EventPanel from '../EventPanel/EventPanel';
-import EventFilter from '../event_filter/filter';
+import EventFilter from '../EventFilter/EventFilter';
 
-import './app.css';
+import './App.css';
 
 const fetchRecentIncidents = async () => {
   const path = window.location.port ? '//localhost:3001' : '';

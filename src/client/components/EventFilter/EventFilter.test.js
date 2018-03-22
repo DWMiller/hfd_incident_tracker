@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import EventFilter from './filter';
+import EventFilter from './EventFilter';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

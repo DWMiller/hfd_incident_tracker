@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import EventPanel from './event-panel';
-import EventPanelTextFilter from './event-panel-filter';
-import EventPanelItem from './event-panel-item';
+import EventPanel from './EventPanel';
+import EventPanelTextFilter from './EventPanelFilter';
+import EventPanelItem from './EventPanelItem';
 
 const fauxEvent = {
   category: 'MEDICAL',

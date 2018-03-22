@@ -5,7 +5,7 @@ import icons from '../../config/icons';
 
 import { filterType } from '../../types';
 
-import './event-filter.css';
+import './EventFilter.css';
 
 export class EventFilter extends Component {
   static propTypes = {

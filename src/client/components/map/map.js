@@ -3,7 +3,7 @@ import React from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
 
-import MapMarker from './map-marker';
+import MapMarker from './MapMarker';
 
 const renderMarkers = (active, alerts) => {
   return alerts.map(alert => {
