@@ -5,6 +5,8 @@ import { eventType } from '../../types';
 
 import { eventDefinitions } from '../../config/event-definitions';
 
+import icons from '../../config/icons';
+
 import './event-panel-item.css';
 
 const moment = require('moment');
@@ -23,7 +25,7 @@ class Event extends PureComponent {
 
     const { isActive, event } = this.props;
 
-    const icon = type.icon;
+    const icon = icons[type.icon];
 
     return (
       <div

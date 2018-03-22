@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import icons from '../../config/icons';
+
 import { filterType } from '../../types';
 
 import './event-filter.css';
@@ -42,7 +44,7 @@ export class EventFilter extends Component {
           onClick={onSelect}
           className={'event-filter-panel-type ' + (isSelected ? 'selected' : '')}
         >
-          <img alt={'Filter' + icon} src={icon} />
+          <img alt={'Filter' + icon} src={icons[icon].file} />
         </div>
       );
     });

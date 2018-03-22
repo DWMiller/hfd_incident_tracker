@@ -39,7 +39,7 @@ export const availableEventTypesSelector = createSelector([eventsSelector], (eve
       const type = eventDefinitions[event.category]
         ? eventDefinitions[event.category]
         : eventDefinitions.UNKNOWN;
-      return Object.assign({}, accumulator, { [type.icon.file]: true });
+      return Object.assign({}, accumulator, { [type.icon]: true });
     }, {})
   );
 });

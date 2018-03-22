@@ -24,7 +24,7 @@ const filterByTypes = (event, types) => {
     ? eventDefinitions[event.category]
     : eventDefinitions['UNKNOWN'];
 
-  return types.some(icon => icon === type.icon.file);
+  return types.some(icon => icon === type.icon);
 };
 
 const filterByText = (event, text) => {

@@ -1,120 +1,118 @@
-import icons from './icons';
-
 export const eventDefinitions = {
   'CHIMNEY FIRE': {
     text: 'Chimney Fire',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   MEDICAL: {
     text: 'Medical',
-    icon: icons.MEDICAL,
+    icon: 'MEDICAL',
   },
   FIRE: {
     text: 'Fire',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   ALARM: {
     text: 'Alarm',
-    icon: icons.ALARM,
+    icon: 'ALARM',
   },
   'VEHICLE FIRE': {
     text: 'Vehicle Fire',
-    icon: icons.CAR_FIRE,
+    icon: 'CAR_FIRE',
   },
   UNKNOWN: {
     text: 'Unknown Event',
-    icon: icons.UNKNOWN,
+    icon: 'UNKNOWN',
   },
   'ELECTRICAL PROBLEM': {
     text: 'Electrical Problem',
-    icon: icons.ELECTRICAL,
+    icon: 'ELECTRICAL',
   },
   'HYDRO PROBLEM': {
     text: 'Electrical Problem',
-    icon: icons.ELECTRICAL,
+    icon: 'ELECTRICAL',
   },
   'VEHICLE ACC': {
     text: 'Vehicle Accident',
-    icon: icons.ACCIDENT,
+    icon: 'ACCIDENT',
   },
   FLOODING: {
     text: 'Flooding',
-    icon: icons.FLOODING,
+    icon: 'FLOODING',
   },
   'BURN COMPLAINT': {
     text: 'Burn Victim',
-    icon: icons.MEDICAL,
+    icon: 'MEDICAL',
   },
   'SMOKE DETECTOR': {
     text: 'Smoke Detector',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   SMOKE: {
     text: 'Smoke Reported',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   'GRASS FIRE': {
     text: 'Grass Fire',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   'UNKNOWN FIRE': {
     text: 'Fire',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   'STRUCTURE FIRE': {
     text: 'Structure Fire',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   'RUBBISH FIRE': {
     text: 'Rubbish Fire',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   'APPLIANCE FIRE': {
     text: 'Appliance Fire',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   'ALARM CONDITIONS': {
     text: 'Alarm Conditions',
-    icon: icons.ALARM,
+    icon: 'ALARM',
   },
   'NATURAL GAS': {
     text: 'Natural Gas Leak',
-    icon: icons.ALARM,
+    icon: 'ALARM',
   },
   'GAS SPILL': {
     text: 'Gas Spill',
-    icon: icons.FIRE_TRUCK,
+    icon: 'FIRE_TRUCK',
   },
   ODOURS: {
     text: 'Odours Reported',
-    icon: icons.ALARM,
+    icon: 'ALARM',
   },
   'CO DETECTOR': {
     text: 'CO Detector',
-    icon: icons.ALARM,
+    icon: 'ALARM',
   },
   'MULTIPLE ALARM': {
     text: 'Alarms',
-    icon: icons.ALARM,
+    icon: 'ALARM',
   },
   'WATER RESCUE': {
     text: 'Water Rescue',
-    icon: icons.FIRE_TRUCK,
+    icon: 'FIRE_TRUCK',
   },
   'FIRE OUT': {
     text: 'Fire Out',
-    icon: icons.FIRE,
+    icon: 'FIRE',
   },
   'FD ASSISTANCE': {
     text: 'Fire Department Assistance',
-    icon: icons.FIRE_TRUCK,
+    icon: 'FIRE_TRUCK',
   },
   'PROPANE LEAK': {
     text: 'Propane Leak',
-    icon: icons.ALARM,
+    icon: 'ALARM',
   },
   'ROPE RESCUE': {
     text: 'Rope Rescue',
-    icon: icons.FIRE_TRUCK,
+    icon: 'FIRE_TRUCK',
   },
 };

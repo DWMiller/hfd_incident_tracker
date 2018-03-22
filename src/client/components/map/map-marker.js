@@ -6,6 +6,8 @@ import { Marker, InfoWindow } from 'react-google-maps';
 import { eventType } from '../../types';
 import { eventDefinitions } from '../../config/event-definitions';
 
+import icons from '../../config/icons';
+
 import './map-marker.css';
 
 function getIconPath(alert) {
@@ -15,7 +17,7 @@ function getIconPath(alert) {
     eventType = eventDefinitions.UNKNOWN;
   }
 
-  const icon = eventType.icon;
+  const icon = icons[eventType.icon];
 
   return {
     scaledSize: { height: icon.height, width: icon.width },
