@@ -7,7 +7,7 @@ export const initialState = {
   events: [],
   filters: {
     text: '',
-    types: [], //Object.values(icons).map(({ file }) => file),
+    types: Object.keys(icons).map(key => key),
   },
   eventPanel: { active: null, isVisible: false },
   map: {
