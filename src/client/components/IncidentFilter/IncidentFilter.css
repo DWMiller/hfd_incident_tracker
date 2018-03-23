@@ -1,35 +1,56 @@
 .incident-filter-panel {
   position: absolute;
-  bottom: 1em;
-  left: 1em;
-  max-width: calc(100% - 350px);
+  bottom: 0;
+  left: 0;
+  min-width: 150px;
+  max-width: 100%;
+  padding: 0.5em;
+  background-color: rgba(236, 240, 241, 1);
+  box-shadow: 1px 0px 3px -1px rgba(0, 0, 0, 0.8);
+}
+
+.incident-filter-panel .title {
+  font-variant: small-caps;
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+.incident-filter-panel-controls {
+  display: flex;
+  margin-bottom: 0.25em;
+}
+
+.incident-filter-panel-controls button {
+  flex: 1;
+  background-color: whitesmoke;
+  padding: 0.25em 0.5em;
 }
 
 .incident-filter-panel-type {
-  background-color: white;
-  display: inline-block;
-  padding: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0.5em;
   margin: 0.25em;
-  cursor: pointer;
-  box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.8);
-}
-
-.incident-filter-panel-type:active,
-.incident-filter-panel-type.selected {
-  box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
-  transform: translate(1px, 1px);
-  border: none;
-  background-color: whitesmoke;
-}
-
-.incident-filter-panel-type:hover {
-  background-color: whitesmoke;
-}
-
-.incident-filter-panel-type.selected {
+  border-bottom: 1px solid slategrey;
 }
 
 .incident-filter-panel-type img {
   width: 20px;
   height: 20px;
+}
+
+.incident-filter-panel-type .visibility-icon--off,
+.incident-filter-panel-type .visibility-icon--on {
+  opacity: 0.4;
+  font-size: large;
+}
+
+.incident-filter-panel-type .visibility-icon--off:hover,
+.incident-filter-panel-type .visibility-icon--on:hover {
+  opacity: 0.8;
+}
+
+.incident-filter-panel-type .visibility-icon--off.active,
+.incident-filter-panel-type .visibility-icon--on.active {
+  opacity: 1;
 }
