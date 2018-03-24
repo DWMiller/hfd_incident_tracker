@@ -11,3 +11,9 @@ export const incidentType = shape({
   locationName: string,
   id: string,
 });
+
+export const iconType = shape({
+  file: string.isRequired,
+  width: number.isRequired,
+  height: number.isRequired,
+});
