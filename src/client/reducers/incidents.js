@@ -44,3 +44,7 @@ export const filteredIncidentsSelector = createSelector(
       .filter(incident => filterByText(incident, filterText));
   }
 );
+
+export const recentIncidentsSelector = createSelector([filteredIncidentsSelector], incidents => {
+  return incidents.slice(0, 5);
+});

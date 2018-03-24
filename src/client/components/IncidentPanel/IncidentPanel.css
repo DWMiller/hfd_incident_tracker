@@ -1,12 +1,14 @@
 .incident-panel {
   position: absolute;
-  right: -300px;
+  /* right: -300px; */
+  transform: translateY(-100%);
   width: 300px;
   background: rgba(236, 240, 241, 1);
   transition-duration: 0.195s;
   transition-timing-function: ease-out;
   box-sizing: border-box;
-  height: 100%;
+  right: 0;
+  /* height: 100%; */
   overflow-x: visible;
   box-shadow: -2px 2px 5px -2px rgba(0, 0, 0, 0.8);
 }
@@ -14,21 +16,22 @@
 .incident-panel.show {
   transition-duration: 0.225s;
   transition-timing-function: ease-in;
-  right: 0;
+  transform: translateY(0);
+  /* right: 0; */
 }
 
 .incident-panel-list {
-  height: 100%;
+  /* height: 100%; */
   overflow-y: auto;
 }
 
 .incident-panel-toggle {
-  transition-duration: 0.225s;
-  transition-timing-function: ease-in;
+  /* transition-duration: 0.225s; */
+  /* transition-timing-function: ease-in; */
 
   background-color: white;
   position: absolute;
-  right: 0%;
+  right: 300px;
   height: 35px;
   width: 100px;
   border: none;
@@ -39,9 +42,9 @@
   cursor: pointer;
 }
 
-.incident-panel-toggle.active {
+/* .incident-panel-toggle.active {
   right: 300px;
-}
+} */
 
 .incident-panel-toggle:hover {
   background-color: rgba(41, 128, 185, 1);
@@ -50,7 +53,7 @@
 
 .incident-panel-toggle:active {
   box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
-  transform: translate(0, 1px);
+  /* transform: translate(0, 1px); */
 }
 
 .incident-panel-toggle:focus {

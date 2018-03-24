@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
 import * as actionCreators from '../../actions/actionCreators';
-import { filteredIncidentsSelector } from '../../reducers/incidents';
+import { filteredIncidentsSelector, recentIncidentsSelector } from '../../reducers/incidents';
 import { availableIncidentTypesSelector } from '../../reducers/incident-filters';
 
 import MapContainer from '../Map/MapContainer';
@@ -80,19 +80,12 @@ class App extends Component {
           isCollapsed={this.props.filters.isCollapsed}
           toggleCollapsed={this.props.toggleFilterPanel}
         />
-        <button
-          onClick={this.props.toggleIncidentPanel}
-          className={
-            'incident-panel-toggle ' + (this.props.incidentPanel.isVisible ? 'active' : '')
-          }
-        >
-          Incidents
-        </button>
         <IncidentPanel
           isVisible={this.props.incidentPanel.isVisible}
           setActiveIncident={this.props.setActiveIncident}
-          incidents={this.props.filteredIncidents}
+          incidents={this.props.recentIncidents}
           onIncidentSelect={this.incidentSelected}
+          toggleIncidentPanel={this.props.toggleIncidentPanel}
         />
       </div>
     );
@@ -101,6 +94,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
+    recentIncidents: recentIncidentsSelector(state),
     filteredIncidents: filteredIncidentsSelector(state),
     availableIncidentTypes: availableIncidentTypesSelector(state),
     incidents: state.incidents,
