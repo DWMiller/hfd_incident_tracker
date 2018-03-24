@@ -1,5 +1,6 @@
 .incident-info-window {
   max-width: 150px;
+  /* overflow: hidden; */
 }
 
 .incident-info-window span {
@@ -7,23 +8,23 @@
 }
 
 .incident-info-window img {
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  float: left;
+  margin-right: 1em;
+  object-fit: contain;
 }
 
 .incident-info-window .location {
   font-weight: bold;
-  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .incident-info-window .category {
-  font-size: smaller;
-  font-variant: small-caps;
+  font-weight: bold;
 }
 
 .incident-info-window .address {
-  margin: 0.5em 0;
+  margin: 0.5em 0 0.5em 0;
 }
 
 .incident-info-window .time {

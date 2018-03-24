@@ -33,15 +33,8 @@ export class MapInfoWindow extends PureComponent {
             src={icon.file}
             alt={type.text}
           />
-
-          {incident.locationName && (
-            <span
-              className="location"
-              dangerouslySetInnerHTML={{ __html: incident.locationName }}
-            />
-          )}
+          {incident.locationName && <span className="location">{incident.locationName}</span>}
           <span className="category">{type.text}</span>
-
           <span className="address">{incident.location.address}</span>
 
           <span className="link">
