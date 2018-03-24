@@ -54,12 +54,12 @@ export class IncidentFilter extends Component {
           <img onClick={onSelect} alt={'Filter' + icon} src={icons[icon].file} />
           <FaEye
             onClick={!isSelected ? onSelect : null}
-            className={'visibility-icon--on' + (isSelected ? ' active' : '')}
+            className={isSelected ? ' active' : ''}
             style={{ verticalAlign: 'baseline' }}
           />
           <FaEyeSlash
             onClick={isSelected ? onSelect : null}
-            className={'visibility-icon--off' + (!isSelected ? ' active' : '')}
+            className={!isSelected ? ' active' : ''}
             style={{ verticalAlign: 'baseline' }}
           />
         </div>
@@ -82,11 +82,15 @@ export class IncidentFilter extends Component {
 
         <div className="incident-filter-panel-controls">
           <div />
-          <FaEye
-            className="incident-filter-panel__control"
-            onClick={() => this.selectAll(this.props.availableIncidentTypes)}
-          />
-          <FaEyeSlash className="incident-filter-panel__control" onClick={this.deselectAll} />
+          <span title="Enable visibility of all incident types">
+            <FaEye
+              className="incident-filter-panel__control"
+              onClick={() => this.selectAll(this.props.availableIncidentTypes)}
+            />
+          </span>
+          <span title="Disable visibility of all incident types">
+            <FaEyeSlash className="incident-filter-panel__control" onClick={this.deselectAll} />
+          </span>
         </div>
         <div className="incident-filter-panel-types">
           {this.renderFilterButtons(this.props.availableIncidentTypes)}

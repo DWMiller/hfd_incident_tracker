@@ -34,37 +34,41 @@
   border-bottom: 1px solid slategrey;
 }
 
-.incident-filter-panel__control {
-  font-size: large;
-  color: grey;
-}
-
-.incident-filter-panel__control:hover {
-  color: black;
+.incident-filter-panel-controls {
+  padding: 0 0.5em;
 }
 
 .incident-filter-panel-type {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 0.5em;
-  margin: 0.25em;
+  padding: 0 0.5em;
   border-bottom: 1px solid slategrey;
 }
 
 .incident-filter-panel-type img {
   width: 20px;
   height: 20px;
+  object-fit: cover;
 }
 
+.incident-filter-panel-controls svg,
+.incident-filter-panel-type img,
 .incident-filter-panel-type svg {
-  opacity: 0.4;
-  font-size: large;
+  padding: 0.5em;
 }
 
+.incident-filter-panel-controls svg,
+.incident-filter-panel-type svg {
+  color: grey;
+  font-size: large;
+  cursor: pointer;
+}
+
+.incident-filter-panel-controls svg:hover,
 .incident-filter-panel-type svg:hover {
-  opacity: 0.8;
+  color: black;
 }
 
 .incident-filter-panel-type svg.active {
-  opacity: 1;
+  color: black;
 }
