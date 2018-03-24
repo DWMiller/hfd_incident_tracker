@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { incidentType } from '../../types';
 
 import IncidentPanelItem from './IncidentPanelItem';
-import IncidentPanelTextFilter from './IncidentPanelFilter';
 
 import './IncidentPanel.css';
 
@@ -15,11 +14,6 @@ export class IncidentPanel extends Component {
     setActiveIncident: PropTypes.func.isRequired,
     active: PropTypes.string,
     isVisible: PropTypes.bool.isRequired,
-    textFilter: PropTypes.string,
-  };
-
-  updateFilter = filterText => {
-    this.props.setTextFilter(filterText);
   };
 
   onIncidentHover = incidentId => {
@@ -69,10 +63,6 @@ export class IncidentPanel extends Component {
 
     return (
       <div className={'incident-panel show'}>
-        <IncidentPanelTextFilter
-          filterText={this.props.textFilter}
-          updateFilter={this.updateFilter}
-        />
         <div className="incident-panel-list">{Incidents}</div>
       </div>
     );

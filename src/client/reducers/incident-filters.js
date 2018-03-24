@@ -33,6 +33,16 @@ export const textFilterReducer = (state = '', { type, text } = {}) => {
   }
 };
 
+export const collapsePanelReducer = (state = '', { type } = {}) => {
+  switch (type) {
+    case 'TOGGLE_FILTER_PANEL': {
+      return !state;
+    }
+    default:
+      return state;
+  }
+};
+
 export const availableIncidentTypesSelector = createSelector(
   [incidentsSelector],
   (incidents = []) => {

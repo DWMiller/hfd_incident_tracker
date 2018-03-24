@@ -64,3 +64,9 @@ export function setTextFilter(text) {
     text,
   };
 }
+
+export function toggleFilterPanel() {
+  return {
+    type: 'TOGGLE_FILTER_PANEL',
+  };
+}

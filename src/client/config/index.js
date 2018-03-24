@@ -6,6 +6,7 @@ export const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${apiKe
 export const initialState = {
   incidents: [],
   filters: {
+    isCollapsed: false,
     text: '',
     types: Object.keys(icons).map(key => key),
   },

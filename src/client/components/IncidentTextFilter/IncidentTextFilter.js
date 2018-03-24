@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import './IncidentPanelFilter.css';
+import FaClose from 'react-icons/lib/fa/close';
 
-export default class IncidentPanelTextFilter extends PureComponent {
+import './IncidentTextFilter.css';
+
+export default class IncidentTextFilter extends PureComponent {
   static propTypes = {
     filterText: PropTypes.string,
     updateFilter: PropTypes.func.isRequired,
@@ -21,12 +23,14 @@ export default class IncidentPanelTextFilter extends PureComponent {
     return (
       <React.Fragment>
         <input
-          className="incident-panel__text-filter"
-          placeholder="Filter incidents"
+          className="incident__text-filter"
+          placeholder="Search incidents"
           onChange={this.handleChange}
           value={this.props.filterText}
         />
-        <button onClick={this.clearFilter}>Clear</button>
+        <button onClick={this.clearFilter}>
+          <FaClose />
+        </button>
       </React.Fragment>
     );
   }

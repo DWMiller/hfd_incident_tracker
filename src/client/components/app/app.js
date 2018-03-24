@@ -75,6 +75,10 @@ class App extends Component {
           selectMultipleIncidentFilters={this.props.selectMultipleIncidentFilters}
           filter={this.props.filters.types}
           availableIncidentTypes={this.props.availableIncidentTypes}
+          textFilter={this.props.filters.text}
+          setTextFilter={this.props.setTextFilter}
+          isCollapsed={this.props.filters.isCollapsed}
+          toggleCollapsed={this.props.toggleFilterPanel}
         />
         <button
           onClick={this.props.toggleIncidentPanel}
@@ -89,8 +93,6 @@ class App extends Component {
           setActiveIncident={this.props.setActiveIncident}
           incidents={this.props.filteredIncidents}
           onIncidentSelect={this.incidentSelected}
-          textFilter={this.props.filters.text}
-          setTextFilter={this.props.setTextFilter}
         />
       </div>
     );
