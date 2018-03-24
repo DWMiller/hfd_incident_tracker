@@ -10,7 +10,9 @@ import icons from '../../config/icons';
 
 import './MapMarker.css';
 
-function getIconPath(alert) {
+const moment = require('moment');
+
+function getIcon(alert) {
   let incidentType = incidentDefinitions[alert.category];
 
   if (typeof incidentType === 'undefined') {
@@ -19,10 +21,7 @@ function getIconPath(alert) {
 
   const icon = icons[incidentType.icon];
 
-  return {
-    scaledSize: { height: icon.height, width: icon.width },
-    url: icon.file,
-  };
+  return icon;
 }
 
 class MapMarker extends PureComponent {
@@ -42,18 +41,61 @@ class MapMarker extends PureComponent {
   };
 
   render() {
+    const incident = this.props.alert;
+
+    const type = incidentDefinitions[incident.category]
+      ? incidentDefinitions[incident.category]
+      : incidentDefinitions['UNKNOWN'];
+
+    const icon = getIcon(incident);
+
+    const markerIcon = {
+      scaledSize: { height: icon.height, width: icon.width },
+      url: icon.file,
+    };
+
+    const date = moment(incident.created).format('MMMM Do h:mm a');
+
     return (
       <Marker
         position={{ lat: this.props.lat, lng: this.props.lng }}
-        defaultIcon={getIconPath(this.props.alert)}
+        defaultIcon={markerIcon}
         onClick={this.onClick}
       >
-        {0 &&
-          this.state.isOpen && (
-            <InfoWindow>
-              <p>Test</p>
-            </InfoWindow>
-          )}
+        {this.state.isOpen && (
+          <InfoWindow>
+            <div className="incident-info-window">
+              <img
+                className="icon"
+                width={icon.width}
+                height={icon.height}
+                src={icon.file}
+                alt={type.text}
+              />
+
+              {incident.locationName && (
+                <span
+                  className="location"
+                  dangerouslySetInnerHTML={{ __html: incident.locationName }}
+                />
+              )}
+              <span className="category">{type.text}</span>
+
+              <span className="address">{incident.location.address}</span>
+
+              <span className="link">
+                <a
+                  onClick={this.twitterLinkClick}
+                  href={'https://twitter.com/HFD_Incidents/status/' + incident.id}
+                >
+                  View on Twitter
+                </a>
+              </span>
+
+              <span className="time">{date}</span>
+            </div>
+          </InfoWindow>
+        )}
       </Marker>
     );
   }
