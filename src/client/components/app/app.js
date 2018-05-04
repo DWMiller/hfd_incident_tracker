@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import io from 'socket.io-client';
+import { fetchRecentIncidents } from '../../api';
 
 import * as actionCreators from '../../actions/actionCreators';
 import { filteredIncidentsSelector, recentIncidentsSelector } from '../../reducers/incidents';
@@ -14,12 +15,6 @@ import IncidentPanel from '../IncidentPanel/IncidentPanel';
 import IncidentFilter from '../IncidentFilter/IncidentFilter';
 
 import './App.css';
-
-const fetchRecentIncidents = async () => {
-  const path = window.location.port ? '//localhost:3001' : '';
-  const response = await fetch(`${path}/recent`);
-  return await response.json();
-};
 
 class App extends Component {
   static propTypes = {
@@ -40,11 +35,14 @@ class App extends Component {
 
       this.props.addIncident(incident);
     });
+  }
 
+  componentDidMount() {
     fetchRecentIncidents()
       .then(incidents => {
         this.props.clearIncidents();
-        this.props.addIncidents(incidents);
+        // Add incidents, but filter for valid incidents, check if they have a category
+        this.props.addIncidents(incidents.filter(i => i.category));
       })
       .catch(err => {
         console.log('Could not fetch recent incidents from server');
