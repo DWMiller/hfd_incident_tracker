@@ -49,8 +49,9 @@ export class IncidentPanel extends PureComponent {
         <button
           onClick={this.props.toggleIncidentPanel}
           className={'incident-panel-toggle ' + (this.props.isVisible ? 'active' : '')}
+          title="Click to toggle the recent events panel"
         >
-          Recent
+          Recent {this.props.isVisible ? '[ - ]' : '[ + ]'}
         </button>
 
         <div className={'incident-panel ' + (this.props.isVisible ? 'show' : '')}>
