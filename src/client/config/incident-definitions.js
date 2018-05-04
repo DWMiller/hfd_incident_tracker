@@ -115,4 +115,12 @@ export const incidentDefinitions = {
     text: 'Rope Rescue',
     icon: 'FIRE_TRUCK',
   },
+  HAZMAT: {
+    text: 'Hazmat',
+    icon: 'BIOHAZARD',
+  },
+  OTHER: {
+    text: 'Unspecified Incident',
+    icon: 'UNKNOWN',
+  },
 };

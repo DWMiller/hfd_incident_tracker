@@ -44,6 +44,11 @@ const icons = {
     width: 36,
     height: 36,
   },
+  BIOHAZARD: {
+    file: require('../assets/icons/biohazard.png'),
+    width: 36,
+    height: 34,
+  },
 };
 
 export default icons;
