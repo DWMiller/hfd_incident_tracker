@@ -27,14 +27,12 @@ const filterByTypes = (incident, types) => {
   return types.some(icon => icon === type.icon);
 };
 
-const filterByText = (incident, text) => {
-  const normalizedFilterFields = (
-    incident.location.address +
-    incident.locationName +
+const filterByText = (incident, text) =>
+  `${incident.location.address} ${incident.location.address} ${incident.locationName || ''} ${
     incident.category
-  ).toUpperCase();
-  return normalizedFilterFields.includes(text.toUpperCase());
-};
+  }`
+    .toUpperCase()
+    .includes(text.toUpperCase());
 
 export const filteredIncidentsSelector = createSelector(
   [incidentsSelector, incidentTypeFilterSelector, incidentTextFilterSelector],
