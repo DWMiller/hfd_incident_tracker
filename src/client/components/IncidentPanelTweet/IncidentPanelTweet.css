@@ -1,0 +1,11 @@
+.incident-panel-item {
+  position: relative;
+  margin: 0.5em 0.25em;
+  cursor: pointer;
+  box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.8);
+}
+
+.incident-panel-item:active {
+  box-shadow: none;
+  transform: translate(1px, 1px);
+}

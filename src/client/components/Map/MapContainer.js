@@ -53,7 +53,6 @@ class MapContainer extends PureComponent {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     incidents: filteredIncidentsSelector(state),
     settings: state.mapSettings,
