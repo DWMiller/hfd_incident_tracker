@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import { incidentType } from '../../types';
 
 // import IncidentPanelItem from './IncidentPanelItem';
@@ -41,7 +43,15 @@ export class IncidentPanel extends PureComponent {
         </button>
 
         <div className={'incident-panel ' + (this.props.isVisible ? 'show' : '')}>
-          <div className="incident-panel-list">{Incidents}</div>
+          <div className="incident-panel-list">
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionEnterTimeout={2000}
+              transitionLeave={false}
+            >
+              {Incidents}
+            </ReactCSSTransitionGroup>
+          </div>
         </div>
       </React.Fragment>
     );
