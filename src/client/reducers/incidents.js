@@ -4,9 +4,9 @@ import { incidentDefinitions } from '../config/incident-definitions';
 export default (state = [], { type, incident, incidents } = {}) => {
   switch (type) {
     case 'ADD_INCIDENT':
-      return [...state, incident];
+      return [incident, ...state];
     case 'ADD_INCIDENTS':
-      return [...state, ...incidents];
+      return [...incidents, ...state];
     case 'CLEAR_INCIDENTS':
       return [];
     default:
