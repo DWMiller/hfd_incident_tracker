@@ -6,9 +6,6 @@ import IncidentTextFilter from './../IncidentTextFilter/IncidentTextFilter';
 import FaEye from 'react-icons/lib/fa/eye';
 import FaEyeSlash from 'react-icons/lib/fa/eye-slash';
 
-import FaChevronUp from 'react-icons/lib/fa/chevron-up';
-import FaChevronDown from 'react-icons/lib/fa/chevron-down';
-
 import icons from '../../config/icons';
 
 import { filterType } from '../../types';
@@ -72,7 +69,7 @@ export class IncidentFilter extends Component {
       <div className={'incident-filter-panel' + (this.props.isCollapsed ? ' collapsed' : '')}>
         <div onClick={this.props.toggleCollapsed} className="title">
           Filter Incidents
-          {this.props.isCollapsed ? <FaChevronUp /> : <FaChevronDown />}
+          {this.props.isCollapsed ? ' [ + ]' : ' [ - ]'}
         </div>
 
         <IncidentTextFilter
