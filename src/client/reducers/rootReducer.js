@@ -3,9 +3,9 @@ import { combineReducers } from 'redux';
 import incidents from './incidents';
 import { typeFilterReducer, textFilterReducer, collapsePanelReducer } from './incident-filters';
 import incidentPanel from './incident-panel';
-import { activeMarkerReducer } from './activeMarkerReducer';
+import activeMarker from './activeMarkerReducer';
 
-import map from './map';
+import mapSettings from './mapSettingsReducer';
 
 const rootReducer = combineReducers({
   incidents,
@@ -15,10 +15,8 @@ const rootReducer = combineReducers({
     isCollapsed: collapsePanelReducer,
   }),
   incidentPanel,
-  map: combineReducers({
-    settings: map,
-    activeMarker: activeMarkerReducer,
-  }),
+  mapSettings,
+  activeMarker,
 });
 
 export default rootReducer;
