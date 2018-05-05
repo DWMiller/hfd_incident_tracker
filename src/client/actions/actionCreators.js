@@ -70,3 +70,10 @@ export function toggleFilterPanel() {
     type: 'TOGGLE_FILTER_PANEL',
   };
 }
+
+export function setActiveMarker(incidentCode) {
+  return {
+    type: 'SET_ACTIVE_MARKER',
+    incidentCode,
+  };
+}

@@ -12,7 +12,9 @@ export const initialState = {
   },
   incidentPanel: { active: null, isVisible: false },
   map: {
-    zoom: 12,
-    center: { lat: 43.254401, lng: -79.863552 },
+    settings: {
+      zoom: 12,
+      center: { lat: 43.254401, lng: -79.863552 },
+    },
   },
 };

@@ -1,37 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
 
 import MapMarker from './MapMarker';
 
-const renderMarkers = (active, alerts) => {
-  return alerts.map(alert => {
-    const isActive = false; // alert.id === active;
+//
 
-    const [lng, lat] = alert.location.coordinates;
+class Map extends Component {
+  renderMarkers = (active, incidents) => {
+    return incidents.map(incident => {
+      const isActive = this.props.activeMarker === incident.code; // alert.id === active;
+      const [lng, lat] = incident.location.coordinates;
 
-    return <MapMarker key={alert._id} isActive={isActive} alert={alert} lat={lat} lng={lng} />;
-  });
-};
+      return (
+        <MapMarker
+          key={incident.code}
+          isActive={isActive}
+          incident={incident}
+          lat={lat}
+          lng={lng}
+          setActiveMarker={this.props.setActiveMarker}
+        />
+      );
+    });
+  };
 
-const Map = withScriptjs(
-  withGoogleMap(props => {
-    const Markers = renderMarkers(props.active, props.alerts);
+  render() {
+    const Markers = this.renderMarkers(this.props.active, this.props.incidents);
 
     return (
       <GoogleMap
-        center={props.settings.center}
-        zoom={props.settings.zoom}
-        onCenterChanged={props.onMapPropsChange}
-        ref={props.mapRef}
+        center={this.props.settings.center}
+        zoom={this.props.settings.zoom}
+        onCenterChanged={this.props.onMapPropsChange}
+        ref={this.props.mapRef}
       >
         <MarkerClusterer minimumClusterSize={3} maxZoom={12} gridSize={50}>
           {Markers}
         </MarkerClusterer>
       </GoogleMap>
     );
-  })
-);
+  }
+}
 
-export default Map;
+export default withScriptjs(withGoogleMap(Map));

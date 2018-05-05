@@ -26,8 +26,6 @@ class App extends Component {
 
     const socket = window.location.port ? io('//localhost:3001') : io();
     socket.on('incident', incident => {
-      console.log(incident);
-
       if (!incident) {
         // Server parsing is still a work in progress, skip saving an undefined object if one comes in
         return;
@@ -61,12 +59,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <MapContainer
-          mapChange={this.props.mapChange}
-          active={this.props.incidentPanel.active}
-          settings={this.props.map}
-          alerts={this.props.filteredIncidents}
-        />
+        <MapContainer />
         <IncidentFilter
           toggleIncidentFilter={this.props.toggleIncidentFilter}
           deselectAllIncidentFilters={this.props.deselectAllIncidentFilters}
@@ -98,7 +91,6 @@ const mapStateToProps = state => {
     incidents: state.incidents,
     incidentPanel: state.incidentPanel,
     filters: state.filters,
-    map: state.map,
   };
 };
 

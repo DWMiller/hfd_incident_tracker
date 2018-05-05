@@ -1,5 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import * as actionCreators from '../../actions/actionCreators';
+import { filteredIncidentsSelector } from '../../reducers/incidents';
 
 import { incidentType } from '../../types';
 
@@ -47,4 +52,16 @@ class MapContainer extends PureComponent {
   }
 }
 
-export default MapContainer;
+const mapStateToProps = state => {
+  return {
+    incidents: filteredIncidentsSelector(state),
+    settings: state.map.settings,
+    activeMarker: state.map.activeMarker,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(actionCreators, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);

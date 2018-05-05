@@ -12,8 +12,8 @@ import icons from '../../config/icons';
 
 import './MapMarker.css';
 
-function getIcon(alert) {
-  let incidentType = incidentDefinitions[alert.category];
+function getIcon(incident) {
+  let incidentType = incidentDefinitions[incident.category];
 
   if (typeof incidentType === 'undefined') {
     incidentType = incidentDefinitions.UNKNOWN;
@@ -27,21 +27,13 @@ function getIcon(alert) {
 class MapMarker extends PureComponent {
   static propTypes = {
     isActive: PropTypes.bool.isRequired,
-    alert: incidentType.isRequired,
+    incident: incidentType.isRequired,
   };
 
-  state = {
-    isOpen: false,
-  };
-
-  onClick = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  };
+  onClick = () => this.props.setActiveMarker(this.props.incident.code);
 
   render() {
-    const incident = this.props.alert;
+    const incident = this.props.incident;
 
     const icon = getIcon(incident);
 
@@ -56,7 +48,7 @@ class MapMarker extends PureComponent {
         defaultIcon={markerIcon}
         onClick={this.onClick}
       >
-        {this.state.isOpen && <MapInfoWindow icon={icon} incident={incident} />}
+        {this.props.isActive && <MapInfoWindow icon={icon} incident={incident} />}
       </Marker>
     );
   }
