@@ -1,10 +1,8 @@
 import { createSelector } from 'reselect';
 import { incidentDefinitions } from '../config/incident-definitions';
 
-export default (state = [], { type, incident, incidents } = {}) => {
+export default (state = [], { type, incidents } = {}) => {
   switch (type) {
-    case 'ADD_INCIDENT':
-      return [incident, ...state];
     case 'ADD_INCIDENTS':
       return [...incidents, ...state];
     case 'CLEAR_INCIDENTS':

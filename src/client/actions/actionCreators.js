@@ -1,8 +1,5 @@
 export function addIncident(incident) {
-  return {
-    type: 'ADD_INCIDENT',
-    incident,
-  };
+  return addIncidents([incident]);
 }
 
 export function addIncidents(incidents) {
