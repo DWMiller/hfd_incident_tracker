@@ -1,76 +1,52 @@
-export function addIncident(incident) {
-  return addIncidents([incident]);
-}
+export const addIncident = incident => addIncidents([incident]);
 
-export function addIncidents(incidents) {
-  return {
-    type: 'ADD_INCIDENTS',
-    incidents,
-  };
-}
+export const addIncidents = incidents => ({
+  type: 'ADD_INCIDENTS',
+  incidents,
+});
 
-export function clearIncidents() {
-  return {
-    type: 'CLEAR_INCIDENTS',
-  };
-}
+export const clearIncidents = () => ({
+  type: 'CLEAR_INCIDENTS',
+});
 
-export function setActiveIncident(incidentId) {
-  return {
-    type: 'SET_ACTIVE_INCIDENT',
-    incidentId,
-  };
-}
+export const setActiveIncident = incidentId => ({
+  type: 'SET_ACTIVE_INCIDENT',
+  incidentId,
+});
 
-export function mapChange(settings) {
-  return {
-    type: 'MAP_CHANGE',
-    settings,
-  };
-}
+export const mapChange = settings => ({
+  type: 'MAP_CHANGE',
+  settings,
+});
 
-export function toggleIncidentPanel() {
-  return {
-    type: 'TOGGLE_INCIDENT_PANEL',
-  };
-}
+export const toggleIncidentPanel = () => ({
+  type: 'TOGGLE_INCIDENT_PANEL',
+});
 
-export function toggleIncidentFilter(category) {
-  return {
-    type: 'TOGGLE_INCIDENT_FILTER',
-    category,
-  };
-}
+export const toggleIncidentFilter = category => ({
+  type: 'TOGGLE_INCIDENT_FILTER',
+  category,
+});
 
-export function selectMultipleIncidentFilters(category) {
-  return {
-    type: 'SELECT_MULTIPLE',
-    category,
-  };
-}
+export const selectMultipleIncidentFilters = category => ({
+  type: 'SELECT_MULTIPLE',
+  category,
+});
 
-export function deselectAllIncidentFilters() {
-  return {
-    type: 'DESELECT_ALL',
-  };
-}
+export const deselectAllIncidentFilters = () => ({
+  type: 'DESELECT_ALL',
+});
 
-export function setTextFilter(text) {
-  return {
-    type: 'SET_TEXT_FILTER',
-    text,
-  };
-}
+export const setTextFilter = text => ({
+  type: 'SET_TEXT_FILTER',
+  text,
+});
 
-export function toggleFilterPanel() {
-  return {
-    type: 'TOGGLE_FILTER_PANEL',
-  };
-}
+export const toggleFilterPanel = () => ({
+  type: 'TOGGLE_FILTER_PANEL',
+});
 
-export function setActiveMarker(incidentCode) {
-  return {
-    type: 'SET_ACTIVE_MARKER',
-    incidentCode,
-  };
-}
+export const setActiveMarker = incidentCode => ({
+  type: 'SET_ACTIVE_MARKER',
+  incidentCode,
+});
