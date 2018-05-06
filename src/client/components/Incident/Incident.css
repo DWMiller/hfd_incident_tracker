@@ -7,17 +7,6 @@
   box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.8);
 }
 
-.incident-panel-item:active {
-  box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
-  transform: translate(1px, 1px);
-  border: none;
-}
-
-.incident-panel-item.active {
-  background-color: rgba(41, 128, 185, 1);
-  color: white;
-}
-
 .incident-panel-item span {
   display: block;
 }
@@ -52,6 +41,17 @@
   float: left;
 }
 
-.incident-panel-item.active .link a {
+.incident-panel-item:active {
+  box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
+  transform: translate(1px, 1px);
+  border: none;
+}
+
+.incident-panel-item:hover {
+  background-color: rgba(41, 128, 185, 1);
+  color: white;
+}
+
+.incident-panel-item:hover .link a {
   color: white;
 }
