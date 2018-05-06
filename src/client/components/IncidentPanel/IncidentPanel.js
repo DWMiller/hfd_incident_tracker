@@ -5,8 +5,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { incidentType } from '../../types';
 
-// import IncidentPanelItem from './IncidentPanelItem';
-import IncidentPanelItem from '../IncidentPanelTweet/IncidentPanelTweet';
+import IncidentPanelItem from '../Incident/Incident';
+// import IncidentPanelItem from '../IncidentPanelTweet/IncidentPanelTweet';
 
 import './IncidentPanel.css';
 
@@ -14,20 +14,19 @@ export class IncidentPanel extends PureComponent {
   static propTypes = {
     incidents: PropTypes.arrayOf(incidentType),
     onIncidentSelect: PropTypes.func.isRequired,
-    setActiveIncident: PropTypes.func.isRequired,
     active: PropTypes.string,
     isVisible: PropTypes.bool.isRequired,
     toggleIncidentPanel: PropTypes.func.isRequired,
   };
 
-  onIncidentHover = incidentId => {
-    if (this.props.active !== incidentId) {
-      this.props.setActiveIncident(incidentId);
-    }
-  };
-
   renderIncidentList = incidents =>
-    incidents.map(incident => <IncidentPanelItem incident={incident} key={incident.id} />);
+    incidents.map(incident => (
+      <IncidentPanelItem
+        onIncidentSelect={this.props.onIncidentSelect}
+        incident={incident}
+        key={incident.id}
+      />
+    ));
 
   render() {
     const Incidents = this.renderIncidentList(this.props.incidents);
@@ -45,7 +44,7 @@ export class IncidentPanel extends PureComponent {
         <div className={'incident-panel ' + (this.props.isVisible ? 'show' : '')}>
           <div className="incident-panel-list">
             <ReactCSSTransitionGroup
-              transitionName="example"
+              transitionName="incident"
               transitionEnterTimeout={2000}
               transitionLeave={false}
             >

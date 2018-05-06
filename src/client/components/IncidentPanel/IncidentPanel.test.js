@@ -21,7 +21,6 @@ it('incident panel renders without crashing', () => {
   render(
     <IncidentPanel
       isVisible={true}
-      setActiveIncident={() => {}}
       incidents={[fauxIncident]}
       onIncidentSelect={() => {}}
       textFilter=""

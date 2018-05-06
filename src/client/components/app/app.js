@@ -54,6 +54,8 @@ class App extends Component {
         lat: incident.location.coordinates[1],
       },
     });
+
+    this.props.setActiveMarker(incident.code);
   };
 
   render() {
@@ -73,7 +75,6 @@ class App extends Component {
         />
         <IncidentPanel
           isVisible={this.props.incidentPanel.isVisible}
-          setActiveIncident={this.props.setActiveIncident}
           incidents={this.props.recentIncidents}
           onIncidentSelect={this.incidentSelected}
           toggleIncidentPanel={this.props.toggleIncidentPanel}

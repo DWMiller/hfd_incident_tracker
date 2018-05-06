@@ -9,11 +9,6 @@ export const clearIncidents = () => ({
   type: 'CLEAR_INCIDENTS',
 });
 
-export const setActiveIncident = incidentId => ({
-  type: 'SET_ACTIVE_INCIDENT',
-  incidentId,
-});
-
 export const mapChange = settings => ({
   type: 'MAP_CHANGE',
   settings,
