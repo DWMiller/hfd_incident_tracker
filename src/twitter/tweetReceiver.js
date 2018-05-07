@@ -24,12 +24,6 @@ const saveIncident = async (tweet = {}) => {
   return incident;
 };
 
-exports.tweetReceiver = ramda.pipeP(
-  tweetFilter,
-  tweetFetcher,
-  tweetRefiner,
-  saveTweet,
-  tweetParser,
-  tweetGeoCoder,
-  saveIncident
-);
+exports.tweetReceiver = ramda.pipeP(tweetFilter, tweetFetcher, tweetRefiner, saveTweet);
+
+exports.incidentPrepper = ramda.pipeP(tweetParser, tweetGeoCoder, saveIncident);

@@ -16,18 +16,16 @@ const server = app.listen(port, () => {
 
 const io = require('socket.io')(server);
 
-// io.on('connection', socket => {
-//   socket.emit('connected');
-// });
-
 const { connect } = require('./twitter/twitterConnector');
-const { tweetReceiver } = require('./twitter/tweetReceiver');
+const { tweetReceiver, incidentPrepper } = require('./twitter/tweetReceiver');
 
 const handleTweet = async tweet => {
   try {
-    const incidentData = await tweetReceiver(tweet);
-    io.sockets.emit('incident', incidentData);
-    console.log(`Broadcast: ${incidentData.location.address}`);
+    const processedTweet = await tweetReceiver(tweet);
+    const incident = await incidentPrepper(processedTweet);
+
+    io.sockets.emit('incident', incident);
+    console.log(`Broadcast: ${incident.location.address}`);
   } catch (error) {
     console.log(`E - ${error}`);
   }

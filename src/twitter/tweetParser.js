@@ -81,18 +81,14 @@ exports.tweetParser = async tweet => {
   }
 
   if (event.type !== 'NEW') {
-    // console.log(`UPDATE ONLY: ${parsedTweet.code}`);
     // not set up to handle event updates yet
-    return false;
+    throw 'Update tweet received';
   }
 
   if (!event.intersection) {
-    // console.log(`UNHANDLED TWEET:`);
-    // not set up to handle event updates yet
-    return false;
+    // just in case?
+    throw 'Tweet parsing error occured';
   }
-
-  // console.log(`PARSED: ${parsedTweet.intersection}`);
 
   return event;
 };

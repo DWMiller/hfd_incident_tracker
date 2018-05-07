@@ -2,14 +2,16 @@ const mongoose = require('../mongoose-connection');
 require('../models/Incident.js');
 require('../models/Tweet.js');
 
-const { tweetReceiver } = require('../twitter/tweetReceiver');
+const { tweetReceiver,incidentPrepper } = require('../twitter/tweetReceiver');
 
 const tweet = {
   created_at: new Date(),
   id_str: '976490090154295298',
   text:
-    'NEW | F18010587 | CO DETECTOR | Loc: 28 WELLINGTON ST S DU @ JAMES ST/HATT ST | Units: E23 | 03/21/18 12:02',
+    'NEW | F18016486 | VEHICLE ACC | Loc: SC @ KING ST E/ROSEDALE DR | Units: E12,R12 | 05/07/18 15:22',
   user: { id: 611701456 },
 };
 
-tweetReceiver(tweet);
+
+const processedTweet = await tweetReceiver(tweet);
+incidentPrepper(processedTweet);
