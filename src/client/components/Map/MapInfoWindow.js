@@ -24,7 +24,7 @@ export class MapInfoWindow extends PureComponent {
 
     const date = moment(incident.created).format('MMMM Do h:mm a');
     return (
-      <InfoWindow>
+      <InfoWindow onCloseClick={this.props.onCloseClick}>
         <div className="incident-info-window">
           <img
             className="icon"

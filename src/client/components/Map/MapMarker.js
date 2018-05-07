@@ -48,7 +48,9 @@ class MapMarker extends PureComponent {
         defaultIcon={markerIcon}
         onClick={this.onClick}
       >
-        {this.props.isActive && <MapInfoWindow icon={icon} incident={incident} />}
+        {this.props.isActive && (
+          <MapInfoWindow onCloseClick={this.onClick} icon={icon} incident={incident} />
+        )}
       </Marker>
     );
   }
