@@ -6,6 +6,8 @@ const mongoose = require('./mongoose-connection');
 require('./models/Tweet');
 require('./models/Incident');
 
+const { KEYS, setData, getData } = require('./dataStore');
+
 const app = require('./app');
 
 const port = process.env.PORT || 3001;
@@ -23,6 +25,12 @@ const handleTweet = async tweet => {
   try {
     const processedTweet = await tweetReceiver(tweet);
     const incident = await incidentPrepper(processedTweet);
+
+    let storedIncidents = getData(KEYS.RECENT_INCIDENTS);
+
+    if (storedIncidents) {
+      setData(KEYS.RECENT_INCIDENTS, [incident, ...storedIncidents.slice(0, 99)]);
+    }
 
     io.sockets.emit('incident', incident);
     console.log(`Broadcast: ${incident.location.address}`);
