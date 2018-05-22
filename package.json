@@ -10,7 +10,7 @@
     "deploy": "react-scripts build && node src/server.js",
     "client": "react-scripts start",
     "server": "node src/server.js",
-    "watch": "nodemon ./src/server.js --ignore public/ --ignore src/",
+    "watch": "nodemon ./src/server.js --ignore public/ --ignore src/client",
     "start": "start npm run server && react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "build": "react-scripts build",
@@ -55,6 +55,7 @@
     "eslint": "^4.17.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
+    "nodemon": "^1.17.4",
     "prettier": "^1.10.2",
     "redux-mock-store": "^1.5.1"
   }
