@@ -38,7 +38,7 @@ export class IncidentPanel extends PureComponent {
           className={'incident-panel-toggle ' + (this.props.isVisible ? 'active' : '')}
           title="Click to toggle the recent events panel"
         >
-          Twitter Feed {this.props.isVisible ? '[ - ]' : '[ + ]'}
+          Recent Incidents {this.props.isVisible ? '[ - ]' : '[ + ]'}
         </button>
 
         <div className={'incident-panel ' + (this.props.isVisible ? 'show' : '')}>
