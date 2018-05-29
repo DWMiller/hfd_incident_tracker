@@ -5,7 +5,7 @@ const cors = require('@koa/cors');
 const path = require('path');
 const logger = require('koa-logger');
 
-const router = require('./routes/index');
+const router = require('./routes');
 const { notFound } = require('./helpers');
 
 const app = new Koa();
