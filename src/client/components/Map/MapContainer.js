@@ -24,8 +24,8 @@ class MapContainer extends PureComponent {
 
   saveMapState = () => {
     this.props.mapChange({
-      center: this.mapRef.value.getCenter().toJSON(),
-      zoom: this.mapRef.value.getZoom(),
+      center: this.mapRef.current.getCenter().toJSON(),
+      zoom: this.mapRef.current.getZoom(),
     });
   };
 
