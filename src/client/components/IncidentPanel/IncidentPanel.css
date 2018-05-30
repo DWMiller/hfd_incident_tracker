@@ -1,5 +1,6 @@
 .incident-panel {
   position: absolute;
+  z-index: 90;
   transform: translateY(-100%);
   width: 300px;
   background: rgba(236, 240, 241, 1);
@@ -22,6 +23,7 @@
 .incident-panel-toggle {
   background-color: white;
   position: absolute;
+  z-index: 100;
   right: 0;
   height: 35px;
   width: 300px;
