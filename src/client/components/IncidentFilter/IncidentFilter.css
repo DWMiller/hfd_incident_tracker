@@ -1,69 +1,82 @@
-.incident-filter-panel {
+.incidentFilterPanel {
   position: absolute;
   bottom: 0;
   left: 0;
   min-width: 150px;
   max-width: 100%;
-  padding: 0.5em;
-  background-color: #ecf0f1;
-  box-shadow: 1px 0px 3px -1px rgba(0, 0, 0, 0.8);
   transition-duration: 0.195s;
   transition-timing-function: ease-out;
+  background-color: #ecf0f1;
+  border: 1px solid lightgray;
+  border-right: none;
+  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.3);
 }
 
-.incident-filter-panel.collapsed {
-  transform: translateY(calc(100% - 2.5em));
-}
-
-.incident-filter-panel .title {
-  font-variant: small-caps;
-  text-align: center;
+.incidentFilterPanel__content {
+  padding: 0.5em 0.5em 0 0.5em;
   margin-bottom: 0.5em;
-  cursor: pointer;
 }
 
-.incident-filter-panel .title svg {
+.incidentFilterPanel.collapsed {
+  transform: translateY(calc(100% - 35px));
+}
+
+.incidentFilterPanel__title {
+  display: block;
+  width: 100%;
+  height: 35px;
+}
+
+.incidentFilterPanel__title svg {
   margin-left: 1em;
 }
 
-.incident-filter-panel-controls,
-.incident-filter-panel-type {
+.incidentFilterPanel__controls,
+.incidentFilterPanel__type {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 0.5em;
   padding: 0 0.5em;
   background: white;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 }
 
-.incident-filter-panel-controls {
+.incidentFilterPanel__controls {
+  border-top: 1px solid lightgray;
   padding: 0 0.5em;
 }
 
-.incident-filter-panel-type img {
+.incidentFilterPanel__type img {
   width: 20px;
   height: 20px;
   object-fit: cover;
 }
 
-.incident-filter-panel-controls svg,
-.incident-filter-panel-type img,
-.incident-filter-panel-type svg {
+.incidentFilterPanel__controls svg,
+.incidentFilterPanel__type img,
+.incidentFilterPanel__type svg {
   padding: 0.5em;
 }
 
-.incident-filter-panel-controls svg,
-.incident-filter-panel-type svg {
+.incidentFilterPanel__controls svg,
+.incidentFilterPanel__type svg {
   color: grey;
   font-size: large;
   cursor: pointer;
 }
 
-.incident-filter-panel-controls svg:hover,
-.incident-filter-panel-type svg:hover {
+.incidentFilterPanel__controls svg:hover,
+.incidentFilterPanel__type svg:hover {
   color: black;
 }
 
-.incident-filter-panel-type svg.active {
+.incidentFilterPanel__type svg.active {
   color: black;
+}
+
+@media (min-width: 800px) {
+  .incidentFilterPanel {
+    left: 15px;
+  }
 }

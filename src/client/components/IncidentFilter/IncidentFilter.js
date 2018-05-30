@@ -47,7 +47,7 @@ export class IncidentFilter extends Component {
       const onSelect = () => this.onSelect(icon);
 
       return (
-        <div key={key} className={'incident-filter-panel-type ' + (isSelected ? 'selected' : '')}>
+        <div key={key} className={'incidentFilterPanel__type ' + (isSelected ? 'selected' : '')}>
           <img onClick={onSelect} alt={'Filter' + icon} src={icons[icon].file} />
           <FaEye
             onClick={!isSelected ? onSelect : null}
@@ -66,31 +66,33 @@ export class IncidentFilter extends Component {
 
   render() {
     return (
-      <div className={'incident-filter-panel' + (this.props.isCollapsed ? ' collapsed' : '')}>
-        <div onClick={this.props.toggleCollapsed} className="title">
+      <div className={'incidentFilterPanel' + (this.props.isCollapsed ? ' collapsed' : '')}>
+        <button onClick={this.props.toggleCollapsed} className="incidentFilterPanel__title">
           Filter Incidents
           {this.props.isCollapsed ? ' [ + ]' : ' [ - ]'}
-        </div>
+        </button>
 
-        <IncidentTextFilter
-          filterText={this.props.textFilter}
-          updateFilter={this.updateTextFilter}
-        />
+        <div className="incidentFilterPanel__content">
+          <IncidentTextFilter
+            filterText={this.props.textFilter}
+            updateFilter={this.updateTextFilter}
+          />
 
-        <div className="incident-filter-panel-controls">
-          <div />
-          <span title="Enable visibility of all incident types">
-            <FaEye
-              className="incident-filter-panel__control"
-              onClick={() => this.selectAll(this.props.availableIncidentTypes)}
-            />
-          </span>
-          <span title="Disable visibility of all incident types">
-            <FaEyeSlash className="incident-filter-panel__control" onClick={this.deselectAll} />
-          </span>
-        </div>
-        <div className="incident-filter-panel-types">
-          {this.renderFilterButtons(this.props.availableIncidentTypes)}
+          <div className="incidentFilterPanel__controls">
+            <div />
+            <span title="Enable visibility of all incident types">
+              <FaEye
+                className="incidentFilterPanel__control"
+                onClick={() => this.selectAll(this.props.availableIncidentTypes)}
+              />
+            </span>
+            <span title="Disable visibility of all incident types">
+              <FaEyeSlash className="incidentFilterPanel__control" onClick={this.deselectAll} />
+            </span>
+          </div>
+          <div className="incidentFilterPanel__types">
+            {this.renderFilterButtons(this.props.availableIncidentTypes)}
+          </div>
         </div>
       </div>
     );

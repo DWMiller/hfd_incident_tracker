@@ -1,7 +1,7 @@
 .incidentTextFilter {
   display: grid;
   grid-template-columns: auto 35px;
-  margin: 0.5em 0 0.5em 0;
+  margin: 0 0 0.5em 0;
 }
 
 .incidentTextFilter__input {
