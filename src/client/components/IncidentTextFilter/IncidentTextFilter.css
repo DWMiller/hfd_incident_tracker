@@ -1,7 +1,12 @@
-.incident__text-filter {
+.incidentTextFilter {
+  display: grid;
+  grid-template-columns: auto 35px;
+  margin: 0.5em 0 0.5em 0;
+}
+
+.incidentTextFilter__input {
   font-variant: small-caps;
   padding: 6px 12px;
-  margin: 0.5em 0.25em 0 0.25em;
   line-height: 1.42857143;
   color: #555;
 }

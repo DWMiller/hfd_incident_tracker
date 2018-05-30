@@ -21,9 +21,9 @@ export default class IncidentTextFilter extends PureComponent {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="incidentTextFilter">
         <input
-          className="incident__text-filter"
+          className="incidentTextFilter__input"
           placeholder="Search incidents"
           onChange={this.handleChange}
           value={this.props.filterText}
@@ -31,7 +31,7 @@ export default class IncidentTextFilter extends PureComponent {
         <button onClick={this.clearFilter}>
           <FaClose />
         </button>
-      </React.Fragment>
+      </div>
     );
   }
 }
