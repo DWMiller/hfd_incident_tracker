@@ -67,10 +67,10 @@ export class IncidentFilter extends Component {
   render() {
     return (
       <div className={'incident-filter-panel' + (this.props.isCollapsed ? ' collapsed' : '')}>
-        <button onClick={this.props.toggleCollapsed} className="title">
+        <div onClick={this.props.toggleCollapsed} className="title">
           Filter Incidents
           {this.props.isCollapsed ? ' [ + ]' : ' [ - ]'}
-        </button>
+        </div>
 
         <IncidentTextFilter
           filterText={this.props.textFilter}
