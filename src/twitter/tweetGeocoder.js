@@ -7,19 +7,19 @@ const googleMapsClient = require('@google/maps').createClient({
 });
 
 exports.tweetGeoCoder = async tweet => {
-  // if (tweet.locationName) {
-  // CN field is not neccessarily correct or listed in google,
-  // should attempt to resolve it but need to fall back to intersection on failure
-  //     useField = tweet.locationName + ', ' + tweet.city
-  // }
+  if (tweet.locationName) {
+    // console.log(tweet);
+    // CN field is not neccessarily correct or listed in google,
+    // should attempt to resolve it but need to fall back to intersection on failure
+    //     useField = tweet.locationName + ', ' + tweet.city
+  }
 
-  const response = await googleMapsClient
+  const { geometry, formatted_address } = await googleMapsClient
     .geocode({
       address: tweet.intersection + `, Ontario, Canada`,
     })
-    .asPromise();
-
-  const { geometry, formatted_address } = response.json.results[0];
+    .asPromise()
+    .then(r => r.json.results[0]);
 
   return Object.assign({}, tweet, {
     location: {

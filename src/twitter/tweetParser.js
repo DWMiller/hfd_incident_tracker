@@ -16,79 +16,99 @@ const cityCodes = {
   GL: 'Glanbrook',
 };
 
-exports.tweetParser = async tweet => {
-  const fields = tweet.text.split('|').map(field => field.trim());
+const parseFields = string => string.split('|').map(field => field.trim());
 
-  const event = {
-    id: tweet.id,
-    time: new Date(tweet.time),
-    // created: new Date(tweet.time),
-    // updated: new Date(tweet.time),
+const parseLocationString = fields => fields.find(field => LOCATION.test(field));
+
+const parseLocationBits = string => string.split(/[\/@]/).map(bit => bit.trim());
+
+const parseAddressDetails = locationBits => {
+  const address = locationBits.splice(locationBits.findIndex(field => LOCATION.test(field)), 1)[0];
+
+  const details = address
+    .replace('Loc:', '')
+    .replace(/[0-9]+ Block /, '')
+    .trim()
+    .split(' ');
+
+  return {
+    cityCode: details.pop(),
+    street: details.join(' '),
   };
+};
 
-  event.code = fields.find(field => HPD_CODE.test(field));
-  event.type = fields.find(field => EVENT_TYPE.test(field));
+const parseLocationName = locationBits => {
+  let locationName = null;
 
-  if (event.type === 'NEW') {
-    event.category = fields[2];
+  const locationNameIndex = locationBits.findIndex(field => LOCATION_NAME.test(field));
 
-    event.originalLocation = fields.find(field => LOCATION.test(field));
-
-    const locationBits = event.originalLocation.split(/[\/@]/).map(bit => bit.trim());
-
-    const main = locationBits
-      .shift()
-      .replace('Loc:', '')
-      .replace(/[0-9]+ Block /, '')
-      .trim()
-      .split(' ');
-
-    const cityCode = main.pop();
-    event.city = cityCodes[cityCode];
-
-    if (typeof event.city === 'undefined') {
-      console.log(`Unlisted city: ${cityCode}`);
-    }
-
-    event.streets = [];
-    event.streets.push(main.join(' '));
-
-    // console.log(event.location);
-
-    const locationNameIndex = locationBits.findIndex(field => LOCATION_NAME.test(field));
-
-    if (locationNameIndex !== -1) {
-      event.locationName = locationBits[locationNameIndex].replace('CN:', '').trim();
-      locationBits.pop();
-    }
-
-    locationBits.forEach((bit, index) => {
-      locationBits[index] = bit === 'DEAD END' || bit === 'PRIVATE RD' ? '' : bit;
-    });
-
-    // FIXME - Tweet might only have a CN, not streets
-
-    event.streets.push(locationBits.shift());
-    event.streets.push(locationBits.shift());
-
-    const useStreet = event.streets.filter(street => !!street);
-
-    useStreet.length = useStreet.length > 2 ? 2 : useStreet.length;
-
-    event.intersection = `${useStreet.join(' at ')}, ${event.city}`;
-    // event.intersection = `${event.streets.main} at ${useStreet}, ${event.city}`;
-    // console.log(event.intersection);
+  if (locationNameIndex !== -1) {
+    locationName = locationBits
+      .splice(locationNameIndex, 1)[0]
+      .replace('CN:', '')
+      .trim();
   }
 
-  if (event.type !== 'NEW') {
+  return locationName;
+};
+
+exports.tweetParser = async tweet => {
+  const fields = parseFields(tweet.text);
+  const type = fields.find(field => EVENT_TYPE.test(field));
+
+  if (type !== 'NEW') {
     // not set up to handle event updates yet
     throw 'Update tweet received';
   }
 
-  if (!event.intersection) {
-    // just in case?
-    throw 'Tweet parsing error occured';
-  }
+  const streets = [];
+  let city, intersection;
 
-  return event;
+  const code = fields.find(field => HPD_CODE.test(field));
+  const category = fields[2];
+
+  const locationString = parseLocationString(fields);
+
+  const locationBits = parseLocationBits(locationString);
+
+  const locationName = parseLocationName(locationBits);
+
+  /**
+   * * Ideally, we would skip parsing the address if a location name is available.
+   * * Exact address could be added during geocoding, however, lookup by name is not reliable.
+   */
+
+  const { cityCode, street } = parseAddressDetails(locationBits);
+
+  city = cityCodes[cityCode] ? cityCodes[cityCode] : cityCode;
+
+  streets.push(street);
+
+  locationBits.forEach((bit, index) => {
+    locationBits[index] = bit === 'DEAD END' || bit === 'PRIVATE RD' ? '' : bit;
+  });
+
+  streets.push(locationBits.shift());
+  streets.push(locationBits.shift());
+
+  const useStreet = streets.filter(street => !!street);
+
+  useStreet.length = useStreet.length > 2 ? 2 : useStreet.length;
+
+  intersection = `${useStreet.join(' at ')}, ${city}`;
+
+  return {
+    id: tweet.id,
+    time: new Date(tweet.time),
+    streets,
+    category,
+    type,
+    intersection,
+    city,
+    locationName,
+    // created: new Date(tweet.time),
+    // updated: new Date(tweet.time),
+  };
+
+  throw 'Uncaught error';
 };
