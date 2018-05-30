@@ -5,11 +5,7 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../../redux/actionCreators';
 
-import {
-  availableIncidentTypesSelector,
-  filteredIncidentsSelector,
-  recentIncidentsSelector,
-} from '../../redux/selectors';
+import { availableIncidentTypesSelector, filteredIncidentsSelector } from '../../redux/selectors';
 
 import MapContainer from '../Map/MapContainer';
 import IncidentPanel from '../IncidentPanel/IncidentPanel';
@@ -27,17 +23,6 @@ class App extends Component {
     this.props.connectSocket();
   }
 
-  incidentSelected = incident => {
-    this.props.mapChange({
-      center: {
-        lng: incident.location.coordinates[0],
-        lat: incident.location.coordinates[1],
-      },
-    });
-
-    this.props.setActiveMarker(incident.code);
-  };
-
   render() {
     return (
       <div className="App">
@@ -53,12 +38,7 @@ class App extends Component {
           isCollapsed={this.props.filters.isCollapsed}
           toggleCollapsed={this.props.toggleFilterPanel}
         />
-        <IncidentPanel
-          isVisible={this.props.incidentPanel.isVisible}
-          incidents={this.props.recentIncidents}
-          onIncidentSelect={this.incidentSelected}
-          toggleIncidentPanel={this.props.toggleIncidentPanel}
-        />
+        <IncidentPanel />
       </div>
     );
   }
@@ -66,7 +46,6 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    recentIncidents: recentIncidentsSelector(state),
     filteredIncidents: filteredIncidentsSelector(state),
     availableIncidentTypes: availableIncidentTypesSelector(state),
     incidents: state.incidents,
