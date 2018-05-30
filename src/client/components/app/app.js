@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import io from 'socket.io-client';
-import { fetchRecentIncidents } from '../../api';
-
 import * as actionCreators from '../../redux/actionCreators';
 
 import {
@@ -25,30 +22,9 @@ class App extends Component {
     state: PropTypes.object,
   };
 
-  constructor(props) {
-    super(props);
-
-    const socket = window.location.port ? io('//localhost:3001') : io();
-    socket.on('incident', incident => {
-      if (!incident) {
-        // Server parsing is still a work in progress, skip saving an undefined object if one comes in
-        return;
-      }
-
-      this.props.addIncident(incident);
-    });
-  }
-
   componentDidMount() {
-    fetchRecentIncidents()
-      .then(incidents => {
-        this.props.clearIncidents();
-        // Add incidents, but filter for valid incidents, check if they have a category
-        this.props.addIncidents(incidents.filter(i => i.category));
-      })
-      .catch(err => {
-        console.log('Could not fetch recent incidents from server');
-      });
+    this.props.fetchRecentIncidents();
+    this.props.connectSocket();
   }
 
   incidentSelected = incident => {
