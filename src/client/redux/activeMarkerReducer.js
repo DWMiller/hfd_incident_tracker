@@ -1,6 +1,8 @@
+import * as actionTypes from './actionTypes';
+
 export default (state = null, { type, incidentCode } = {}) => {
   switch (type) {
-    case 'SET_ACTIVE_MARKER': {
+    case actionTypes.SET_ACTIVE_MARKER: {
       return incidentCode;
     }
     default:

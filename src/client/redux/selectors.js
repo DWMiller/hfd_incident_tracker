@@ -1,17 +1,6 @@
 import { createSelector } from 'reselect';
 import { incidentDefinitions } from '../config/incident-definitions';
 
-export default (state = [], { type, incidents } = {}) => {
-  switch (type) {
-    case 'ADD_INCIDENTS':
-      return [...incidents, ...state];
-    case 'CLEAR_INCIDENTS':
-      return [];
-    default:
-      return state;
-  }
-};
-
 export const incidentTypeFilterSelector = state => state.filters.types;
 export const incidentTextFilterSelector = state => state.filters.text;
 
@@ -31,6 +20,20 @@ const filterByText = (incident, text) =>
   }`
     .toUpperCase()
     .includes(text.toUpperCase());
+
+export const availableIncidentTypesSelector = createSelector(
+  [incidentsSelector],
+  (incidents = []) => {
+    return Object.keys(
+      incidents.reduce((accumulator, incident) => {
+        const type = incidentDefinitions[incident.category]
+          ? incidentDefinitions[incident.category]
+          : incidentDefinitions.UNKNOWN;
+        return Object.assign({}, accumulator, { [type.icon]: true });
+      }, {})
+    );
+  }
+);
 
 export const filteredIncidentsSelector = createSelector(
   [incidentsSelector, incidentTypeFilterSelector, incidentTextFilterSelector],

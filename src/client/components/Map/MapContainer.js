@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as actionCreators from '../../actions/actionCreators';
-import { filteredIncidentsSelector } from '../../reducers/incidents';
+import * as actionCreators from '../../redux/actionCreators';
+import { filteredIncidentsSelector } from '../../redux/selectors';
 
 import { incidentType } from '../../types';
 

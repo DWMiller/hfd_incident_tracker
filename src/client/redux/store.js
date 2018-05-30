@@ -1,13 +1,12 @@
-// import { applyMiddleware, createStore, compose } from 'redux';
-import { createStore, compose } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 // import { createLogger } from 'redux-logger';
-// import ReduxThunk from 'redux-thunk';
-import rootReducer from './reducers/rootReducer';
+import ReduxThunk from 'redux-thunk';
+import rootReducer from './rootReducer';
 
-import { initialState } from './config';
+import { initialState } from '../config';
 
 // const logger = createLogger();
-// const middleware = [ReduxThunk, logger];
+const middleware = [ReduxThunk];
 
 const storedState = JSON.parse(localStorage.getItem('hfd-state')) || {};
 
@@ -17,7 +16,7 @@ const store = createStore(
   rootReducer,
   resolvedState,
   compose(
-    // applyMiddleware(...middleware),
+    applyMiddleware(...middleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );

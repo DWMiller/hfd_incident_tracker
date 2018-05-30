@@ -1,47 +1,49 @@
+import * as actionTypes from './actionTypes';
+
 export const addIncident = incident => addIncidents([incident]);
 
 export const addIncidents = incidents => ({
-  type: 'ADD_INCIDENTS',
+  type: actionTypes.ADD_INCIDENTS,
   incidents,
 });
 
 export const clearIncidents = () => ({
-  type: 'CLEAR_INCIDENTS',
+  type: actionTypes.CLEAR_INCIDENTS,
 });
 
 export const mapChange = settings => ({
-  type: 'MAP_CHANGE',
+  type: actionTypes.MAP_CHANGE,
   settings,
 });
 
 export const toggleIncidentPanel = () => ({
-  type: 'TOGGLE_INCIDENT_PANEL',
+  type: actionTypes.TOGGLE_INCIDENT_PANEL,
 });
 
 export const toggleIncidentFilter = category => ({
-  type: 'TOGGLE_INCIDENT_FILTER',
+  type: actionTypes.TOGGLE_INCIDENT_FILTER,
   category,
 });
 
 export const selectMultipleIncidentFilters = category => ({
-  type: 'SELECT_MULTIPLE',
+  type: actionTypes.SELECT_MULTIPLE,
   category,
 });
 
 export const deselectAllIncidentFilters = () => ({
-  type: 'DESELECT_ALL',
+  type: actionTypes.DESELECT_ALL,
 });
 
 export const setTextFilter = text => ({
-  type: 'SET_TEXT_FILTER',
+  type: actionTypes.SET_TEXT_FILTER,
   text,
 });
 
 export const toggleFilterPanel = () => ({
-  type: 'TOGGLE_FILTER_PANEL',
+  type: actionTypes.TOGGLE_FILTER_PANEL,
 });
 
 export const setActiveMarker = incidentCode => ({
-  type: 'SET_ACTIVE_MARKER',
+  type: actionTypes.SET_ACTIVE_MARKER,
   incidentCode,
 });

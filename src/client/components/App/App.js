@@ -6,9 +6,13 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { fetchRecentIncidents } from '../../api';
 
-import * as actionCreators from '../../actions/actionCreators';
-import { filteredIncidentsSelector, recentIncidentsSelector } from '../../reducers/incidents';
-import { availableIncidentTypesSelector } from '../../reducers/incident-filters';
+import * as actionCreators from '../../redux/actionCreators';
+
+import {
+  availableIncidentTypesSelector,
+  filteredIncidentsSelector,
+  recentIncidentsSelector,
+} from '../../redux/selectors';
 
 import MapContainer from '../Map/MapContainer';
 import IncidentPanel from '../IncidentPanel/IncidentPanel';
