@@ -33,19 +33,6 @@
   cursor: pointer;
 }
 
-.incident-panel-toggle:hover {
-  background-color: rgba(41, 128, 185, 1);
-  color: white;
-}
-
-.incident-panel-toggle:active {
-  box-shadow: inset 1px 1px 5px -1px rgba(0, 0, 0, 0.9);
-}
-
-.incident-panel-toggle:focus {
-  outline: 0;
-}
-
 .incident-enter {
   opacity: 0.01;
 }
