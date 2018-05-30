@@ -30,15 +30,17 @@ export const connectSocket = () => dispatch => {
   });
 };
 
-export const incidentSelected = incident => {
-  mapChange({
-    center: {
-      lng: incident.location.coordinates[0],
-      lat: incident.location.coordinates[1],
-    },
-  });
+export const incidentSelected = incident => dispatch => {
+  dispatch(
+    mapChange({
+      center: {
+        lng: incident.location.coordinates[0],
+        lat: incident.location.coordinates[1],
+      },
+    })
+  );
 
-  setActiveMarker(incident.code);
+  dispatch(setActiveMarker(incident.code));
 };
 
 export const addIncident = incident => addIncidents([incident]);
