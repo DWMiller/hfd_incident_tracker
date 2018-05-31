@@ -4,7 +4,7 @@ import { incidentDefinitions } from '../config/incident-definitions';
 export const incidentTypeFilterSelector = state => state.filters.types;
 export const incidentTextFilterSelector = state => state.filters.text;
 
-export const incidentsSelector = state => state.incidents;
+export const incidentsSelector = state => state.incidents || [];
 
 const filterByTypes = (incident, types) => {
   const type = incidentDefinitions[incident.category]

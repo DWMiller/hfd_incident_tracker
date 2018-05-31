@@ -1,9 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store'; //ES6 modules
+
+import { initialState } from './../../config';
+
 import IncidentPanel from './IncidentPanel';
-import IncidentPanelTextFilter from './IncidentPanelFilter';
-import IncidentPanelItem from './IncidentPanelItem';
+
+const mockStore = configureStore([]);
+const store = mockStore(initialState);
 
 const fauxIncident = {
   category: 'MEDICAL',
@@ -19,32 +25,9 @@ const fauxIncident = {
 it('incident panel renders without crashing', () => {
   const div = document.createElement('div');
   render(
-    <IncidentPanel
-      isVisible={true}
-      incidents={[fauxIncident]}
-      onIncidentSelect={() => {}}
-      textFilter=""
-      setTextFilter={() => {}}
-    />,
-    div
-  );
-});
-
-it('incident panel filter renders without crashing', () => {
-  const div = document.createElement('div');
-  render(<IncidentPanelTextFilter filterText="" updateFilter={() => {}} />, div);
-});
-
-it('incident panel item renders without crashing', () => {
-  const div = document.createElement('div');
-  render(
-    <IncidentPanelItem
-      onIncidentHover={() => {}}
-      onIncidentSelect={() => {}}
-      isActive={true}
-      incident={fauxIncident}
-      key={fauxIncident._id}
-    />,
+    <Provider store={store}>
+      <IncidentPanel isVisible={true} incidents={[fauxIncident]} onIncidentSelect={() => {}} />
+    </Provider>,
     div
   );
 });

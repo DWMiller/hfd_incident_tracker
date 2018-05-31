@@ -2,22 +2,30 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
+import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store'; //ES6 modules
-
 import { initialState } from './../../config';
 
-import App from './App';
+import ConnectedApp, { App } from './App';
 
-const mockStore = configureStore([]);
+const middlewares = [thunk];
+const mockStore = configureStore([middlewares]);
 
-it('renders without crashing', () => {
-  const store = mockStore(initialState);
+describe('</App>', () => {
+  it('renders', () => {
+    const div = document.createElement('div');
+    render(<App />, div);
+  });
 
-  const div = document.createElement('div');
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    div
-  );
+  it('renders', () => {
+    const store = mockStore(initialState);
+
+    const div = document.createElement('div');
+    render(
+      <Provider store={store}>
+        <ConnectedApp />
+      </Provider>,
+      div
+    );
+  });
 });

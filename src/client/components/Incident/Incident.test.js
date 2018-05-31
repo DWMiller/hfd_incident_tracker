@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import IncidentList from './IncidentList';
+import Incident from './Incident';
 
 const fauxIncident = {
   category: 'MEDICAL',
@@ -13,9 +13,12 @@ const fauxIncident = {
   _id: '123',
 };
 
-describe('<IncidentList />', () => {
+describe('<Incident />', () => {
   it('renders', () => {
     const div = document.createElement('div');
-    render(<IncidentList onIncidentSelect={() => {}} incidents={[fauxIncident]} />, div);
+    render(
+      <Incident onIncidentSelect={() => {}} incident={fauxIncident} key={fauxIncident._id} />,
+      div
+    );
   });
 });

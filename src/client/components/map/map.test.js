@@ -1,11 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store'; //ES6 modules
+
 import MapContainer from './MapContainer';
 import Map from './Map';
 import MapMarker from './MapMarker';
 
 import { initialState, googleMapURL } from './../../config';
+
+const mockStore = configureStore([]);
 
 const fauxIncident = {
   category: 'MEDICAL',
@@ -18,20 +23,25 @@ const fauxIncident = {
   _id: '123',
 };
 
-it('map container renders without crashing', () => {
+it('renders', () => {
+  const store = mockStore(initialState);
+
   const div = document.createElement('div');
   render(
-    <MapContainer
-      mapChange={() => {}}
-      active="123"
-      settings={initialState.map}
-      alerts={[fauxIncident]}
-    />,
+    <Provider store={store}>
+      <MapContainer
+        mapChange={() => {}}
+        active="123"
+        settings={initialState.map}
+        alerts={[fauxIncident]}
+      />
+    </Provider>,
+
     div
   );
 });
 
-it('map renders renders without crashing', () => {
+it('renders', () => {
   const div = document.createElement('div');
 
   let ref = React.createRef();
@@ -53,7 +63,7 @@ it('map renders renders without crashing', () => {
   );
 });
 
-it.skip('map marker renders without crashing', () => {
+it.skip('renders', () => {
   const div = document.createElement('div');
 
   const [lng, lat] = fauxIncident.location.coordinates;
