@@ -10,12 +10,12 @@ import MapMarker from './MapMarker';
 class Map extends Component {
   renderMarkers = (active, incidents) => {
     return incidents.map(incident => {
-      const isActive = this.props.activeMarker === incident.code; // alert.id === active;
+      const isActive = this.props.activeMarker === incident.id;
       const [lng, lat] = incident.location.coordinates;
 
       return (
         <MapMarker
-          key={incident.code}
+          key={incident.id}
           isActive={isActive}
           incident={incident}
           lat={lat}

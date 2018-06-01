@@ -30,7 +30,7 @@ class MapMarker extends PureComponent {
     incident: incidentType.isRequired,
   };
 
-  onClick = () => this.props.setActiveMarker(this.props.isActive ? null : this.props.incident.code);
+  onClick = () => this.props.setActiveMarker(this.props.isActive ? null : this.props.incident.id);
 
   render() {
     const incident = this.props.incident;
