@@ -3,14 +3,13 @@ import { recentIncidents } from '../api';
 import io from 'socket.io-client';
 
 /**
- ** Fetch recent incidents, clear old incidents,
- ** add new incidents afterr filtering for category as a lazy means of validating data
+ ** Fetch recent incidents, replace old (populated from local storage),
+ ** add new incidents after filtering for category as a lazy means of validating data
  */
 export const fetchRecentIncidents = () => dispatch => {
   recentIncidents()
     .then(incidents => {
-      dispatch(clearIncidents());
-      dispatch(addIncidents(incidents.filter(i => i.category)));
+      dispatch(replaceIncidents(incidents.filter(i => i.category)));
     })
     .catch(err => {
       console.log('Could not fetch recent incidents from server');
@@ -47,6 +46,11 @@ export const addIncident = incident => addIncidents([incident]);
 
 export const addIncidents = incidents => ({
   type: actionTypes.ADD_INCIDENTS,
+  incidents,
+});
+
+export const replaceIncidents = incidents => ({
+  type: actionTypes.REPLACE_INCIDENTS,
   incidents,
 });
 
