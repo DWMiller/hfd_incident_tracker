@@ -1,20 +1,22 @@
+import { createBrowserHistory } from 'history';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { applyMiddleware, createStore, compose } from 'redux';
-// import { createLogger } from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
 import rootReducer from './rootReducer';
 
-import { initialState } from '../config';
+import { initialState as defaultState } from '../config';
 
-// const logger = createLogger();
-const middleware = [ReduxThunk];
+export const history = createBrowserHistory();
+
+const middleware = [routerMiddleware(history), ReduxThunk];
 
 const storedState = JSON.parse(localStorage.getItem('hfd-state')) || {};
 
-const resolvedState = Object.assign({}, initialState, storedState);
+const initialState = Object.assign({}, defaultState, storedState);
 
 const store = createStore(
-  rootReducer,
-  resolvedState,
+  connectRouter(history)(rootReducer),
+  initialState,
   compose(
     applyMiddleware(...middleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f

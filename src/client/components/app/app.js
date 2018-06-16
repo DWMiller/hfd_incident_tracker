@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../../redux/actionCreators';
 
-import MapContainer from '../Map/MapContainer';
-import IncidentPanel from '../IncidentPanel/IncidentPanel';
-import IncidentFilter from '../IncidentFilter/IncidentFilter';
+import ScreensRooot from '../../screens/Root';
 
 import './App.css';
 
@@ -22,13 +20,7 @@ export class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        <MapContainer />
-        <IncidentFilter />
-        <IncidentPanel />
-      </div>
-    );
+    return <ScreensRooot {...this.props} />;
   }
 }
 
@@ -40,4 +32,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(actionCreators, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

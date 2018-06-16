@@ -1,3 +1,5 @@
+import { push } from 'connected-react-router';
+
 import * as actionTypes from './actionTypes';
 import { recentIncidents } from '../api';
 import io from 'socket.io-client';
@@ -40,6 +42,10 @@ export const incidentSelected = incident => dispatch => {
   );
 
   dispatch(setActiveMarker(incident.id));
+};
+
+export const navigate = path => dispatch => {
+  dispatch(push(path));
 };
 
 export const addIncident = incident => addIncidents([incident]);

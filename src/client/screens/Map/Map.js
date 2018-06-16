@@ -5,22 +5,23 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../../redux/actionCreators';
 
-import ScreensRooot from '../../screens/Root';
+import MapContainer from '../../components/Map/MapContainer';
+import IncidentPanel from '../../components/IncidentPanel/IncidentPanel';
+import IncidentFilter from '../../components/IncidentFilter/IncidentFilter';
 
-import './App.css';
-
-export class App extends Component {
+export class ScreenMain extends Component {
   static propTypes = {
     state: PropTypes.object,
   };
 
-  componentDidMount() {
-    this.props.fetchRecentIncidents();
-    this.props.connectSocket();
-  }
-
   render() {
-    return <ScreensRooot {...this.props} />;
+    return (
+      <div className="App">
+        <MapContainer />
+        <IncidentFilter />
+        <IncidentPanel />
+      </div>
+    );
   }
 }
 
@@ -35,4 +36,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(ScreenMain);
