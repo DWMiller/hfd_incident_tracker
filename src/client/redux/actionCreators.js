@@ -39,7 +39,7 @@ export const incidentSelected = incident => dispatch => {
     })
   );
 
-  dispatch(setActiveMarker(incident.code));
+  dispatch(setActiveMarker(incident.id));
 };
 
 export const addIncident = incident => addIncidents([incident]);
@@ -90,7 +90,7 @@ export const toggleFilterPanel = () => ({
   type: actionTypes.TOGGLE_FILTER_PANEL,
 });
 
-export const setActiveMarker = incidentCode => ({
+export const setActiveMarker = incidentId => ({
   type: actionTypes.SET_ACTIVE_MARKER,
-  incidentCode,
+  incidentId,
 });
