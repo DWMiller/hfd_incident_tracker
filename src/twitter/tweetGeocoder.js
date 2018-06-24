@@ -21,10 +21,11 @@ exports.tweetGeoCoder = async tweet => {
     .asPromise()
     .then(r => r.json.results[0]);
 
-  return Object.assign({}, tweet, {
+  return {
+    ...tweet,
     location: {
       coordinates: [geometry.location.lng, geometry.location.lat],
       address: formatted_address,
     },
-  });
+  };
 };

@@ -99,6 +99,7 @@ exports.tweetParser = async tweet => {
 
   return {
     id: tweet.id,
+    code,
     time: new Date(tweet.time),
     streets,
     category,
