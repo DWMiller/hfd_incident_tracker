@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import * as actionCreators from '../../redux/actionCreators';
 import { filteredIncidentsSelector } from '../../redux/selectors';
@@ -9,9 +10,14 @@ import { filteredIncidentsSelector } from '../../redux/selectors';
 import { incidentType } from '../../types';
 
 import Map from './Map';
-import './Map.css';
 
 import { googleMapURL } from './../../config';
+
+const MapContainerWrapper = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+`
 
 class MapContainer extends PureComponent {
   static propTypes = {
@@ -37,7 +43,7 @@ class MapContainer extends PureComponent {
 
   render() {
     return (
-      <div className="map-container">
+      <MapContainerWrapper>
         <Map
           googleMapURL={googleMapURL}
           loadingElement={<div style={{ height: `100%` }} />}
@@ -47,7 +53,7 @@ class MapContainer extends PureComponent {
           mapRef={this.mapRef}
           {...this.props}
         />
-      </div>
+      </MapContainerWrapper>
     );
   }
 }

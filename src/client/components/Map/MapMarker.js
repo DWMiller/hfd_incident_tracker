@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Marker } from 'react-google-maps';
 
-import { MapInfoWindow } from './MapInfoWindow';
+import { MapInfoWindow } from './InfoWindow/MapInfoWindow';
 
 import { incidentType } from '../../types';
 import { incidentDefinitions } from '../../config/incident-definitions';
