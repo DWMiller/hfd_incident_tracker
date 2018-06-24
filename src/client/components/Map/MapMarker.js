@@ -10,8 +10,6 @@ import { incidentDefinitions } from '../../config/incident-definitions';
 
 import icons from '../../config/icons';
 
-import './MapMarker.css';
-
 function getIcon(incident) {
   let incidentType = incidentDefinitions[incident.category];
 
