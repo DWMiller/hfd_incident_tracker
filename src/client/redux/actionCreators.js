@@ -21,8 +21,7 @@ export const fetchRecentIncidents = () => dispatch => {
 export const fetchIncidentDetails = code => dispatch => {
   incidentDetails(code)
     .then(incident => {
-      console.log(incident);
-      // dispatch();
+      dispatch(incidentLoaded(incident));
     })
     .catch(err => {
       console.log('Could not fetch incident from server');
@@ -110,4 +109,9 @@ export const toggleFilterPanel = () => ({
 export const setActiveMarker = incidentId => ({
   type: actionTypes.SET_ACTIVE_MARKER,
   incidentId,
+});
+
+export const incidentLoaded = incident => ({
+  type: actionTypes.INCIDENT_LOADED,
+  incident,
 });

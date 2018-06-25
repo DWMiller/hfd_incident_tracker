@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import FaSearch from 'react-icons/lib/fa/search';
+
 export const InfoWindowWrapper = styled.div`
   max-width: 150px;
 
@@ -34,18 +36,28 @@ export const Time = styled.span`
   text-align: right;
 `;
 
-export const Link = styled.span`
+export const TwitterLinkWrapper = styled.a`
   font-size: smaller;
   float: left;
 `;
 
+export const IncidentLinkWrapper = styled.a`
+  font-size: smaller;
+  float: right;
+  cursor: pointer;
+`;
+
+export const IncidentLink = ({ incident, onClick }) => (
+  <IncidentLinkWrapper onClick={() => onClick(incident.code)}>
+    <FaSearch />
+  </IncidentLinkWrapper>
+);
+
 export const TwitterLink = ({ incident }) => (
-  <Link>
-    <a
-      onClick={this.twitterLinkClick}
-      href={'https://twitter.com/HFD_Incidents/status/' + incident.id}
-    >
-      View on Twitter
-    </a>
-  </Link>
+  <TwitterLinkWrapper
+    onClick={this.twitterLinkClick}
+    href={'https://twitter.com/HFD_Incidents/status/' + incident.id}
+  >
+    View on Twitter
+  </TwitterLinkWrapper>
 );

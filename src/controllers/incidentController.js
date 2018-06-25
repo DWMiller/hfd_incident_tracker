@@ -29,8 +29,5 @@ exports.incident = async (ctx, next) => {
 
   const incident = await Incident.findOne({ code });
 
-  ctx.body = {
-    incident,
-    tweets: [],
-  };
+  ctx.body = incident;
 };

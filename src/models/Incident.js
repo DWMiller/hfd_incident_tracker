@@ -33,6 +33,7 @@ const incidentSchema = mongoose.Schema({
       required: 'Incident address missing',
     },
   },
+  tweets: [String],
 });
 
 incidentSchema.index({

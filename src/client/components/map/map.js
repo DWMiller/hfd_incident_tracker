@@ -8,6 +8,10 @@ import MapMarker from './MapMarker';
 //
 
 class Map extends Component {
+  navigateToMarker = key => {
+    this.props.navigate(`/incident/${key}`);
+  };
+
   renderMarkers = (active, incidents) => {
     return incidents.map(incident => {
       const isActive = this.props.activeMarker === incident.id;
@@ -21,6 +25,7 @@ class Map extends Component {
           lat={lat}
           lng={lng}
           setActiveMarker={this.props.setActiveMarker}
+          onInfoWindowSelect={this.navigateToMarker}
         />
       );
     });

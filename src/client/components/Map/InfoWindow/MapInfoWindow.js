@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 import moment from 'moment';
 
@@ -7,14 +8,17 @@ import { InfoWindow } from 'react-google-maps';
 import { incidentDefinitions } from '../../../config/incident-definitions';
 import { incidentType, iconType } from '../../../types';
 
-import { InfoWindowWrapper, Location, Category, Address, Time, TwitterLink } from './components';
+import {
+  InfoWindowWrapper,
+  Location,
+  Category,
+  Address,
+  Time,
+  TwitterLink,
+  IncidentLink,
+} from './components';
 
 export class MapInfoWindow extends PureComponent {
-  static propTypes = {
-    incident: incidentType.isRequired,
-    icon: iconType.isRequired,
-  };
-
   render() {
     const { icon, incident } = this.props;
 
@@ -26,6 +30,8 @@ export class MapInfoWindow extends PureComponent {
     return (
       <InfoWindow onCloseClick={this.props.onCloseClick}>
         <InfoWindowWrapper>
+          <IncidentLink incident={incident} onClick={this.props.onSelect} />
+
           <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
           {incident.locationName && <Location>{incident.locationName}</Location>}
           <Category>{type.text}</Category>
@@ -39,5 +45,11 @@ export class MapInfoWindow extends PureComponent {
     );
   }
 }
+
+MapInfoWindow.propTypes = {
+  incident: incidentType.isRequired,
+  icon: iconType.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
 
 export default MapInfoWindow;

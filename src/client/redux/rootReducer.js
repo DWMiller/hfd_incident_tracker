@@ -8,6 +8,7 @@ import {
 } from './incidentFilterReducers';
 import incidentPanel from './incidentPanelReducer';
 import activeMarkerReducer from './activeMarkerReducer';
+import incidentLoadedReducer from './incidentLoadedReducer';
 
 import mapSettingsReducer from './mapSettingsReducer';
 
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   incidentPanel,
   mapSettings: mapSettingsReducer,
   activeMarker: activeMarkerReducer,
+  loadedIncident: incidentLoadedReducer,
 });
 
 export default rootReducer;

@@ -23,11 +23,6 @@ function getIcon(incident) {
 }
 
 class MapMarker extends PureComponent {
-  static propTypes = {
-    isActive: PropTypes.bool.isRequired,
-    incident: incidentType.isRequired,
-  };
-
   onClick = () => this.props.setActiveMarker(this.props.isActive ? null : this.props.incident.id);
 
   render() {
@@ -47,11 +42,22 @@ class MapMarker extends PureComponent {
         onClick={this.onClick}
       >
         {this.props.isActive && (
-          <MapInfoWindow onCloseClick={this.onClick} icon={icon} incident={incident} />
+          <MapInfoWindow
+            onSelect={this.props.onInfoWindowSelect}
+            onCloseClick={this.onClick}
+            icon={icon}
+            incident={incident}
+          />
         )}
       </Marker>
     );
   }
 }
+
+MapMarker.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  incident: incidentType.isRequired,
+  onInfoWindowSelect: PropTypes.func.isRequired,
+};
 
 export default MapMarker;

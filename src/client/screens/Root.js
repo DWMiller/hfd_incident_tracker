@@ -11,7 +11,10 @@ export default class componentName extends Component {
       <ConnectedRouter history={this.props.history}>
         <Switch>
           <Route exact path="/" component={ScreenMap} />
-          <Route path="/incident" component={ScreenIncident} />
+          <Route
+            path="/incident/:code"
+            render={({ match }) => <ScreenIncident code={match.params.code} />}
+          />
         </Switch>
       </ConnectedRouter>
     );
