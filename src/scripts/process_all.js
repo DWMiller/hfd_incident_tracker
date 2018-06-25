@@ -1,24 +1,25 @@
-const R = require('ramda');
+const mongoose = require('../mongoose-connection');
 
-const mongoose = require('./../src/mongoose-connection');
 require('../models/Incident.js');
 require('../models/Tweet.js');
 
-const twitterController = require('../controllers/twitterController');
+const Incident = mongoose.model('Incident');
+const Tweet = mongoose.model('Tweet');
 
-const Incident = require('../models/Incident.js');
-const Tweet = require('../models/Tweet.js');
+const { tweetReceiver, incidentPrepper } = require('../twitter/tweetReceiver');
 
-const processTweet = R.pipeP(
-  twitterController.parseTweetDetails,
-  twitterController.geoCodeTweet,
-  twitterController.saveIncident
-);
+const processTweet = async tweet => {
+  tweet.id_str = tweet.id; // our stored tweets saved id_str as id
+  const processedTweet = await tweetReceiver(tweet);
+  return await incidentPrepper(processedTweet);
+};
 
 async function processTweets(tweets) {
   try {
     await processTweet(tweets.pop());
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 
   console.log(`${tweets.length} remaining`);
 
@@ -28,15 +29,18 @@ async function processTweets(tweets) {
     }, 1000);
   } else {
     console.log('done');
+    process.exit();
   }
 }
 
-async function run() {
+const run = async () => {
   //Wipe all existing update data
-  Incident.find({}).remove().exec();
+  Incident.find({})
+    .remove()
+    .exec();
 
   const tweets = await Tweet.find();
   processTweets(tweets);
-}
+};
 
 run();

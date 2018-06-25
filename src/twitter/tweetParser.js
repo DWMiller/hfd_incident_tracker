@@ -56,15 +56,17 @@ exports.tweetParser = async tweet => {
   const fields = parseFields(tweet.text);
   const type = fields.find(field => EVENT_TYPE.test(field));
 
+  const code = fields.find(field => HPD_CODE.test(field));
+
   if (type !== 'NEW') {
     // not set up to handle event updates yet
-    throw 'Update tweet received';
+    throw `Update tweet received - ${code}`;
   }
 
   const streets = [];
   let city, intersection;
 
-  const code = fields.find(field => HPD_CODE.test(field));
+  // const code = fields.find(field => HPD_CODE.test(field));
   const category = fields[2];
 
   const locationString = parseLocationString(fields);
@@ -107,6 +109,7 @@ exports.tweetParser = async tweet => {
     intersection,
     city,
     locationName,
+    tweets: [tweet.id],
     // created: new Date(tweet.time),
     // updated: new Date(tweet.time),
   };

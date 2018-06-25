@@ -28,5 +28,5 @@ exports.tweetFetcher = async tweet => {
     .text()
     .trim();
 
-  return Object.assign({}, tweet, { text });
+  return { ...tweet, text };
 };
