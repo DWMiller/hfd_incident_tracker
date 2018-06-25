@@ -23,3 +23,14 @@ exports.recent = async (ctx, next) => {
 
   ctx.body = incidents;
 };
+
+exports.incident = async (ctx, next) => {
+  const code = ctx.params.code;
+
+  const incident = await Incident.findOne({ code });
+
+  ctx.body = {
+    incident,
+    tweets: [],
+  };
+};

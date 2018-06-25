@@ -1,7 +1,7 @@
 import { push } from 'connected-react-router';
 
 import * as actionTypes from './actionTypes';
-import { recentIncidents } from '../api';
+import { recentIncidents, incidentDetails } from '../api';
 import io from 'socket.io-client';
 
 /**
@@ -15,6 +15,17 @@ export const fetchRecentIncidents = () => dispatch => {
     })
     .catch(err => {
       console.log('Could not fetch recent incidents from server');
+    });
+};
+
+export const fetchIncidentDetails = code => dispatch => {
+  incidentDetails(code)
+    .then(incident => {
+      console.log(incident);
+      // dispatch();
+    })
+    .catch(err => {
+      console.log('Could not fetch incident from server');
     });
 };
 
