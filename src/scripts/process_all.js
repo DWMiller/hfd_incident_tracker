@@ -9,16 +9,16 @@ const Tweet = mongoose.model('Tweet');
 const { tweetReceiver, incidentPrepper } = require('../twitter/tweetReceiver');
 
 const processTweet = async tweet => {
-  tweet.id_str = tweet.id; // our stored tweets saved id_str as id
+  //tweet.id_str = tweet.id; // our stored tweets saved id_str as id
 
-  //! Stop doing this, this script takes already processed tweets, nothing to gain by processing them from themselves
-  const processedTweet = await tweetReceiver(tweet);
-  return await incidentPrepper(processedTweet);
+  // ! Stop doing this, this script takes already processed tweets, nothing to gain by processing them from themselves
+  // const processedTweet = await tweetReceiver(tweet);
+  return await incidentPrepper(tweet);
 };
 
 async function processTweets(tweets) {
   try {
-    await processTweet(tweets.pop());
+    await processTweet(tweets.shift());
   } catch (error) {
     console.log(error);
   }
@@ -44,7 +44,7 @@ const run = async () => {
   const tweets = await Tweet.find({})
     .limit(50)
     .sort({
-      time: 'asc',
+      time: 1,
     });
 
   processTweets(tweets);

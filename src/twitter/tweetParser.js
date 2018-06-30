@@ -64,12 +64,16 @@ exports.tweetParser = async tweet => {
     throw `Empty tweet, something failed prior to here`;
   }
 
+  console.log(code);
+
   if (type !== 'NEW') {
-    Incident.findOneAndUpdate({ code }, { $push: { tweets: tweet.id } });
     // TODO - Exit processing, push update through socket
     if (!code) {
       console.log(fields);
+    } else {
+      await Incident.findOneAndUpdate({ code }, { $push: { tweets: tweet.id } });
     }
+
     throw `Update tweet received - ${code}`;
   }
 
