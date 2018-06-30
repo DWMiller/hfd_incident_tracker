@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Link } from 'react-router-dom';
+
 import FaSearch from 'react-icons/lib/fa/search';
 
 export const InfoWindowWrapper = styled.div`
@@ -41,14 +43,14 @@ export const TwitterLinkWrapper = styled.a`
   float: left;
 `;
 
-export const IncidentLinkWrapper = styled.a`
+export const IncidentLinkWrapper = styled(Link)`
   font-size: smaller;
   float: right;
   cursor: pointer;
 `;
 
 export const IncidentLink = ({ incident, onClick }) => (
-  <IncidentLinkWrapper onClick={() => onClick(incident.code)}>
+  <IncidentLinkWrapper to={`/incident/${incident.code}`}>
     <FaSearch />
   </IncidentLinkWrapper>
 );

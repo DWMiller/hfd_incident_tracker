@@ -42,12 +42,7 @@ class MapMarker extends PureComponent {
         onClick={this.onClick}
       >
         {this.props.isActive && (
-          <MapInfoWindow
-            onSelect={this.props.onInfoWindowSelect}
-            onCloseClick={this.onClick}
-            icon={icon}
-            incident={incident}
-          />
+          <MapInfoWindow onCloseClick={this.onClick} icon={icon} incident={incident} />
         )}
       </Marker>
     );
@@ -57,7 +52,6 @@ class MapMarker extends PureComponent {
 MapMarker.propTypes = {
   isActive: PropTypes.bool.isRequired,
   incident: incidentType.isRequired,
-  onInfoWindowSelect: PropTypes.func.isRequired,
 };
 
 export default MapMarker;

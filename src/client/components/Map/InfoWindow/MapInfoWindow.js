@@ -30,7 +30,7 @@ export class MapInfoWindow extends PureComponent {
     return (
       <InfoWindow onCloseClick={this.props.onCloseClick}>
         <InfoWindowWrapper>
-          <IncidentLink incident={incident} onClick={this.props.onSelect} />
+          <IncidentLink incident={incident} />
 
           <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
           {incident.locationName && <Location>{incident.locationName}</Location>}
@@ -49,7 +49,6 @@ export class MapInfoWindow extends PureComponent {
 MapInfoWindow.propTypes = {
   incident: incidentType.isRequired,
   icon: iconType.isRequired,
-  onSelect: PropTypes.func.isRequired,
 };
 
 export default MapInfoWindow;
