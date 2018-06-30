@@ -10,6 +10,8 @@ const { tweetReceiver, incidentPrepper } = require('../twitter/tweetReceiver');
 
 const processTweet = async tweet => {
   tweet.id_str = tweet.id; // our stored tweets saved id_str as id
+
+  //! Stop doing this, this script takes already processed tweets, nothing to gain by processing them from themselves
   const processedTweet = await tweetReceiver(tweet);
   return await incidentPrepper(processedTweet);
 };
@@ -39,7 +41,12 @@ const run = async () => {
     .remove()
     .exec();
 
-  const tweets = await Tweet.find();
+  const tweets = await Tweet.find({})
+    .limit(50)
+    .sort({
+      time: 'asc',
+    });
+
   processTweets(tweets);
 };
 

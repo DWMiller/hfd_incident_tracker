@@ -1,6 +1,8 @@
 /**
  * Parsed relevant tweet data into useful data/format describing the update
  */
+const mongoose = require('../mongoose-connection');
+const Incident = mongoose.model('Incident');
 
 const HPD_CODE = /^F[0-9]+$/;
 const EVENT_TYPE = /^[A-Z]+$/;
@@ -58,8 +60,16 @@ exports.tweetParser = async tweet => {
 
   const code = fields.find(field => HPD_CODE.test(field));
 
+  if (fields.length === 1) {
+    throw `Empty tweet, something failed prior to here`;
+  }
+
   if (type !== 'NEW') {
-    // not set up to handle event updates yet
+    Incident.findOneAndUpdate({ code }, { $push: { tweets: tweet.id } });
+    // TODO - Exit processing, push update through socket
+    if (!code) {
+      console.log(fields);
+    }
     throw `Update tweet received - ${code}`;
   }
 

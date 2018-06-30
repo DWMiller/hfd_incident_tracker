@@ -1,3 +1,8 @@
+/**
+ * ! Not currently in use
+ * ! Looks like things were updated and we have full text now
+ */
+
 const request = require('request-promise-native');
 const cheerio = require('cheerio');
 
@@ -19,6 +24,8 @@ exports.tweetFetcher = async tweet => {
     return tweet;
   }
 
+  console.log('Partial tweet only, fetching...');
+
   const $ = await request({
     uri,
     transform: body => cheerio.load(body),
@@ -28,5 +35,6 @@ exports.tweetFetcher = async tweet => {
     .text()
     .trim();
 
+  console.log(`Fetched: ${text}`);
   return { ...tweet, text };
 };
