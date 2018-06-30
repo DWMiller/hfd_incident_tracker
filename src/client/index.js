@@ -26,5 +26,7 @@ registerServiceWorker();
 // Perf.printWasted(measurements);
 
 store.subscribe(() => {
-  localStorage.setItem('hfd-state', JSON.stringify(store.getState()));
+  const state = { ...store.getState() };
+  delete state.router;
+  localStorage.setItem('hfd-state', JSON.stringify(state));
 });
