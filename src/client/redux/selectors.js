@@ -15,9 +15,9 @@ const filterByTypes = (incident, types) => {
 };
 
 const filterByText = (incident, text) =>
-  `${incident.location.address} ${incident.location.address} ${incident.locationName || ''} ${
-    incident.category
-  }`
+  `${incident.location.address} ${incident.location.address} ${
+    incident.code
+  } ${incident.locationName || ''} ${incident.category}`
     .toUpperCase()
     .includes(text.toUpperCase());
 

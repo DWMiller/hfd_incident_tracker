@@ -6,9 +6,6 @@ import { googleMapURL } from './../../config';
 
 export class ScreenIncidentMap extends Component {
   render() {
-    // const Markers = this.renderMarkers(this.props.active, this.props.incidents);
-    console.log(this.props);
-
     const [lng, lat] = this.props.incident.location.coordinates;
 
     return (
