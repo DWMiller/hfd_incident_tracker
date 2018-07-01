@@ -1,3 +1,4 @@
+NODE_PATH=src
 GEOCODE_KEY=
 MONGO_URI=
 NODE_ENV=development

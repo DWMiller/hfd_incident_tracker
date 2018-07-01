@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 
-import ScreenMap from './Map/Map';
-import ScreenIncident from './Incident/Incident';
+import ScreenOverview from './Overview';
+import ScreenIncident from './Incident';
 
 export default class componentName extends Component {
   render() {
@@ -14,8 +14,8 @@ export default class componentName extends Component {
             path="/incident/:code"
             render={({ match }) => <ScreenIncident code={match.params.code} />}
           />
-          <Route path="/map" component={ScreenMap} />
-          <Route path="/" component={ScreenMap} />
+          <Route path="/overview" component={ScreenOverview} />
+          <Route path="/" component={ScreenOverview} />
         </Switch>
       </ConnectedRouter>
     );

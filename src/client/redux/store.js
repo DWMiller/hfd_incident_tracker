@@ -4,7 +4,7 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import rootReducer from './rootReducer';
 
-import { initialState as defaultState } from '../config';
+import { initialState as defaultState } from 'client/config';
 
 export const history = createBrowserHistory();
 

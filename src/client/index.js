@@ -4,11 +4,12 @@ import { Provider } from 'react-redux';
 
 import store, { history } from './redux/store';
 
-import App from './components/App/App';
+import App from './components/App';
 
 import registerServiceWorker from './registerServiceWorker';
 
-import './index.css';
+import './styles.js';
+
 // import Perf from 'react-addons-perf';
 
 const Root = (

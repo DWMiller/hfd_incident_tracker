@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { incidentDefinitions } from '../config/incident-definitions';
+import { incidentDefinitions } from 'client/config/incident-definitions';
 
 export const incidentTypeFilterSelector = state => state.filters.types;
 export const incidentTextFilterSelector = state => state.filters.text;
