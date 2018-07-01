@@ -14,9 +14,14 @@ if (app.env === 'development') {
 }
 
 app.use(cors());
-app.use('/', express.static(path.join(__dirname, '../build')));
 
-app.use('/', routes);
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.use('/api', routes);
+
+app.use('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 app.use(notFound);
 
