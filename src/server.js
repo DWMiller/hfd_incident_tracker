@@ -13,7 +13,7 @@ const app = require('./app');
 const port = process.env.PORT || 3001;
 
 const server = app.listen(port, () => {
-  console.log(`Koa Running → PORT ${server.address().port} -> Started at: ${new Date()}`);
+  console.log(`Express Running → PORT ${server.address().port} -> Started at: ${new Date()}`);
 });
 
 const io = require('socket.io')(server);

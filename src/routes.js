@@ -1,7 +1,5 @@
-const Koa = require('koa');
-const Router = require('koa-router');
-
-const router = new Router();
+const express = require('express');
+const router = express.Router();
 
 const { catchErrors } = require('./helpers');
 

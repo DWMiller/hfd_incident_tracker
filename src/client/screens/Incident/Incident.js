@@ -12,6 +12,9 @@ export class ScreenIncident extends Component {
   }
 
   render() {
+    if (!this.props.incident.tweets) {
+      return <div />;
+    }
     return (
       <div>{this.props.incident.tweets.map(id => <TwitterTweetEmbed key={id} tweetId={id} />)}</div>
     );

@@ -8,7 +8,7 @@ const YEAR_AGO = Date.now() - DAY * 365;
 
 const { KEYS, setData, getData } = require('../dataStore');
 
-exports.recent = async (ctx, next) => {
+exports.recent = async (req, res, next) => {
   let incidents = getData(KEYS.RECENT_INCIDENTS);
 
   if (!incidents) {
@@ -21,13 +21,13 @@ exports.recent = async (ctx, next) => {
     setData(KEYS.RECENT_INCIDENTS, incidents);
   }
 
-  ctx.body = incidents;
+  res.json(incidents);
 };
 
-exports.incident = async (ctx, next) => {
-  const code = ctx.params.code;
+exports.incident = async (req, res, next) => {
+  const code = req.params.code;
 
   const incident = await Incident.findOne({ code });
 
-  ctx.body = incident;
+  res.json(incident);
 };
