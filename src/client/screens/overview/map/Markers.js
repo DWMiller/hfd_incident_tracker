@@ -8,14 +8,13 @@ export const Markers = ({ incidents = [], ...props }) => {
     <MarkerClusterer minimumClusterSize={3} maxZoom={12} gridSize={50}>
       {incidents.map(incident => {
         const isActive = props.activeMarker === incident.id;
-        const [lng, lat] = incident.location.coordinates;
 
         return (
           <MapMarker
             key={incident.id}
             isActive={isActive}
             incident={incident}
-            position={{ lat, lng }}
+            position={incident.position}
             setActiveMarker={props.setActiveMarker}
           />
         );

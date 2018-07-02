@@ -11,6 +11,18 @@ const addIcon = incident => {
   return incident;
 };
 
+const convertCoordinates = incident => {
+  const [lng, lat] = incident.location.coordinates;
+  incident.position = { lat, lng };
+  return incident;
+};
+
+const postFetchIncidentProcessing = incident => {
+  incident = addIcon(incident);
+  incident = convertCoordinates(incident);
+  return incident;
+};
+
 /**
  ** Fetch recent incidents, replace old (populated from local storage),
  ** add new incidents after filtering for category as a lazy means of validating data
@@ -18,7 +30,7 @@ const addIcon = incident => {
 export const fetchRecentIncidents = () => dispatch => {
   recentIncidents()
     .then(incidents => {
-      incidents = incidents.filter(i => i.category).map(addIcon);
+      incidents = incidents.filter(i => i.category).map(postFetchIncidentProcessing);
       dispatch(replaceIncidents(incidents));
     })
     .catch(err => {
@@ -29,7 +41,7 @@ export const fetchRecentIncidents = () => dispatch => {
 export const fetchIncidentDetails = code => dispatch => {
   incidentDetails(code)
     .then(incident => {
-      dispatch(incidentLoaded(addIcon(incident)));
+      dispatch(incidentLoaded(postFetchIncidentProcessing(incident)));
     })
     .catch(err => {
       console.log('Could not fetch incident from server');
@@ -45,7 +57,7 @@ export const connectSocket = () => dispatch => {
       return;
     }
 
-    dispatch(addIncident(addIcon(incident)));
+    dispatch(addIncident(postFetchIncidentProcessing(incident)));
   });
 };
 

@@ -5,7 +5,7 @@ import moment from 'moment';
 import { InfoWindow } from 'react-google-maps';
 
 import { incidentDefinitions } from 'client/config/incident-definitions';
-import { incidentType, iconType } from 'client/types';
+import { incidentType } from 'client/types';
 
 import {
   InfoWindowWrapper,
