@@ -6,21 +6,8 @@ import { Marker } from 'react-google-maps';
 import { MapInfoWindow } from './InfoWindow';
 
 import { incidentType } from 'client/types';
-import { incidentDefinitions } from 'client/config/incident-definitions';
 
-import icons from 'client/config/icons';
-
-function getIcon(incident) {
-  let incidentType = incidentDefinitions[incident.category];
-
-  if (typeof incidentType === 'undefined') {
-    incidentType = incidentDefinitions.UNKNOWN;
-  }
-
-  const icon = icons[incidentType.icon];
-
-  return icon;
-}
+import getIcon from 'client/utils/getIcon';
 
 class MapMarker extends PureComponent {
   onClick = () => this.props.setActiveMarker(this.props.isActive ? null : this.props.incident.id);
