@@ -13,6 +13,10 @@ export const FilterContainer = styled.div`
   border-right: none;
   box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.3);
 
+  @media (min-width: 800px) {
+    left: 15px;
+  }
+
   &.collapsed {
     transform: translateY(calc(100% - 35px));
   }
@@ -74,11 +78,5 @@ export const FilterContainer = styled.div`
 
   .incidentFilterPanel__type svg.active {
     color: black;
-  }
-
-  @media (min-width: 800px) {
-    .incidentFilterPanel {
-      left: 15px;
-    }
   }
 `;
