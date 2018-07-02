@@ -7,29 +7,21 @@ import { MapInfoWindow } from './InfoWindow';
 
 import { incidentType } from 'client/types';
 
-import getIcon from 'client/utils/getIcon';
-
 class MapMarker extends PureComponent {
   onClick = () => this.props.setActiveMarker(this.props.isActive ? null : this.props.incident.id);
 
   render() {
-    const incident = this.props.incident;
-
-    const icon = getIcon(incident);
+    const { height, width, file: url } = this.props.incident.icon;
 
     const markerIcon = {
-      scaledSize: { height: icon.height, width: icon.width },
-      url: icon.file,
+      scaledSize: { height, width },
+      url,
     };
 
     return (
-      <Marker
-        position={{ lat: this.props.lat, lng: this.props.lng }}
-        defaultIcon={markerIcon}
-        onClick={this.onClick}
-      >
+      <Marker position={this.props.position} defaultIcon={markerIcon} onClick={this.onClick}>
         {this.props.isActive && (
-          <MapInfoWindow onCloseClick={this.onClick} icon={icon} incident={incident} />
+          <MapInfoWindow onCloseClick={this.onClick} incident={this.props.incident} />
         )}
       </Marker>
     );

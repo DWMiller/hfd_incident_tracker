@@ -5,9 +5,14 @@ import Map from 'client/components/Map';
 
 export class ScreenIncidentMap extends Component {
   render() {
-    console.log(this.props);
-
     const [lng, lat] = this.props.incident.location.coordinates;
+
+    const { height, width, file: url } = this.props.incident.icon;
+
+    const markerIcon = {
+      scaledSize: { height, width },
+      url,
+    };
 
     return (
       <Map
@@ -26,7 +31,7 @@ export class ScreenIncidentMap extends Component {
           panControl: false,
         }}
       >
-        <Marker position={{ lat, lng }} />
+        <Marker defaultIcon={markerIcon} position={{ lat, lng }} />
       </Map>
     );
   }

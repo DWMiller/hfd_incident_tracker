@@ -15,8 +15,7 @@ export const Markers = ({ incidents = [], ...props }) => {
             key={incident.id}
             isActive={isActive}
             incident={incident}
-            lat={lat}
-            lng={lng}
+            position={{ lat, lng }}
             setActiveMarker={props.setActiveMarker}
           />
         );

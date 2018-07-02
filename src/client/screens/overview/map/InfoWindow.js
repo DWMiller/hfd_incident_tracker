@@ -19,7 +19,8 @@ import {
 
 export class MapInfoWindow extends PureComponent {
   render() {
-    const { icon, incident } = this.props;
+    const { incident } = this.props;
+    const icon = incident.icon;
 
     const type = incidentDefinitions[incident.category]
       ? incidentDefinitions[incident.category]
@@ -47,7 +48,6 @@ export class MapInfoWindow extends PureComponent {
 
 MapInfoWindow.propTypes = {
   incident: incidentType.isRequired,
-  icon: iconType.isRequired,
 };
 
 export default MapInfoWindow;

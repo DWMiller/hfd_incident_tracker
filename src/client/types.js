@@ -1,5 +1,11 @@
 import { arrayOf, shape, string, number } from 'prop-types';
 
+export const iconType = shape({
+  file: string.isRequired,
+  width: number.isRequired,
+  height: number.isRequired,
+});
+
 export const incidentType = shape({
   category: string.isRequired,
   location: shape({
@@ -8,10 +14,5 @@ export const incidentType = shape({
   }),
   locationName: string,
   id: string,
-});
-
-export const iconType = shape({
-  file: string.isRequired,
-  width: number.isRequired,
-  height: number.isRequired,
+  icon: iconType,
 });

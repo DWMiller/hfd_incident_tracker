@@ -4,6 +4,13 @@ import * as actionTypes from './actionTypes';
 import { recentIncidents, incidentDetails } from '../api';
 import io from 'socket.io-client';
 
+import getIcon from 'client/utils/getIcon';
+//TODO - Maybe put this in utils? Create a category for processing/mutations?
+const addIcon = incident => {
+  incident.icon = getIcon(incident);
+  return incident;
+};
+
 /**
  ** Fetch recent incidents, replace old (populated from local storage),
  ** add new incidents after filtering for category as a lazy means of validating data
@@ -11,7 +18,8 @@ import io from 'socket.io-client';
 export const fetchRecentIncidents = () => dispatch => {
   recentIncidents()
     .then(incidents => {
-      dispatch(replaceIncidents(incidents.filter(i => i.category)));
+      incidents = incidents.filter(i => i.category).map(addIcon);
+      dispatch(replaceIncidents(incidents));
     })
     .catch(err => {
       console.log('Could not fetch recent incidents from server');
@@ -21,7 +29,7 @@ export const fetchRecentIncidents = () => dispatch => {
 export const fetchIncidentDetails = code => dispatch => {
   incidentDetails(code)
     .then(incident => {
-      dispatch(incidentLoaded(incident));
+      dispatch(incidentLoaded(addIcon(incident)));
     })
     .catch(err => {
       console.log('Could not fetch incident from server');
@@ -37,7 +45,7 @@ export const connectSocket = () => dispatch => {
       return;
     }
 
-    dispatch(addIncident(incident));
+    dispatch(addIncident(addIcon(incident)));
   });
 };
 
