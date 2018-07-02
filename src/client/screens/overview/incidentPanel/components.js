@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const IncidentPanelWrapper = styled.div`
   position: absolute;
+  max-height: calc(100% - 35px);
   z-index: 90;
   transform: translateY(-100%);
   width: 300px;
@@ -10,7 +11,6 @@ export const IncidentPanelWrapper = styled.div`
   transition-timing-function: ease-out;
   box-sizing: border-box;
   right: 0;
-  max-height: 100%;
   overflow-x: visible;
   overflow-y: scroll;
   box-shadow: -2px 2px 5px -2px rgba(0, 0, 0, 0.8);

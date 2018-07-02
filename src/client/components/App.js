@@ -11,7 +11,6 @@ import ScreensRooot from 'client/screens/Root';
 const AppWrapper = styled.div`
   font-family: Verdana, sans-serif;
   position: relative;
-  overflow: hidden;
   height: 100%;
   line-height: 1.6;
 `;
