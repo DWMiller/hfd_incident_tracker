@@ -10,7 +10,10 @@ import registerServiceWorker from './registerServiceWorker';
 
 import './styles.js';
 
-// import Perf from 'react-addons-perf';
+if (process.env.NODE_ENV !== 'production') {
+  const { whyDidYouUpdate } = require('why-did-you-update');
+  whyDidYouUpdate(React);
+}
 
 const Root = (
   <Provider store={store}>
@@ -18,13 +21,11 @@ const Root = (
   </Provider>
 );
 
-// Perf.start();
 render(Root, document.getElementById('root'));
-registerServiceWorker();
 
-// Perf.stop();
-// const measurements = Perf.getLastMeasurements();
-// Perf.printWasted(measurements);
+if (process.env.NODE_ENV === 'production') {
+  registerServiceWorker();
+}
 
 store.subscribe(() => {
   const state = { ...store.getState() };
