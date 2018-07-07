@@ -1,9 +1,9 @@
-import * as actionTypes from './actionTypes';
+import { GET_INCIDENT_SUCCESS } from './actions/incidents';
 
-export default (state = {}, { type, incident } = {}) => {
+export default (state = {}, { type, payload } = {}) => {
   switch (type) {
-    case actionTypes.INCIDENT_LOADED:
-      return incident;
+    case GET_INCIDENT_SUCCESS:
+      return payload;
     default:
       return state;
   }

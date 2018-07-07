@@ -9,13 +9,9 @@ const incidentSchema = mongoose.Schema({
   category: String,
   locationName: String,
   type: String,
-  created: {
+  time: {
     type: Date,
-    default: Date.now,
-  },
-  updated: {
-    type: Date,
-    default: Date.now,
+    required: 'Date missing',
   },
   location: {
     type: {

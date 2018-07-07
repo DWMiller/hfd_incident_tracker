@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import FaEye from 'react-icons/lib/fa/eye';
@@ -6,7 +6,7 @@ import FaEyeSlash from 'react-icons/lib/fa/eye-slash';
 
 import icons from 'client/config/icons';
 
-class IncidentFilterButton extends Component {
+class IncidentFilterButton extends PureComponent {
   onSelect = () => this.props.toggleIncidentFilter(this.props.icon);
 
   render() {

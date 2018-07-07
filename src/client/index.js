@@ -30,5 +30,6 @@ if (process.env.NODE_ENV === 'production') {
 store.subscribe(() => {
   const state = { ...store.getState() };
   delete state.router;
+  delete state.filters.date;
   localStorage.setItem('hfd-state', JSON.stringify(state));
 });

@@ -45,6 +45,11 @@ class MapContainer extends PureComponent {
           zoom={this.props.settings.zoom}
           onCenterChanged={this.handleMapChange}
           mapRef={this.mapRef}
+          options={{
+            streetViewControl: false,
+            fullscreenControl: false,
+            mapTypeControl: false,
+          }}
         >
           <Markers
             incidents={this.props.incidents}

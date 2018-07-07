@@ -29,7 +29,7 @@ const handleTweet = async tweet => {
     let storedIncidents = getData(KEYS.RECENT_INCIDENTS);
 
     if (storedIncidents) {
-      setData(KEYS.RECENT_INCIDENTS, [incident, ...storedIncidents.slice(0, 99)]);
+      setData(KEYS.RECENT_INCIDENTS, [incident, ...storedIncidents.slice(0, 500)]);
     }
 
     io.sockets.emit('incident', incident);
@@ -48,6 +48,3 @@ const connection = connect(
   },
   handleTweet
 );
-
-// const maintenance = require('./src/maintenance.js');
-// maintenance.deletedOld();

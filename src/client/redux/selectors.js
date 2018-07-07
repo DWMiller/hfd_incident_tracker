@@ -1,44 +1,29 @@
 import { createSelector } from 'reselect';
-import { incidentDefinitions } from 'client/config/incident-definitions';
+
+import { filterByTypes, filterByText, filterByDate } from 'client/utils/filters';
+import getIncidentTypes from 'client/utils/getIncidentTypes';
 
 export const incidentTypeFilterSelector = state => state.filters.types;
 export const incidentTextFilterSelector = state => state.filters.text;
+export const incidentDateFilterSelector = state => state.filters.date;
 
 export const incidentsSelector = state => state.incidents || [];
 
-const filterByTypes = (incident, types) => {
-  const type = incidentDefinitions[incident.category]
-    ? incidentDefinitions[incident.category]
-    : incidentDefinitions['UNKNOWN'];
-
-  return types.some(icon => icon === type.icon);
-};
-
-const filterByText = (incident, text) =>
-  `${incident.location.address} ${incident.location.address} ${
-    incident.code
-  } ${incident.locationName || ''} ${incident.category}`
-    .toUpperCase()
-    .includes(text.toUpperCase());
-
 export const availableIncidentTypesSelector = createSelector(
   [incidentsSelector],
-  (incidents = []) => {
-    return Object.keys(
-      incidents.reduce((accumulator, incident) => {
-        const type = incidentDefinitions[incident.category]
-          ? incidentDefinitions[incident.category]
-          : incidentDefinitions.UNKNOWN;
-        return Object.assign({}, accumulator, { [type.icon]: true });
-      }, {})
-    );
-  }
+  (incidents = []) => getIncidentTypes(incidents)
 );
 
 export const filteredIncidentsSelector = createSelector(
-  [incidentsSelector, incidentTypeFilterSelector, incidentTextFilterSelector],
-  (incidents, filterTypes, filterText) => {
+  [
+    incidentsSelector,
+    incidentTypeFilterSelector,
+    incidentTextFilterSelector,
+    incidentDateFilterSelector,
+  ],
+  (incidents, filterTypes, filterText, filterDate) => {
     return incidents
+      .filter(incident => filterByDate(incident, filterDate)) // too slow, maybe pre-parse dates into a comparable number?
       .filter(incident => filterByTypes(incident, filterTypes))
       .filter(incident => filterByText(incident, filterText));
   }

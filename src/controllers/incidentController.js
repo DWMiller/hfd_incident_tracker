@@ -12,11 +12,9 @@ exports.recent = async (req, res, next) => {
   let incidents = getData(KEYS.RECENT_INCIDENTS);
 
   if (!incidents) {
-    incidents = await Incident.find({ updated: { $gte: WEEK_AGO } })
-      .sort({
-        updated: 'desc',
-      })
-      .limit(100);
+    incidents = await Incident.find({ created: { $gte: WEEK_AGO } }).sort({
+      updated: 'desc',
+    });
 
     setData(KEYS.RECENT_INCIDENTS, incidents);
   }

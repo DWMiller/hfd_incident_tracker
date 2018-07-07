@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import { Loading } from './incident/Loading';
 
-import * as actionCreators from '../redux/actionCreators';
+import { getIncident } from 'client/redux/actions/incidents';
 
 import ScreenIncidentMap from './incident/Map';
 
@@ -47,7 +47,7 @@ const Tweets = ({ tweets = [] }) => (
 
 export class ScreenIncident extends Component {
   componentDidMount() {
-    this.props.fetchIncidentDetails(this.props.code);
+    this.props.getIncident(this.props.code);
   }
 
   render() {
@@ -82,7 +82,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators({ getIncident }, dispatch);
 };
 
 export default connect(
