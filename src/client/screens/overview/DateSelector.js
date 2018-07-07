@@ -9,7 +9,7 @@ import * as actionCreators from 'client/redux/actionCreators';
 
 import { DateSelectorContainer, DateSlide } from './dateSelector/components';
 
-const initialSlide = 6;
+const initialSlide = 0;
 
 const sliderSettings = {
   infinite: false,
@@ -26,18 +26,24 @@ export class DateSelector extends Component {
 
     const today = moment();
 
-    const dates = [];
+    const dates = [
+      {
+        date: today.format('YYYY-MM-DD'),
+        label: 'Today',
+      },
+    ];
 
-    for (let i = 6; i >= 0; i--) {
-      const newDate = moment(today)
-        .subtract(i, 'days')
-        .format('YYYY-MM-DD');
+    // Uncomment when date scrolling is supported in api + filter
+    // for (let i = 6; i >= 0; i--) {
+    //   const newDate = moment(today)
+    //     .subtract(i, 'days')
+    //     .format('YYYY-MM-DD');
 
-      dates.push({
-        date: newDate,
-        label: i === 0 ? 'Today' : newDate,
-      });
-    }
+    //   dates.push({
+    //     date: newDate,
+    //     label: i === 0 ? 'Today' : newDate,
+    //   });
+    // }
 
     this.state = { dates, initialSlide };
   }
@@ -49,6 +55,7 @@ export class DateSelector extends Component {
   render() {
     return (
       <DateSelectorContainer>
+        {console.log(this.state.dates)}
         <Slider afterChange={this.afterChange} {...sliderSettings}>
           {this.state.dates.map(date => <DateSlide key={date.date}>{date.label}</DateSlide>)}
         </Slider>

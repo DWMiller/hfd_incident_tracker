@@ -10,7 +10,7 @@ import OverviewMap from './overview/Map';
 
 // import IncidentPanel from './overview/IncidentPanel';
 import IncidentFilter from './overview/IncidentFilter';
-// import DateSelector from './overview/DateSelector';
+import DateSelector from './overview/DateSelector';
 
 const PageContainer = styled.div`
   position: fixed;
@@ -26,7 +26,7 @@ export class ScreenOverview extends Component {
         <OverviewMap />
         <IncidentFilter />
         {/* <IncidentPanel /> */}
-        {/* <DateSelector /> */}
+        <DateSelector />
       </PageContainer>
     );
   }
