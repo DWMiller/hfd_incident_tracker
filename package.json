@@ -34,6 +34,7 @@
     "ramda": "^0.25.0",
     "react": "^16.4.0",
     "react-addons-css-transition-group": "^15.6.2",
+    "react-debounce-input": "^3.2.0",
     "react-dom": "^16.4.0",
     "react-google-maps": "^9.4.5",
     "react-horizontal-timeline": "^1.5.3",

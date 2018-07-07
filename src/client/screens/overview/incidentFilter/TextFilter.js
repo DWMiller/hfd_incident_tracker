@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { DebounceInput } from 'react-debounce-input';
 
 import FaClose from 'react-icons/lib/fa/close';
 
@@ -25,7 +26,7 @@ export default class IncidentTextFilter extends PureComponent {
   };
 
   handleChange = event => {
-    this.props.updateFilter(event.currentTarget.value);
+    this.props.updateFilter(event.target.value);
   };
 
   clearFilter = () => {
@@ -35,7 +36,9 @@ export default class IncidentTextFilter extends PureComponent {
   render() {
     return (
       <TextFilterWrapper>
-        <input
+        <DebounceInput
+          minLength={1}
+          debounceTimeout={500}
           className="incidentTextFilter__input"
           placeholder="Search incidents"
           onChange={this.handleChange}
