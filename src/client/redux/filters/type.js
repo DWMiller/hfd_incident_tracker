@@ -1,3 +1,5 @@
+import icons from 'client/config/icons';
+
 export const TOGGLE_FILTER = '[filter] TOGGLE';
 export const DESELECT_ALL_FILTERS = '[filter] DESELECT_ALL';
 export const SELECT_MULTIPLE_FILTERS = '[filter] SELECT_MULTIPLE';
@@ -16,7 +18,10 @@ export const deselectAllFilterTypes = () => ({
   type: DESELECT_ALL_FILTERS,
 });
 
-export const typeFilterReducer = (state = [], { type, category } = {}) => {
+// Simple array of strings to enable all filters by default
+const defaultFilter = Object.keys(icons).map(key => key);
+
+export const typeFilterReducer = (state = defaultFilter, { type, category } = {}) => {
   switch (type) {
     case TOGGLE_FILTER: {
       const isActive = state.findIndex(t => t === category);
