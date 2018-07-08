@@ -5,11 +5,11 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import Slider from 'react-slick';
 
-import * as actionCreators from 'client/redux/actionCreators';
+import { setDateFilter } from 'client/redux/filters/date';
 
 import { DateSelectorContainer, DateSlide } from './dateSelector/components';
 
-const initialSlide = 0;
+const initialSlide = 6;
 
 const sliderSettings = {
   infinite: false,
@@ -26,24 +26,18 @@ export class DateSelector extends Component {
 
     const today = moment();
 
-    const dates = [
-      {
-        date: today.format('YYYY-MM-DD'),
-        label: 'Today',
-      },
-    ];
+    const dates = [];
 
-    // Uncomment when date scrolling is supported in api + filter
-    // for (let i = 6; i >= 0; i--) {
-    //   const newDate = moment(today)
-    //     .subtract(i, 'days')
-    //     .format('YYYY-MM-DD');
+    for (let i = 6; i >= 0; i--) {
+      const newDate = moment(today)
+        .subtract(i, 'days')
+        .format('YYYY-MM-DD');
 
-    //   dates.push({
-    //     date: newDate,
-    //     label: i === 0 ? 'Today' : newDate,
-    //   });
-    // }
+      dates.push({
+        date: newDate,
+        label: i === 0 ? 'Today' : newDate,
+      });
+    }
 
     this.state = { dates, initialSlide };
   }
@@ -55,7 +49,6 @@ export class DateSelector extends Component {
   render() {
     return (
       <DateSelectorContainer>
-        {console.log(this.state.dates)}
         <Slider afterChange={this.afterChange} {...sliderSettings}>
           {this.state.dates.map(date => <DateSlide key={date.date}>{date.label}</DateSlide>)}
         </Slider>
@@ -71,7 +64,7 @@ DateSelector.proptypes = {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators({ setDateFilter }, dispatch);
 };
 
 export default connect(

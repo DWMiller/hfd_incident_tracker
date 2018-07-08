@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { connectSocket } from 'client/redux/actionCreators';
+import { connectSocket } from 'client/redux/middleware/socket';
 import { getRecentIncidents } from 'client/redux/actions/incidents';
 
 import ScreensRooot from 'client/screens/Root';

@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actionCreators from 'client/redux/actionCreators';
+
+import { toggleFilterCollapse } from 'client/redux/ui/filterCollapse';
+
+import {
+  deselectAllFilterTypes,
+  selectMultipleFilterTypes,
+  toggleFilterType,
+} from 'client/redux/filters/type';
+
+import { setTextFilter } from 'client/redux/filters/text';
 
 import { availableIncidentTypesSelector } from 'client/redux/selectors';
 
@@ -15,7 +24,7 @@ export class IncidentFilter extends Component {
   render() {
     return (
       <FilterContainer className={this.props.isCollapsed ? ' collapsed' : ''}>
-        <button onClick={this.props.toggleFilterPanel} className="title">
+        <button onClick={this.props.toggleFilterCollapse} className="title">
           Filter Incidents
           {this.props.isCollapsed ? ' [ + ]' : ' [ - ]'}
         </button>
@@ -29,9 +38,9 @@ export class IncidentFilter extends Component {
           <IncidentFilterControls
             filters={this.props.filters}
             availableIncidentTypes={this.props.availableIncidentTypes}
-            toggleIncidentFilter={this.props.toggleIncidentFilter}
-            selectMultipleIncidentFilters={this.props.selectMultipleIncidentFilters}
-            deselectAllIncidentFilters={this.props.deselectAllIncidentFilters}
+            toggleIncidentFilter={this.props.toggleFilterType}
+            selectMultipleIncidentFilters={this.props.selectMultipleFilterTypes}
+            deselectAllIncidentFilters={this.props.deselectAllFilterTypes}
           />
         </div>
       </FilterContainer>
@@ -45,23 +54,32 @@ IncidentFilter.propTypes = {
   textFilter: PropTypes.string,
   isCollapsed: PropTypes.bool.isRequired,
   setTextFilter: PropTypes.func.isRequired,
-  toggleFilterPanel: PropTypes.func.isRequired,
-  toggleIncidentFilter: PropTypes.func.isRequired,
-  selectMultipleIncidentFilters: PropTypes.func.isRequired,
-  deselectAllIncidentFilters: PropTypes.func.isRequired,
+  toggleFilterCollapse: PropTypes.func.isRequired,
+  toggleFilterType: PropTypes.func.isRequired,
+  selectMultipleFilterTypes: PropTypes.func.isRequired,
+  deselectAllFilterTypes: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
   return {
     availableIncidentTypes: availableIncidentTypesSelector(state),
     filters: state.filters.types,
-    isCollapsed: state.filters.isCollapsed,
+    isCollapsed: state.ui.isFilterCollapsed,
     textFilter: state.filters.text,
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators(
+    {
+      toggleFilterCollapse,
+      deselectAllFilterTypes,
+      selectMultipleFilterTypes,
+      toggleFilterType,
+      setTextFilter,
+    },
+    dispatch
+  );
 };
 
 export default connect(

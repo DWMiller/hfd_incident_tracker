@@ -1,6 +1,5 @@
 import {
   GET_RECENT_INCIDENTS,
-  INCIDENT_RECEIVED,
   RECENT_INCIDENTS_SUCCESS,
   RECENT_INCIDENTS_ERROR,
   GET_INCIDENT,
@@ -8,7 +7,9 @@ import {
   GET_INCIDENT_ERROR,
 } from 'client/redux/actions/incidents';
 
-import { addIncident, replaceIncidents } from 'client/redux/actions/incidents';
+import { INCIDENT_RECEIVED } from './socket';
+
+import { addIncident, replaceIncidents } from 'client/redux/incidents';
 
 import { apiRequest } from 'client/redux/actions/api';
 

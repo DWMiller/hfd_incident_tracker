@@ -4,7 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import * as actionCreators from 'client/redux/actionCreators';
+import { mapChange } from 'client/redux/mapSettingsReducer';
+import { setActiveMarker } from 'client/redux/activeMarkerReducer';
+
 import { filteredIncidentsSelector } from 'client/redux/selectors';
 
 import { incidentType } from 'client/types';
@@ -76,7 +78,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators({ mapChange, setActiveMarker }, dispatch);
 };
 
 export default connect(
