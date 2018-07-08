@@ -27,9 +27,10 @@ if (process.env.NODE_ENV === 'production') {
   registerServiceWorker();
 }
 
+//! Careful when delete props, we are not deeply cloning the state and deleting nest state is real state
 store.subscribe(() => {
   const state = { ...store.getState() };
   delete state.router;
-  delete state.filters.date;
+
   localStorage.setItem('hfd-state', JSON.stringify(state));
 });

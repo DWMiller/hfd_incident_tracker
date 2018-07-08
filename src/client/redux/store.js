@@ -8,8 +8,6 @@ import { incidentsMiddleware } from './middleware/incidents';
 import { apiMiddleware } from './middleware/api';
 import { socketMiddleware } from './middleware/socket';
 
-import { initialState as defaultState } from 'client/config';
-
 export const history = createBrowserHistory();
 
 const myMiddleware = [...incidentsMiddleware, ...apiMiddleware, ...socketMiddleware];
@@ -18,7 +16,7 @@ const middleware = [routerMiddleware(history), ReduxThunk];
 
 const storedState = JSON.parse(localStorage.getItem('hfd-state')) || {};
 
-const initialState = Object.assign({}, defaultState, storedState);
+const initialState = Object.assign({}, storedState);
 
 const store = createStore(
   connectRouter(history)(rootReducer),

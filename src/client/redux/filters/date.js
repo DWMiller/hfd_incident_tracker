@@ -9,13 +9,11 @@ export const setDateFilter = date => ({
 
 const currentDate = moment().format('YYYY-MM-DD');
 
-export const dateFilterReducer = (state = currentDate, { type, date } = {}) => {
-  switch (type) {
+export default function dateFilterReducer(state = currentDate, action) {
+  switch (action.type) {
     case SET_DATE_FILTER:
-      return date;
+      return action.date;
     default:
       return state;
   }
-};
-
-export default dateFilterReducer;
+}
