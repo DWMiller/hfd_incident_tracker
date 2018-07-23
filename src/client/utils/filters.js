@@ -16,7 +16,5 @@ export const filterByText = (incident, text) =>
     .includes(text.toUpperCase());
 
 export const filterByDate = (incident, date) => {
-  //TODO - Just added time field, remove this check once db has caught up
-  const dateField = incident.time || incident.created;
-  return dateField.substring(0, 10) === date;
+  return incident.time.substring(0, 10) === date;
 };

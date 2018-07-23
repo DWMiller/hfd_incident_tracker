@@ -36,15 +36,12 @@ ScreenOverview.propTypes = {
   state: PropTypes.object,
 };
 
-const mapStateToProps = state => {
-  return {};
-};
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(actionCreators, dispatch);
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(ScreenOverview);

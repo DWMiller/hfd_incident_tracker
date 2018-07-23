@@ -11,23 +11,16 @@ export class Map extends Component {
   render() {
     let { lng, lat, options = {}, children, mapRef,  ...props = {} } = this.props;
 
-    options = {
-      ...defaultOptions,
-      ...this.props.options,
-    };
-
     return (
       <GoogleMap
         defaultCenter={{ lat, lng }}
         zoom={12}
         width="100%"
         height="100%"
-        options={options}
+        options={{...defaultOptions, ...options}}
         ref={mapRef}
         {...props}
       >
-
-
         {children}
       </GoogleMap>
     );

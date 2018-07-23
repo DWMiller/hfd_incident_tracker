@@ -28,8 +28,10 @@ class IncidentFilterControls extends Component {
   }
 
   render() {
+    const { deselectAllIncidentFilters, availableIncidentTypes, ...props } = this.props;
+
     return (
-      <Fragment>
+      <div {...props}>
         <div className="incidentFilterPanel__controls">
           <div />
           <span title="Enable visibility of all incident types">
@@ -38,15 +40,15 @@ class IncidentFilterControls extends Component {
           <span title="Disable visibility of all incident types">
             <FaEyeSlash
               className="incidentFilterPanel__control"
-              onClick={this.props.deselectAllIncidentFilters}
+              onClick={deselectAllIncidentFilters}
             />
           </span>
         </div>
 
         <div className="incidentFilterPanel__types">
-          {this.renderIncidentButton(this.props.availableIncidentTypes)}
+          {this.renderIncidentButton(availableIncidentTypes)}
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

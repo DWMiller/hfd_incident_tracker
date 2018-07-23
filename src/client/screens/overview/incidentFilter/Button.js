@@ -10,10 +10,13 @@ class IncidentFilterButton extends PureComponent {
   onSelect = () => this.props.toggleIncidentFilter(this.props.icon);
 
   render() {
-    const { icon, isSelected } = this.props;
+    const { icon, isSelected, className, ...props } = this.props;
 
     return (
-      <div className={'incidentFilterPanel__type ' + (isSelected ? 'selected' : '')}>
+      <div
+        className={`${className} incidentFilterPanel__type ' + ${isSelected ? 'selected' : ''}`}
+        {...props}
+      >
         <img onClick={this.onSelect} alt={'Filter ' + icon} src={icons[icon].file} />
         <FaEye
           onClick={!isSelected ? this.onSelect : null}

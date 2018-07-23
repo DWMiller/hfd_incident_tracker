@@ -22,6 +22,7 @@ export const filteredIncidentsSelector = createSelector(
     incidentDateFilterSelector,
   ],
   (incidents, filterTypes, filterText, filterDate) => {
+
     return incidents
       .filter(incident => filterByDate(incident, filterDate)) // too slow, maybe pre-parse dates into a comparable number?
       .filter(incident => filterByTypes(incident, filterTypes))
@@ -29,6 +30,6 @@ export const filteredIncidentsSelector = createSelector(
   }
 );
 
-export const recentIncidentsSelector = createSelector([filteredIncidentsSelector], incidents => {
-  return incidents.slice(0, 5);
-});
+// export const recentIncidentsSelector = createSelector([filteredIncidentsSelector], incidents => {
+//   return incidents.slice(0, 5);
+// });
