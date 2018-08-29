@@ -7,7 +7,7 @@ import {
   GET_INCIDENT_ERROR,
 } from 'client/redux/actions/incidents';
 
-import { INCIDENT_RECEIVED } from './socket';
+import { INCIDENT_RECEIVED } from '../actions/incidents';
 
 import { addIncident, replaceIncidents } from 'client/redux/incidents';
 
@@ -77,9 +77,9 @@ const incidentReceived = ({ dispatch }) => next => action => {
   next(action);
 
   if (action.type === INCIDENT_RECEIVED) {
-    action.incident = processIncident(action.incident);
+    const incident = processIncident(action.payload);
 
-    dispatch(addIncident(action.incident));
+    dispatch(addIncident(incident));
   }
 };
 

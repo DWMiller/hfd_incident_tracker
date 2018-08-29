@@ -10,7 +10,7 @@ import { socketMiddleware } from './middleware/socket';
 
 export const history = createBrowserHistory();
 
-const myMiddleware = [...incidentsMiddleware, ...apiMiddleware, ...socketMiddleware];
+const myMiddleware = [...incidentsMiddleware, ...apiMiddleware, socketMiddleware()];
 
 const middleware = [routerMiddleware(history), ReduxThunk];
 

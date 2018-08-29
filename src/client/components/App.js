@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { connectSocket } from 'client/redux/middleware/socket';
-import { getRecentIncidents } from 'client/redux/actions/incidents';
+import { getRecentIncidents, subscribeIncidents } from 'client/redux/actions/incidents';
 
 import ScreensRooot from 'client/screens/Root';
 
@@ -23,7 +22,7 @@ export class App extends Component {
 
   componentDidMount() {
     this.props.getRecentIncidents();
-    this.props.connectSocket();
+    this.props.subscribeIncidents();
   }
 
   render() {
@@ -35,21 +34,17 @@ export class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      connectSocket,
       getRecentIncidents,
+      subscribeIncidents,
     },
     dispatch
   );
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(App);

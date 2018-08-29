@@ -1,30 +1,35 @@
 import io from 'socket.io-client';
 
-export const SOCKET_CONNECT = '[socket] CONNECT';
-export const INCIDENT_RECEIVED = '[socket] INCIDENT_RECEIVED';
 // export const PROCESSING_INCIDENT = '[socket] PROCESS_INCIDENT';
 
-export const connectSocket = () => ({
-  type: SOCKET_CONNECT,
-});
+//http://nmajor.com/posts/using-socket-io-with-redux-websocket-redux-middleware
+export const socketMiddleware = () => {
+  const socket = window.location.port ? io('//localhost:3001') : io();
 
-export const incidentReceived = incident => ({
-  type: INCIDENT_RECEIVED,
-  incident,
-});
+  return ({ dispatch }) => next => (action) => {
+    if (typeof action === 'function') {
+      return next(action);
+    }
 
-const socket = ({ dispatch }) => next => action => {
-  next(action);
+    const {
+      event,
+      leave,
+      handle,
+      ...rest
+    } = action;
 
-  if (action.type === SOCKET_CONNECT) {
-    const socket = window.location.port ? io('//localhost:3001') : io();
+    if (!event) {
+      return next(action);
+    }
 
-    socket.on('incident', incident => {
-      if (incident) {
-        dispatch(incidentReceived(incident));
-      }
-    });
-  }
-};
+    if (leave) {
+      socket.removeListener(event);
+    }
 
-export const socketMiddleware = [socket];
+    let handleEvent = handle;
+    if (typeof handleEvent === 'string') {
+      handleEvent = payload => dispatch({ type: handle, payload, ...rest });
+    }
+    return socket.on(event, handleEvent);
+  };
+}
