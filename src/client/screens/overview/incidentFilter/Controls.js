@@ -28,7 +28,13 @@ class IncidentFilterControls extends Component {
   }
 
   render() {
-    const { deselectAllIncidentFilters, availableIncidentTypes, ...props } = this.props;
+    const {
+      deselectAllIncidentFilters,
+      availableIncidentTypes,
+      toggleIncidentFilter,
+      selectMultipleIncidentFilters,
+      ...props
+    } = this.props;
 
     return (
       <div {...props}>

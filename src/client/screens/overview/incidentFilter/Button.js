@@ -10,7 +10,7 @@ class IncidentFilterButton extends PureComponent {
   onSelect = () => this.props.toggleIncidentFilter(this.props.icon);
 
   render() {
-    const { icon, isSelected, className, ...props } = this.props;
+    const { icon, isSelected, className, toggleIncidentFilter, ...props } = this.props;
 
     return (
       <div
