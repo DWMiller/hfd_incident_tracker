@@ -101,7 +101,6 @@ const getIncident = ({ dispatch }) => next => action => {
 
 const getIncidentSuccess = ({ dispatch }) => next => action => {
   if (action.type === GET_INCIDENT_SUCCESS) {
-    console.log('a', action);
     action.payload = processIncident(action.payload);
   }
 
