@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { DebounceInput } from 'react-debounce-input';
 
-import FaClose from 'react-icons/lib/fa/close';
+import { MdClose } from 'react-icons/md';
 
 import styled from 'styled-components';
 
@@ -45,7 +45,7 @@ export default class IncidentTextFilter extends PureComponent {
           value={this.props.filterText}
         />
         <button onClick={this.clearFilter}>
-          <FaClose />
+          <MdClose />
         </button>
       </TextFilterWrapper>
     );

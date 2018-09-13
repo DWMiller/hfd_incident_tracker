@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import FaEye from 'react-icons/lib/fa/eye';
-import FaEyeSlash from 'react-icons/lib/fa/eye-slash';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import icons from 'client/config/icons';
 

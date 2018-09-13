@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
 
-import FaSearch from 'react-icons/lib/fa/search';
+import { FaSearch } from 'react-icons/fa';
 
 export const InfoWindowWrapper = styled.div`
   background-color: white;
