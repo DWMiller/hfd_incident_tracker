@@ -26,8 +26,6 @@ export class MapInfoWindow extends PureComponent {
       ? incidentDefinitions[incident.category]
       : incidentDefinitions['UNKNOWN'];
 
-    console.log(incident);
-
     const date = format(new Date(incident.time), 'h:mm a');
     return (
       <PigeonOverlay className="infoWindow" onCloseClick={this.props.onCloseClick} {...props}>
