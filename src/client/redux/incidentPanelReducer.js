@@ -1,10 +1,14 @@
+import { createReducer } from '@acemarke/redux-starter-kit';
+
 import * as actionTypes from './actionTypes';
 
-export default (state = {}, { type, incidentId } = {}) => {
-  switch (type) {
-    case actionTypes.TOGGLE_INCIDENT_PANEL:
-      return { ...state, isVisible: !state.isVisible };
-    default:
-      return state;
+function toggleIncidentPanel(state, action) {
+  state.isVisible = !state.isVisible;
+}
+
+export default createReducer(
+  {},
+  {
+    [actionTypes.TOGGLE_INCIDENT_PANEL]: toggleIncidentPanel,
   }
-};
+);

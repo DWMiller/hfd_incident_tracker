@@ -1,3 +1,5 @@
+import { createReducer } from '@acemarke/redux-starter-kit';
+
 export const MAP_CHANGE = '[map] CHANGE';
 
 export const mapChange = settings => ({
@@ -7,16 +9,11 @@ export const mapChange = settings => ({
 
 const defaultMapSettings = {
   zoom: 12,
-  center: { lat: 43.254401, lng: -79.863552 },
+  center: [43.254401, -79.863552],
 };
 
-export const mapSettingsReducer = (state = defaultMapSettings, { type, settings } = {}) => {
-  switch (type) {
-    case MAP_CHANGE:
-      return { ...state, ...settings };
-    default:
-      return state;
-  }
-};
+export const mapSettingsReducer = createReducer(defaultMapSettings, {
+  [MAP_CHANGE]: (state, { settings }) => ({ ...state, ...settings }),
+});
 
 export default mapSettingsReducer;

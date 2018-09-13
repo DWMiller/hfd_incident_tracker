@@ -1,3 +1,5 @@
+import { createReducer } from '@acemarke/redux-starter-kit';
+
 export const SET_ACTIVE_MARKER = '[map] SET_ACTIVE_MARKER';
 
 export const setActiveMarker = incidentId => ({
@@ -5,14 +7,8 @@ export const setActiveMarker = incidentId => ({
   incidentId,
 });
 
-export const activeMarkerReducer = (state = null, { type, incidentId } = {}) => {
-  switch (type) {
-    case SET_ACTIVE_MARKER: {
-      return incidentId;
-    }
-    default:
-      return state;
-  }
-};
+export const activeMarkerReducer = createReducer(null, {
+  [SET_ACTIVE_MARKER]: (state, { incidentId }) => incidentId,
+});
 
 export default activeMarkerReducer;

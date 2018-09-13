@@ -25,39 +25,35 @@ const MapContainerWrapper = styled.div`
 `;
 
 class MapContainer extends PureComponent {
-  mapRef = React.createRef(); //passe to MyMapComponent component to be bound to GoogleMap component
-
   timeout = null;
 
-  handleMapChange = () => {
+  handleMapChange = ({ center, zoom }) => {
     // Debounce change events
 
     window.clearTimeout(this.timeout);
     this.timeout = window.setTimeout(
       () =>
         this.props.mapChange({
-          center: this.mapRef.current.getCenter().toJSON(),
-          zoom: this.mapRef.current.getZoom(),
+          center,
+          zoom,
         }),
       500
     );
   };
 
   render() {
-    const { incidents, activeMarker, setActiveMarker } = this.props;
+    const { incidents, activeMarker, setActiveMarker, settings, ...props } = this.props;
+
+    const [lat, lng] = settings.center;
 
     return (
       <MapContainerWrapper>
         <Map
-          {...this.props.settings.center}
-          zoom={this.props.settings.zoom}
-          onCenterChanged={this.handleMapChange}
-          mapRef={this.mapRef}
-          options={{
-            streetViewControl: false,
-            fullscreenControl: false,
-            mapTypeControl: false,
-          }}
+          lat={lat}
+          lng={lng}
+          {...settings.center}
+          zoom={settings.zoom}
+          onBoundsChanged={this.handleMapChange}
         >
           {incidents.map(incident => {
             const isActive = activeMarker === incident.id;

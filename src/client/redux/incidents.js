@@ -1,3 +1,5 @@
+import { createReducer } from '@acemarke/redux-starter-kit';
+
 export const ADD_INCIDENTS = '[incidents] ADD';
 export const CLEAR_INCIDENTS = '[incidents] CLEAR';
 export const REPLACE_INCIDENTS = '[incidents] REPLACE';
@@ -18,15 +20,8 @@ export const clearIncidents = () => ({
   type: CLEAR_INCIDENTS,
 });
 
-export default function reducer(state = [], { type, incidents } = {}) {
-  switch (type) {
-    case ADD_INCIDENTS:
-      return [...incidents, ...state];
-    case REPLACE_INCIDENTS:
-      return [...incidents];
-    case CLEAR_INCIDENTS:
-      return [];
-    default:
-      return state;
-  }
-}
+export default createReducer([], {
+  [ADD_INCIDENTS]: (state, { incidents }) => [...incidents, ...state],
+  [REPLACE_INCIDENTS]: (state, { incidents }) => [...incidents],
+  [CLEAR_INCIDENTS]: () => [],
+});
