@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { format } from 'date-fns';
 
 export const SET_DATE_FILTER = '[filter] SET_DATE';
 
@@ -7,7 +7,7 @@ export const setDateFilter = date => ({
   date,
 });
 
-const currentDate = moment().format('YYYY-MM-DD');
+const currentDate = format(new Date(), 'yyyy-MM-dd');
 
 export default function dateFilterReducer(state = currentDate, action) {
   switch (action.type) {

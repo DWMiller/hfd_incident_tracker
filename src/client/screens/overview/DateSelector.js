@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import moment from 'moment';
+import { subDays, format } from 'date-fns';
 import Slider from 'react-slick';
 
 import { setDateFilter } from 'client/redux/filters/date';
@@ -24,18 +24,16 @@ export class DateSelector extends Component {
   constructor(props) {
     super(props);
 
-    const today = moment();
+    const today = new Date();
 
     const dates = [];
 
     for (let i = 6; i >= 0; i--) {
-      const newDate = moment(today)
-        .subtract(i, 'days')
-        .format('YYYY-MM-DD');
+      const newDate = subDays(today, i);
 
       dates.push({
-        date: newDate,
-        label: i === 0 ? 'Today' : newDate,
+        date: format(newDate, 'yyyy-MM-dd'),
+        label: i === 0 ? 'Today' : format(newDate, 'yyyy-MM-dd'),
       });
     }
 
@@ -50,7 +48,9 @@ export class DateSelector extends Component {
     return (
       <DateSelectorContainer>
         <Slider afterChange={this.afterChange} {...sliderSettings}>
-          {this.state.dates.map(date => <DateSlide key={date.date}>{date.label}</DateSlide>)}
+          {this.state.dates.map(date => (
+            <DateSlide key={date.date}>{date.label}</DateSlide>
+          ))}
         </Slider>
       </DateSelectorContainer>
     );

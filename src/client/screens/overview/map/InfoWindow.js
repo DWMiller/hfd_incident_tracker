@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-
-import moment from 'moment';
+import { format } from 'date-fns';
 import PigeonOverlay from 'pigeon-overlay';
 
 // import { InfoWindow } from 'react-google-maps';
@@ -27,7 +26,9 @@ export class MapInfoWindow extends PureComponent {
       ? incidentDefinitions[incident.category]
       : incidentDefinitions['UNKNOWN'];
 
-    const date = moment(incident.created).format('MMMM Do h:mm a');
+    console.log(incident);
+
+    const date = format(new Date(incident.time), 'h:mm a');
     return (
       <PigeonOverlay className="infoWindow" onCloseClick={this.props.onCloseClick} {...props}>
         <InfoWindowWrapper>
