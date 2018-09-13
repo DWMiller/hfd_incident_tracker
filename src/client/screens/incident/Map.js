@@ -10,7 +10,7 @@ export class ScreenIncidentMap extends React.Component {
     const { height, width, file: url } = this.props.incident.icon;
 
     return (
-      <Map lat={lat} lng={lng} defaultZoom={12} height="240px">
+      <Map lat={lat} lng={lng} defaultZoom={12} height={240}>
         <PigeonOverlay anchor={[lat, lng]}>
           <img src={url} width={width} height={height} alt="" />
         </PigeonOverlay>
