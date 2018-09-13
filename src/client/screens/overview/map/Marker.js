@@ -1,29 +1,28 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
-import { Marker } from 'react-google-maps';
+import PigeonOverlay from 'pigeon-overlay';
 
 import { MapInfoWindow } from './InfoWindow';
 
 import { incidentType } from 'client/types';
 
-class MapMarker extends PureComponent {
+export class MapMarker extends PureComponent {
   onClick = () => this.props.setActiveMarker(this.props.isActive ? null : this.props.incident.id);
 
   render() {
+    const { incident, ...props } = this.props;
+
     const { height, width, file: url } = this.props.incident.icon;
 
-    const markerIcon = {
-      scaledSize: { height, width },
-      url,
-    };
-
     return (
-      <Marker position={this.props.position} defaultIcon={markerIcon} onClick={this.onClick}>
+      <React.Fragment>
+        <PigeonOverlay {...props}>
+          <img onClick={this.onClick} src={url} width={width} height={height} alt="" />
+        </PigeonOverlay>
         {this.props.isActive && (
-          <MapInfoWindow onCloseClick={this.onClick} incident={this.props.incident} />
+          <MapInfoWindow onCloseClick={this.onClick} incident={this.props.incident} {...props} />
         )}
-      </Marker>
+      </React.Fragment>
     );
   }
 }
@@ -32,5 +31,3 @@ MapMarker.propTypes = {
   isActive: PropTypes.bool.isRequired,
   incident: incidentType.isRequired,
 };
-
-export default MapMarker;

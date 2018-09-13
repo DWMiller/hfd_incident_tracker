@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 
 import moment from 'moment';
+import PigeonOverlay from 'pigeon-overlay';
 
-import { InfoWindow } from 'react-google-maps';
+// import { InfoWindow } from 'react-google-maps';
 
 import { incidentDefinitions } from 'client/config/incident-definitions';
 import { incidentType } from 'client/types';
@@ -19,7 +20,7 @@ import {
 
 export class MapInfoWindow extends PureComponent {
   render() {
-    const { incident } = this.props;
+    const { incident, ...props } = this.props;
     const icon = incident.icon;
 
     const type = incidentDefinitions[incident.category]
@@ -28,7 +29,7 @@ export class MapInfoWindow extends PureComponent {
 
     const date = moment(incident.created).format('MMMM Do h:mm a');
     return (
-      <InfoWindow onCloseClick={this.props.onCloseClick}>
+      <PigeonOverlay className="infoWindow" onCloseClick={this.props.onCloseClick} {...props}>
         <InfoWindowWrapper>
           <IncidentLink incident={incident} />
 
@@ -41,7 +42,7 @@ export class MapInfoWindow extends PureComponent {
 
           <Time>{date}</Time>
         </InfoWindowWrapper>
-      </InfoWindow>
+      </PigeonOverlay>
     );
   }
 }

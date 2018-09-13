@@ -12,12 +12,16 @@ import { filteredIncidentsSelector } from 'client/redux/selectors';
 import { incidentType } from 'client/types';
 
 import Map from 'client/components/Map';
-import Markers from './map/Markers';
+import { MapMarker } from './map/Marker';
 
 const MapContainerWrapper = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
+
+  .infoWindow {
+    z-index: 2000;
+  }
 `;
 
 class MapContainer extends PureComponent {
@@ -40,6 +44,8 @@ class MapContainer extends PureComponent {
   };
 
   render() {
+    const { incidents, activeMarker, setActiveMarker } = this.props;
+
     return (
       <MapContainerWrapper>
         <Map
@@ -53,11 +59,21 @@ class MapContainer extends PureComponent {
             mapTypeControl: false,
           }}
         >
-          <Markers
-            incidents={this.props.incidents}
-            activeMarker={this.props.activeMarker}
-            setActiveMarker={this.props.setActiveMarker}
-          />
+          {incidents.map(incident => {
+            const isActive = activeMarker === incident.id;
+
+            const { lat, lng } = incident.position;
+
+            return (
+              <MapMarker
+                key={incident.id}
+                isActive={isActive}
+                incident={incident}
+                anchor={[lat, lng]}
+                setActiveMarker={setActiveMarker}
+              />
+            );
+          })}
         </Map>
       </MapContainerWrapper>
     );

@@ -1,37 +1,19 @@
-import React, { Component } from 'react';
-import { Marker } from 'react-google-maps';
+import React from 'react';
+import PigeonOverlay from 'pigeon-overlay';
 
 import Map from 'client/components/Map';
 
-export class ScreenIncidentMap extends Component {
+export class ScreenIncidentMap extends React.Component {
   render() {
     const { lat, lng } = this.props.incident.position;
 
     const { height, width, file: url } = this.props.incident.icon;
 
-    const markerIcon = {
-      scaledSize: { height, width },
-      url,
-    };
-
     return (
-      <Map
-        lat={lat}
-        lng={lng}
-        zoom={12}
-        height="240px"
-        options={{
-          mapTypeControl: false,
-          streetViewControl: false,
-          zoomControl: false,
-          fullscreenControl: false,
-          disableDoubleClickZoom: true,
-          draggable: false,
-          scrollwheel: false,
-          panControl: false,
-        }}
-      >
-        <Marker defaultIcon={markerIcon} position={this.props.incident.position} />
+      <Map lat={lat} lng={lng} defaultZoom={12} height="240px">
+        <PigeonOverlay anchor={[lat, lng]}>
+          <img src={url} width={width} height={height} alt="" />
+        </PigeonOverlay>
       </Map>
     );
   }

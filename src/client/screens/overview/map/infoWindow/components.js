@@ -6,7 +6,13 @@ import { Link } from 'react-router-dom';
 import FaSearch from 'react-icons/lib/fa/search';
 
 export const InfoWindowWrapper = styled.div`
-  max-width: 150px;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  max-width: 200px;
+  font-weight: 300;
+  font-size: 13px;
 
   img {
     float: left;
