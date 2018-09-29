@@ -14,6 +14,7 @@ export const IncidentPanelWrapper = styled.div`
   overflow-x: visible;
   overflow-y: scroll;
   box-shadow: -2px 2px 5px -2px rgba(0, 0, 0, 0.8);
+  z-index: 2000;
 
   &.show {
     transition-duration: 0.225s;

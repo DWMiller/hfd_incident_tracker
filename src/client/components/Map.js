@@ -4,10 +4,10 @@ import PigeonMap from 'pigeon-maps';
 
 export class Map extends Component {
   render() {
-    const { lng, lat, children, mapRef, ...props } = this.props;
+    const { lng, lat, children, ...props } = this.props;
 
     return (
-      <PigeonMap defaultCenter={[lat, lng]} defaultZoom={12} {...props}>
+      <PigeonMap center={[lat, lng]} {...props}>
         {children}
       </PigeonMap>
     );

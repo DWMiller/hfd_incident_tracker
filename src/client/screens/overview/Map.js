@@ -20,41 +20,26 @@ const MapContainerWrapper = styled.div`
   width: 100%;
 
   .infoWindow {
-    z-index: 2000;
+    z-index: 1000;
   }
 `;
 
 class MapContainer extends PureComponent {
-  timeout = null;
-
   handleMapChange = ({ center, zoom }) => {
-    // Debounce change events
-
-    window.clearTimeout(this.timeout);
-    this.timeout = window.setTimeout(
-      () =>
-        this.props.mapChange({
-          center,
-          zoom,
-        }),
-      500
-    );
+    this.props.mapChange({
+      center,
+      zoom,
+    });
   };
 
   render() {
-    const { incidents, activeMarker, setActiveMarker, settings, ...props } = this.props;
+    const { incidents, activeMarker, setActiveMarker, settings } = this.props;
 
     const [lat, lng] = settings.center;
 
     return (
       <MapContainerWrapper>
-        <Map
-          lat={lat}
-          lng={lng}
-          {...settings.center}
-          zoom={settings.zoom}
-          onBoundsChanged={this.handleMapChange}
-        >
+        <Map lat={lat} lng={lng} zoom={settings.zoom} onBoundsChanged={this.handleMapChange}>
           {incidents.map(incident => {
             const isActive = activeMarker === incident.id;
 

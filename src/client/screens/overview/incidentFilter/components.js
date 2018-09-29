@@ -12,6 +12,7 @@ export const FilterContainer = styled.div`
   border: 1px solid lightgray;
   border-right: none;
   box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.3);
+  z-index: 2000;
 
   @media (min-width: 800px) {
     left: 15px;

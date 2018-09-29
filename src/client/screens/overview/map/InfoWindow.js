@@ -1,8 +1,5 @@
 import React, { PureComponent } from 'react';
 import { format } from 'date-fns';
-import PigeonOverlay from 'pigeon-overlay';
-
-// import { InfoWindow } from 'react-google-maps';
 
 import { incidentDefinitions } from 'client/config/incident-definitions';
 import { incidentType } from 'client/types';
@@ -19,7 +16,7 @@ import {
 
 export class MapInfoWindow extends PureComponent {
   render() {
-    const { incident, ...props } = this.props;
+    const { incident } = this.props;
     const icon = incident.icon;
 
     const type = incidentDefinitions[incident.category]
@@ -27,21 +24,20 @@ export class MapInfoWindow extends PureComponent {
       : incidentDefinitions['UNKNOWN'];
 
     const date = format(new Date(incident.time), 'h:mm a');
+
     return (
-      <PigeonOverlay className="infoWindow" onCloseClick={this.props.onCloseClick} {...props}>
-        <InfoWindowWrapper>
-          <IncidentLink incident={incident} />
+      <InfoWindowWrapper>
+        <IncidentLink incident={incident} />
 
-          <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
-          {incident.locationName && <Location>{incident.locationName}</Location>}
-          <Category>{type.text}</Category>
-          <Address>{incident.location.address}</Address>
+        <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
+        {incident.locationName && <Location>{incident.locationName}</Location>}
+        <Category>{type.text}</Category>
+        <Address>{incident.location.address}</Address>
 
-          <TwitterLink incident={incident} />
+        <TwitterLink incident={incident} />
 
-          <Time>{date}</Time>
-        </InfoWindowWrapper>
-      </PigeonOverlay>
+        <Time>{date}</Time>
+      </InfoWindowWrapper>
     );
   }
 }

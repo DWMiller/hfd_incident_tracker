@@ -11,8 +11,8 @@ import registerServiceWorker from './registerServiceWorker';
 import './styles.js';
 
 if (process.env.NODE_ENV !== 'production') {
-  const { whyDidYouUpdate } = require('why-did-you-update');
-  whyDidYouUpdate(React);
+  // const { whyDidYouUpdate } = require('why-did-you-update');
+  // whyDidYouUpdate(React);
 }
 
 const Root = (

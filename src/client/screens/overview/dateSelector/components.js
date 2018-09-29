@@ -5,6 +5,7 @@ export const DateSelectorContainer = styled.div`
   position: absolute;
   left: 0%;
   top: 5px;
+  z-index: 2000;
 
   .slick-slider {
     margin: 0 auto;

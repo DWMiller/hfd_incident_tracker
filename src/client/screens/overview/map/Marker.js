@@ -10,17 +10,22 @@ export class MapMarker extends PureComponent {
   onClick = () => this.props.setActiveMarker(this.props.isActive ? null : this.props.incident.id);
 
   render() {
-    const { incident, ...props } = this.props;
+    const { incident, anchor, left, top } = this.props;
 
-    const { height, width, file: url } = this.props.incident.icon;
+    const { height, width, file: url } = incident.icon;
+
+    const rLeft = Math.round(left);
+    const rTop = Math.round(top);
 
     return (
       <React.Fragment>
-        <PigeonOverlay {...props}>
+        <PigeonOverlay anchor={anchor} left={rLeft} top={rTop}>
           <img onClick={this.onClick} src={url} width={width} height={height} alt="" />
         </PigeonOverlay>
         {this.props.isActive && (
-          <MapInfoWindow onCloseClick={this.onClick} incident={this.props.incident} {...props} />
+          <PigeonOverlay anchor={anchor} left={rLeft} top={rTop} className="infoWindow">
+            <MapInfoWindow onCloseClick={this.onClick} incident={this.props.incident} />
+          </PigeonOverlay>
         )}
       </React.Fragment>
     );
