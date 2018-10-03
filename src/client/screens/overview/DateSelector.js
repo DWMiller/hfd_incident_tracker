@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { subDays, format } from 'date-fns';
 import Slider from 'react-slick';
 
@@ -20,7 +19,7 @@ const sliderSettings = {
   initialSlide,
 };
 
-export class DateSelector extends Component {
+export class DateSelector extends React.Component {
   constructor(props) {
     super(props);
 
@@ -61,13 +60,7 @@ DateSelector.proptypes = {
   incidents: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ setDateFilter }, dispatch);
-};
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  null,
+  { setDateFilter }
 )(DateSelector);

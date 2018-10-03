@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actionCreators from 'client/redux/actionCreators';
@@ -36,12 +35,7 @@ ScreenOverview.propTypes = {
   state: PropTypes.object,
 };
 
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(actionCreators, dispatch);
-};
-
 export default connect(
   null,
-  mapDispatchToProps
+  actionCreators
 )(ScreenOverview);

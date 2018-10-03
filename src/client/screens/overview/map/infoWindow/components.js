@@ -55,17 +55,14 @@ export const IncidentLinkWrapper = styled(Link)`
   cursor: pointer;
 `;
 
-export const IncidentLink = ({ incident, onClick }) => (
+export const IncidentLink = ({ incident }) => (
   <IncidentLinkWrapper to={`/incident/${incident.code}`}>
     <FaSearch />
   </IncidentLinkWrapper>
 );
 
 export const TwitterLink = ({ incident }) => (
-  <TwitterLinkWrapper
-    onClick={this.twitterLinkClick}
-    href={'https://twitter.com/HFD_Incidents/status/' + incident.id}
-  >
+  <TwitterLinkWrapper href={'https://twitter.com/HFD_Incidents/status/' + incident.id}>
     View on Twitter
   </TwitterLinkWrapper>
 );

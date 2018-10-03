@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -34,17 +33,10 @@ export class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      getRecentIncidents,
-      subscribeIncidents,
-    },
-    dispatch
-  );
-};
-
 export default connect(
   null,
-  mapDispatchToProps
+  {
+    getRecentIncidents,
+    subscribeIncidents,
+  }
 )(App);

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actionCreators from 'client/redux/actionCreators';
@@ -13,7 +12,7 @@ import Incident from './incidentPanel/Incident';
 
 import { IncidentPanelWrapper, ToggleButton } from './incidentPanel/components';
 
-export class IncidentPanel extends Component {
+export class IncidentPanel extends React.Component {
   static propTypes = {
     incidents: PropTypes.arrayOf(incidentType),
     isVisible: PropTypes.bool.isRequired,
@@ -62,11 +61,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(actionCreators, dispatch);
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  actionCreators
 )(IncidentPanel);

@@ -1,6 +1,5 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -24,7 +23,7 @@ const MapContainerWrapper = styled.div`
   }
 `;
 
-class MapContainer extends PureComponent {
+class MapContainer extends React.PureComponent {
   handleMapChange = ({ center, zoom }) => {
     this.props.mapChange({
       center,
@@ -74,11 +73,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ mapChange, setActiveMarker }, dispatch);
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { mapChange, setActiveMarker }
 )(MapContainer);

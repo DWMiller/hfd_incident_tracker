@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+
 import { connect } from 'react-redux';
 
 import { toggleFilterCollapse } from 'client/redux/ui/filterCollapse';
@@ -20,7 +20,7 @@ import IncidentFilterControls from './incidentFilter/Controls';
 
 import { FilterContainer } from './incidentFilter/components';
 
-export class IncidentFilter extends Component {
+export class IncidentFilter extends React.Component {
   render() {
     return (
       <FilterContainer className={this.props.isCollapsed ? ' collapsed' : ''}>
@@ -69,20 +69,13 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      toggleFilterCollapse,
-      deselectAllFilterTypes,
-      selectMultipleFilterTypes,
-      toggleFilterType,
-      setTextFilter,
-    },
-    dispatch
-  );
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    toggleFilterCollapse,
+    deselectAllFilterTypes,
+    selectMultipleFilterTypes,
+    toggleFilterType,
+    setTextFilter,
+  }
 )(IncidentFilter);

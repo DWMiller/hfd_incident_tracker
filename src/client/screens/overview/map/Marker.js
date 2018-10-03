@@ -1,10 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import PigeonOverlay from 'pigeon-overlay';
 
 import { MapInfoWindow } from './InfoWindow';
 
 import { incidentType } from 'client/types';
+
+const MarkerImage = styled.img`
+  cursor: pointer;
+`;
 
 export class MapMarker extends PureComponent {
   onClick = () => this.props.setActiveMarker(this.props.isActive ? null : this.props.incident.id);
@@ -20,7 +25,7 @@ export class MapMarker extends PureComponent {
     return (
       <React.Fragment>
         <PigeonOverlay anchor={anchor} left={rLeft} top={rTop}>
-          <img onClick={this.onClick} src={url} width={width} height={height} alt="" />
+          <MarkerImage onClick={this.onClick} src={url} width={width} height={height} alt="" />
         </PigeonOverlay>
         {this.props.isActive && (
           <PigeonOverlay anchor={anchor} left={rLeft} top={rTop} className="infoWindow">
