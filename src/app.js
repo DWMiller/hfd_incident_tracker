@@ -1,6 +1,6 @@
 const cors = require('cors');
 const path = require('path');
-
+const compression = require('compression');
 const express = require('express');
 
 const routes = require('./routes');
@@ -12,6 +12,8 @@ if (app.env === 'development') {
   /* Development Error Handler - Prints stack trace */
   // app.use(logger());
 }
+
+app.use(compression());
 
 app.use(cors());
 
