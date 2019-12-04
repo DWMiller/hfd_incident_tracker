@@ -1,4 +1,4 @@
-import { createReducer } from '@acemarke/redux-starter-kit';
+import { createReducer } from '@reduxjs/toolkit';
 
 export const ADD_INCIDENTS = '[incidents] ADD';
 export const CLEAR_INCIDENTS = '[incidents] CLEAR';

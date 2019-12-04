@@ -1,4 +1,4 @@
-import { createReducer } from '@acemarke/redux-starter-kit';
+import { createReducer } from '@reduxjs/toolkit';
 
 export const SET_ACTIVE_MARKER = '[map] SET_ACTIVE_MARKER';
 

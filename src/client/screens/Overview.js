@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-
-import * as actionCreators from 'client/redux/actionCreators';
 
 import OverviewMap from './overview/Map';
 
 // import IncidentPanel from './overview/IncidentPanel';
 import IncidentFilter from './overview/IncidentFilter';
-import DateSelector from './overview/DateSelector';
 
 const PageContainer = styled.div`
   position: fixed;
@@ -18,24 +14,18 @@ const PageContainer = styled.div`
   overflow: hidden;
 `;
 
-export class ScreenOverview extends Component {
-  render() {
-    return (
-      <PageContainer>
-        <OverviewMap />
-        <IncidentFilter />
-        {/* <IncidentPanel /> */}
-        <DateSelector />
-      </PageContainer>
-    );
-  }
+function ScreenOverview() {
+  return (
+    <PageContainer>
+      <OverviewMap />
+      <IncidentFilter />
+      {/* <IncidentPanel /> */}
+    </PageContainer>
+  );
 }
 
 ScreenOverview.propTypes = {
   state: PropTypes.object,
 };
 
-export default connect(
-  null,
-  actionCreators
-)(ScreenOverview);
+export default ScreenOverview;

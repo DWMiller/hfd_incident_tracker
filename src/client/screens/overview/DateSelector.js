@@ -60,7 +60,4 @@ DateSelector.proptypes = {
   incidents: PropTypes.array.isRequired,
 };
 
-export default connect(
-  null,
-  { setDateFilter }
-)(DateSelector);
+export default connect(null, { setDateFilter })(DateSelector);

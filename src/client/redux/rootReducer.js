@@ -13,14 +13,14 @@ import mapSettingsReducer from './mapSettingsReducer';
 
 import typeFilterReducer from './filters/type';
 import textFilterReducer from './filters/text';
-import dateFilterReducer from './filters/date';
+// import dateFilterReducer from './filters/date';
 
 const rootReducer = combineReducers({
   incidents: incidentsReducer,
   filters: combineReducers({
     types: typeFilterReducer,
     text: textFilterReducer,
-    date: dateFilterReducer,
+    // date: dateFilterReducer,
   }),
   ui: combineReducers({
     isFilterCollapsed: filterCollapseReducer,

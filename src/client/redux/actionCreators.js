@@ -1,4 +1,4 @@
-import { push } from 'connected-react-router';
+// import { push } from 'connected-react-router';
 
 // import * as actionTypes from './actionTypes';
 
@@ -16,7 +16,7 @@ import { push } from 'connected-react-router';
 // };
 
 export const navigate = path => dispatch => {
-  dispatch(push(path));
+  // dispatch(push(path));
 };
 
 // export const toggleIncidentPanel = () => ({

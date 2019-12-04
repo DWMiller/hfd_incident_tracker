@@ -12,7 +12,7 @@ exports.recent = async (req, res, next) => {
   let incidents = getData(KEYS.RECENT_INCIDENTS);
 
   if (!incidents) {
-    incidents = await Incident.find({ time: { $gte: WEEK_AGO } });
+    incidents = await Incident.find({ time: { $gte: DAY_AGO } });
 
     setData(KEYS.RECENT_INCIDENTS, incidents);
   }

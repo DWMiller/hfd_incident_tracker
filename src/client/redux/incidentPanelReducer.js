@@ -1,4 +1,4 @@
-import { createReducer } from '@acemarke/redux-starter-kit';
+import { createReducer } from '@reduxjs/toolkit';
 
 import * as actionTypes from './actionTypes';
 

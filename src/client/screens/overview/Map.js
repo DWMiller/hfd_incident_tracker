@@ -1,14 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import { mapChange } from 'client/redux/mapSettingsReducer';
 import { setActiveMarker } from 'client/redux/activeMarkerReducer';
 
 import { filteredIncidentsSelector } from 'client/redux/selectors';
-
-import { incidentType } from 'client/types';
 
 import Map from 'client/components/Map';
 import { MapMarker } from './map/Marker';
@@ -23,57 +20,65 @@ const MapContainerWrapper = styled.div`
   }
 `;
 
-class MapContainer extends React.PureComponent {
-  handleMapChange = ({ center, zoom }) => {
-    this.props.mapChange({
-      center,
-      zoom,
-    });
-  };
+const renderMarkers = (incidents, activeMarker, handleMarkerSelect) => {
+  console.log('test');
 
-  render() {
-    const { incidents, activeMarker, setActiveMarker, settings } = this.props;
+  return incidents.map(incident => {
+    const isActive = activeMarker === incident.id;
 
-    const [lat, lng] = settings.center;
+    const { lat, lng } = incident.position;
 
     return (
-      <MapContainerWrapper>
-        <Map lat={lat} lng={lng} zoom={settings.zoom} onBoundsChanged={this.handleMapChange}>
-          {incidents.map(incident => {
-            const isActive = activeMarker === incident.id;
-
-            const { lat, lng } = incident.position;
-
-            return (
-              <MapMarker
-                key={incident.id}
-                isActive={isActive}
-                incident={incident}
-                anchor={[lat, lng]}
-                setActiveMarker={setActiveMarker}
-              />
-            );
-          })}
-        </Map>
-      </MapContainerWrapper>
+      <MapMarker
+        key={incident.id}
+        isActive={isActive}
+        incident={incident}
+        anchor={[lat, lng]}
+        setActiveMarker={handleMarkerSelect}
+      />
     );
-  }
+  });
+};
+
+function MapContainer() {
+  const dispatch = useDispatch();
+
+  const incidents = useSelector(filteredIncidentsSelector);
+  const settings = useSelector(state => state.mapSettings);
+  const activeMarker = useSelector(state => state.activeMarker);
+
+  const handleMapChange = React.useCallback(
+    ({ center, zoom }) => {
+      dispatch(
+        mapChange({
+          center,
+          zoom,
+        })
+      );
+    },
+    [dispatch]
+  );
+
+  const handleMarkerSelect = React.useCallback(
+    (id = null) => {
+      dispatch(setActiveMarker(id));
+    },
+    [dispatch]
+  );
+
+  const [lat, lng] = settings.center;
+
+  const renderedMarkers = React.useMemo(() => {
+    return renderMarkers(incidents, activeMarker, handleMarkerSelect);
+  }, [incidents, activeMarker, handleMapChange]);
+
+  return (
+    <MapContainerWrapper>
+      <Map lat={lat} lng={lng} zoom={settings.zoom} onBoundsChanged={handleMapChange}>
+        {renderedMarkers}
+      </Map>
+    </MapContainerWrapper>
+  );
 }
 
-MapContainer.propTypes = {
-  mapChange: PropTypes.func.isRequired,
-  alerts: PropTypes.arrayOf(incidentType),
-};
-
-const mapStateToProps = state => {
-  return {
-    incidents: filteredIncidentsSelector(state),
-    settings: state.mapSettings,
-    activeMarker: state.activeMarker,
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  { mapChange, setActiveMarker }
-)(MapContainer);
+export default MapContainer;
