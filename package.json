@@ -9,6 +9,7 @@
   "description": "",
   "scripts": {
     "start": "node server",
+    "deploy": "node server",
     "build": "cd react-ui/ && npm install && npm run build",
     "prune": "node src/scripts/delete_old.js"
   },
