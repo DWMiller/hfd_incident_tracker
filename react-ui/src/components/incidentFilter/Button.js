@@ -1,35 +1,33 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import icons from '../../config/icons';
 
-class IncidentFilterButton extends PureComponent {
-  onSelect = () => this.props.toggleIncidentFilter(this.props.icon);
+function IncidentFilterButton(props) {
+  const onSelect = () => props.toggleIncidentFilter(props.icon);
 
-  render() {
-    const { icon, isSelected, className, toggleIncidentFilter, ...props } = this.props;
+  const { icon, isSelected, className, toggleIncidentFilter, ...rest } = props;
 
-    return (
-      <div
-        className={`${className} incidentFilterPanel__type ' + ${isSelected ? 'selected' : ''}`}
-        {...props}
-      >
-        <img onClick={this.onSelect} alt={'Filter ' + icon} src={icons[icon].file} />
-        <FaEye
-          onClick={!isSelected ? this.onSelect : null}
-          className={isSelected ? ' active' : ''}
-          style={{ verticalAlign: 'baseline' }}
-        />
-        <FaEyeSlash
-          onClick={isSelected ? this.onSelect : null}
-          className={!isSelected ? ' active' : ''}
-          style={{ verticalAlign: 'baseline' }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div
+      className={`${className} incidentFilterPanel__type ' + ${isSelected ? 'selected' : ''}`}
+      {...rest}
+    >
+      <img onClick={onSelect} alt={'Filter ' + icon} src={icons[icon].file} />
+      <FaEye
+        onClick={!isSelected ? onSelect : null}
+        className={isSelected ? ' active' : ''}
+        style={{ verticalAlign: 'baseline' }}
+      />
+      <FaEyeSlash
+        onClick={isSelected ? onSelect : null}
+        className={!isSelected ? ' active' : ''}
+        style={{ verticalAlign: 'baseline' }}
+      />
+    </div>
+  );
 }
 
 IncidentFilterButton.propTypes = {

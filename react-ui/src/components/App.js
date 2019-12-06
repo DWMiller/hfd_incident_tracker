@@ -1,39 +1,47 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
+import React from 'react';
+import { Provider, useDispatch } from 'react-redux';
 
-import { getRecentIncidents, subscribeIncidents } from '../redux/actions/incidents';
+import configureStore from '../store/configureStore';
 
-import ScreensRooot from '../screens/Root';
+import { getRecentIncidents, subscribeIncidents } from '../store/actions/incidents';
 
-const AppWrapper = styled.div`
-  font-family: Verdana, sans-serif;
-  position: relative;
-  height: 100%;
-  line-height: 1.6;
-`;
+import ScreensRoot from '../screens/Root';
+import GlobalStyle from 'styles/global';
+import { loadState, saveState } from 'utils/localStorage';
 
-export class App extends Component {
-  static propTypes = {
-    state: PropTypes.object,
-  };
+const store = configureStore(loadState('hfd-state'));
 
-  componentDidMount() {
-    this.props.getRecentIncidents();
-    this.props.subscribeIncidents();
-  }
+function OnLoad() {
+  const dispatch = useDispatch();
 
-  render() {
-    return (
-      <AppWrapper>
-        <ScreensRooot {...this.props} />{' '}
-      </AppWrapper>
-    );
-  }
+  React.useEffect(() => {
+    dispatch(getRecentIncidents());
+    dispatch(subscribeIncidents());
+  }, [dispatch]);
+
+  return null;
 }
 
-export default connect(null, {
-  getRecentIncidents,
-  subscribeIncidents,
-})(App);
+function App() {
+  React.useEffect(() => {
+    store.subscribe(() => {
+      //TODO Throttle/debounce
+      // TODO More advanced whitelisting/blacklisting
+
+      //! Careful when delete props, we are not deeply cloning the state and nested state is real state
+      const state = { ...store.getState('hfd-state') };
+
+      saveState(state, 'hfd-state');
+    });
+  }, []);
+
+  return (
+    <Provider store={store}>
+      <GlobalStyle />
+      <OnLoad />
+      <ScreensRoot />
+    </Provider>
+  );
+}
+
+export default App;

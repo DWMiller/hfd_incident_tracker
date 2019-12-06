@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as actionCreators from '../../redux/actionCreators';
-import { recentIncidentsSelector } from '../../redux/selectors';
+import * as actionCreators from '../../store/actionCreators';
+import { recentIncidentsSelector } from '../../store/selectors';
 
 import { incidentType } from '../../types';
 

@@ -4,29 +4,15 @@ export const TOGGLE_FILTER = '[filter] TOGGLE';
 export const DESELECT_ALL_FILTERS = '[filter] DESELECT_ALL';
 export const SELECT_MULTIPLE_FILTERS = '[filter] SELECT_MULTIPLE';
 
-export const toggleFilterType = category => ({
-  type: TOGGLE_FILTER,
-  category,
-});
-
-export const selectMultipleFilterTypes = category => ({
-  type: SELECT_MULTIPLE_FILTERS,
-  category,
-});
-
-export const deselectAllFilterTypes = () => ({
-  type: DESELECT_ALL_FILTERS,
-});
-
 // Simple array of strings to enable all filters by default
 const defaultFilter = Object.keys(icons).map(key => key);
 
-export const typeFilterReducer = (state = defaultFilter, { type, category } = {}) => {
+export const typeFilterReducer = (state = defaultFilter, { type, payload } = {}) => {
   switch (type) {
     case TOGGLE_FILTER: {
-      const isActive = state.findIndex(t => t === category);
+      const isActive = state.findIndex(t => t === payload.category);
       if (isActive === -1) {
-        return [...state, category];
+        return [...state, payload.category];
       }
       return [...state.slice(0, isActive), ...state.slice(isActive + 1)];
     }
@@ -34,7 +20,7 @@ export const typeFilterReducer = (state = defaultFilter, { type, category } = {}
       return [];
     }
     case SELECT_MULTIPLE_FILTERS: {
-      return [...category];
+      return [...payload.category];
     }
     default:
       return state;

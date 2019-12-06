@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { mapChange } from '../redux/mapSettingsReducer';
-import { setActiveMarker } from '../redux/activeMarkerReducer';
+import { mapChange } from '../store/mapSettingsReducer';
+import { setActiveMarker } from '../store/activeMarkerReducer';
 
-import { filteredIncidentsSelector } from '../redux/selectors';
+import { filteredIncidentsSelector } from '../store/selectors';
 
 import Map from './Map';
 import { MapMarker } from './Marker';

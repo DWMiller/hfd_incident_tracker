@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { subDays, format } from 'date-fns';
 import Slider from 'react-slick';
 
-import { setDateFilter } from '../redux/filters/date';
+import { setDateFilter } from '../store/filters/date';
 
 import { DateSelectorContainer, DateSlide } from './dateSelector/components';
 

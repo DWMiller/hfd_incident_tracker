@@ -1,12 +1,18 @@
 // import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
 
-import { injectGlobal } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   body,
   html,
   #root {
+
+    font-family: Verdana, sans-serif;
+    position: relative;
+    height: 100%;
+    line-height: 1.6;
+
     height: 100%;
     margin: 0;
     padding: 0;
@@ -33,3 +39,5 @@ injectGlobal`
     outline: none;
   }
 `;
+
+export default GlobalStyle;

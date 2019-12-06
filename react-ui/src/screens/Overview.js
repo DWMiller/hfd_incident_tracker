@@ -7,7 +7,7 @@ import IncidentsMap from '../components/IncidentsMap';
 // import IncidentPanel from './overview/IncidentPanel';
 import IncidentFilter from '../components/incidentFilter';
 
-const PageContainer = styled.div`
+const Container = styled.div`
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -16,11 +16,11 @@ const PageContainer = styled.div`
 
 function ScreenOverview() {
   return (
-    <PageContainer>
+    <Container>
       <IncidentsMap />
       <IncidentFilter />
       {/* <IncidentPanel /> */}
-    </PageContainer>
+    </Container>
   );
 }
 

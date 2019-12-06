@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import PigeonOverlay from 'pigeon-overlay';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TwitterTweetEmbed } from 'react-twitter-embed';
+import { Link, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { getIncident } from '../redux/actions/incidents';
+import { getIncident } from '../store/actions/incidents';
 import Map from '../components/Map';
 
-const PageContainer = styled.div`
+const Container = styled.div`
   padding: 1rem;
 
   @media screen and (min-width: 1200px) {
@@ -41,47 +41,42 @@ const TweetSection = styled.div`
 
 const Tweets = ({ tweets = [] }) => tweets.map(id => <TwitterTweetEmbed key={id} tweetId={id} />);
 
-export class ScreenIncident extends React.Component {
-  componentDidMount() {
-    this.props.getIncident(this.props.code);
+function ScreenIncident() {
+  const dispatch = useDispatch();
+  const { code } = useParams();
+
+  const incident = useSelector(state => state.loadedIncident);
+
+  React.useEffect(() => {
+    dispatch(getIncident(code));
+  }, [code, dispatch]);
+
+  if (!incident) {
+    return null;
   }
 
-  render() {
-    const { lat, lng } = this.props.incident.position;
-    const { height, width, file: url } = this.props.incident.icon;
+  const { lat, lng } = incident.position;
+  const { height, width, file: url } = incident.icon;
 
-    return (
-      <PageContainer>
-        <Header>
-          <h1>Page Under Construction</h1>
-          <Link to="/">Back to Map</Link>
-        </Header>
+  return (
+    <Container>
+      <Header>
+        <h1>Page Under Construction</h1>
+        <Link to="/">Back to Map</Link>
+      </Header>
 
-        {this.props.incident.id ? (
-          <React.Fragment>
-            <MapContainerWrapper>
-              <Map lat={lat} lng={lng} zoom={13}>
-                <PigeonOverlay anchor={[lat, lng]}>
-                  <img src={url} width={width} height={height} alt="" />
-                </PigeonOverlay>
-              </Map>
-            </MapContainerWrapper>
-            <TweetSection>
-              <Tweets tweets={this.props.incident.tweets} />
-            </TweetSection>
-          </React.Fragment>
-        ) : (
-          <div>...Loading</div>
-        )}
-      </PageContainer>
-    );
-  }
+      <MapContainerWrapper>
+        <Map lat={lat} lng={lng} zoom={13}>
+          <PigeonOverlay anchor={[lat, lng]}>
+            <img src={url} width={width} height={height} alt="" />
+          </PigeonOverlay>
+        </Map>
+      </MapContainerWrapper>
+      <TweetSection>
+        <Tweets tweets={incident.tweets} />
+      </TweetSection>
+    </Container>
+  );
 }
 
-const mapStateToProps = state => {
-  return {
-    incident: state.loadedIncident,
-  };
-};
-
-export default connect(mapStateToProps, { getIncident })(ScreenIncident);
+export default ScreenIncident;

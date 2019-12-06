@@ -9,10 +9,7 @@ function Root() {
   return (
     <Router>
       <Switch>
-        <Route
-          path="/incident/:code"
-          render={({ match }) => <ScreenIncident code={match.params.code} />}
-        />
+        <Route path="/incident/:code" component={ScreenIncident} />
         <Route path="/overview" component={ScreenOverview} />
         <Route path="/" component={ScreenOverview} />
       </Switch>
