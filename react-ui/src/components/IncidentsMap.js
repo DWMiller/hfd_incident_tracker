@@ -2,13 +2,13 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { mapChange } from '../../redux/mapSettingsReducer';
-import { setActiveMarker } from '../../redux/activeMarkerReducer';
+import { mapChange } from '../redux/mapSettingsReducer';
+import { setActiveMarker } from '../redux/activeMarkerReducer';
 
-import { filteredIncidentsSelector } from '../../redux/selectors';
+import { filteredIncidentsSelector } from '../redux/selectors';
 
-import Map from '../../components/Map';
-import { MapMarker } from './map/Marker';
+import Map from './Map';
+import { MapMarker } from './Marker';
 
 const MapContainerWrapper = styled.div`
   position: absolute;
@@ -21,8 +21,6 @@ const MapContainerWrapper = styled.div`
 `;
 
 const renderMarkers = (incidents, activeMarker, handleMarkerSelect) => {
-  console.log('test');
-
   return incidents.map(incident => {
     const isActive = activeMarker === incident.id;
 
@@ -70,7 +68,7 @@ function MapContainer() {
 
   const renderedMarkers = React.useMemo(() => {
     return renderMarkers(incidents, activeMarker, handleMarkerSelect);
-  }, [incidents, activeMarker, handleMapChange]);
+  }, [incidents, activeMarker, handleMarkerSelect]);
 
   return (
     <MapContainerWrapper>

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import PigeonOverlay from 'pigeon-overlay';
 
-import { MapInfoWindow } from './InfoWindow';
+import { MapInfoWindow } from './infoWindow';
 
-import { incidentType } from '../../../types';
+import { incidentType } from '../types';
 
 const MarkerImage = styled.img`
   cursor: pointer;

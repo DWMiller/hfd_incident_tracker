@@ -22,6 +22,10 @@ const { connect } = require('./twitter/twitterConnector');
 const { tweetReceiver, incidentPrepper } = require('./twitter/tweetReceiver');
 
 const handleTweet = async tweet => {
+  if (process.env.NODE_ENV === 'development') {
+    return null;
+  }
+
   try {
     const processedTweet = await tweetReceiver(tweet);
     const incident = await incidentPrepper(processedTweet);

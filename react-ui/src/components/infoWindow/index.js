@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { format } from 'date-fns';
 
-import { incidentDefinitions } from '../../../config/incident-definitions';
-import { incidentType } from '../../../types';
+import { incidentDefinitions } from '../../config/incident-definitions';
+import { incidentType } from '../../types';
 
 import {
   InfoWindowWrapper,
@@ -12,7 +12,7 @@ import {
   Time,
   TwitterLink,
   IncidentLink,
-} from './infoWindow/components';
+} from './components';
 
 export class MapInfoWindow extends PureComponent {
   render() {

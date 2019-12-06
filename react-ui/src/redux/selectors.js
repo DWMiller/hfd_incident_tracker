@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { filterByTypes, filterByText, filterByDate } from '../utils/filters';
+import { filterByTypes, filterByText } from '../utils/filters';
 import getIncidentTypes from '../utils/getIncidentTypes';
 
 export const incidentTypeFilterSelector = state => state.filters.types;

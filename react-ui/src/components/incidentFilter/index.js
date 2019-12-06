@@ -15,10 +15,10 @@ import { setTextFilter } from '../../redux/filters/text';
 
 import { availableIncidentTypesSelector } from '../../redux/selectors';
 
-import IncidentTextFilter from './incidentFilter/TextFilter';
-import IncidentFilterControls from './incidentFilter/Controls';
+import IncidentTextFilter from './TextFilter';
+import IncidentFilterControls from './Controls';
 
-import { FilterContainer } from './incidentFilter/components';
+import { FilterContainer } from './components';
 
 export class IncidentFilter extends React.Component {
   render() {

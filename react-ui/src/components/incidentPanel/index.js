@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as actionCreators from '../redux/actionCreators';
-import { recentIncidentsSelector } from '../redux/selectors';
+import * as actionCreators from '../../redux/actionCreators';
+import { recentIncidentsSelector } from '../../redux/selectors';
 
-import { incidentType } from '../types';
+import { incidentType } from '../../types';
 
-import List from '../components/List';
-import Incident from './incidentPanel/Incident';
+import List from '../List';
+import Incident from './Incident';
 
-import { IncidentPanelWrapper, ToggleButton } from './incidentPanel/components';
+import { IncidentPanelWrapper, ToggleButton } from './components';
 
 export class IncidentPanel extends React.Component {
   static propTypes = {

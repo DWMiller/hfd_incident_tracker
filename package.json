@@ -11,6 +11,7 @@
     "start": "node server",
     "deploy": "node server",
     "build": "cd react-ui/ && npm install && npm run build",
+    "watch": "nodemon ./server/index.js --ignore react-ui",
     "prune": "node src/scripts/delete_old.js"
   },
   "cacheDirectories": [

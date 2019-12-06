@@ -7,7 +7,6 @@ import { TwitterTweetEmbed } from 'react-twitter-embed';
 
 import { getIncident } from '../redux/actions/incidents';
 import Map from '../components/Map';
-import { Loading } from './incident/Loading';
 
 const PageContainer = styled.div`
   padding: 1rem;
@@ -72,7 +71,7 @@ export class ScreenIncident extends React.Component {
             </TweetSection>
           </React.Fragment>
         ) : (
-          <Loading />
+          <div>...Loading</div>
         )}
       </PageContainer>
     );

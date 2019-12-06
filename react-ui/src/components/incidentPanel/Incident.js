@@ -2,13 +2,13 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 
-import { incidentType } from '../types';
+import { incidentType } from '../../types';
 
-import { incidentDefinitions } from '../config/incident-definitions';
+import { incidentDefinitions } from '../../config/incident-definitions';
 
-import icons from '../config/icons';
+import icons from '../../config/icons';
 
-import { IncidentWrapper } from './incident/components';
+import { IncidentWrapper } from './components';
 
 class Incident extends PureComponent {
   onIncidentSelect = () => this.props.onIncidentSelect(this.props.incident);

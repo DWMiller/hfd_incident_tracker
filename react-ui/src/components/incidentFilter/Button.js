@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import icons from '../../../config/icons';
+import icons from '../../config/icons';
 
 class IncidentFilterButton extends PureComponent {
   onSelect = () => this.props.toggleIncidentFilter(this.props.icon);

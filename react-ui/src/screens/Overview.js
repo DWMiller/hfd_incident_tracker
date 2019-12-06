@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import OverviewMap from './overview/Map';
+import IncidentsMap from '../components/IncidentsMap';
 
 // import IncidentPanel from './overview/IncidentPanel';
-import IncidentFilter from './overview/IncidentFilter';
+import IncidentFilter from '../components/incidentFilter';
 
 const PageContainer = styled.div`
   position: fixed;
@@ -17,7 +17,7 @@ const PageContainer = styled.div`
 function ScreenOverview() {
   return (
     <PageContainer>
-      <OverviewMap />
+      <IncidentsMap />
       <IncidentFilter />
       {/* <IncidentPanel /> */}
     </PageContainer>
