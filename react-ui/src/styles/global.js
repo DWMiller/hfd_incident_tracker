@@ -7,12 +7,11 @@ const GlobalStyle = createGlobalStyle`
   body,
   html,
   #root {
-
     font-family: Verdana, sans-serif;
     position: relative;
     height: 100%;
-    line-height: 1.6;
-
+    line-height: 1.5;
+    color:  ${props => props.theme.palette['grey-900']};
     height: 100%;
     margin: 0;
     padding: 0;
@@ -23,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     background: #fff;
     cursor: pointer;
-    box-shadow: 1px 1px 1px -1px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid lightgray;
   }
 
   button:hover {
@@ -32,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button:active {
-    box-shadow: -2px 2px 5px -2px rgba(0, 0, 0, 0.3);
+    box-shadow: ${props => props.theme.shadows['shadow-inset-100']} 
   }
 
   button:focus {

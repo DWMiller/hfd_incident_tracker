@@ -45,7 +45,7 @@ function ScreenIncident() {
   const dispatch = useDispatch();
   const { code } = useParams();
 
-  const incident = useSelector(state => state.loadedIncident);
+  const incident = useSelector(state => state.incidentLoaded);
 
   React.useEffect(() => {
     dispatch(getIncident(code));

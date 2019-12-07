@@ -11,7 +11,7 @@ export const FilterContainer = styled.div`
   background-color: #ecf0f1;
   border: 1px solid lightgray;
   border-right: none;
-  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: ${props => props.theme.shadows['shadow-200']};
   z-index: 2000;
 
   @media (min-width: 800px) {

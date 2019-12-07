@@ -104,7 +104,7 @@ export const incidentDefinitions = {
     icon: 'FIRE',
   },
   'FD ASSISTANCE': {
-    text: 'Fire Department Assistance',
+    text: 'HFD Assistance',
     icon: 'FIRE_TRUCK',
   },
   'PROPANE LEAK': {

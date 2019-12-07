@@ -31,11 +31,14 @@ function MapInfoWindow(props) {
   return (
     <PigeonOverlay anchor={anchor} left={rLeft} top={rTop} className="infoWindow pigeon-drag-block">
       <InfoWindowWrapper>
-        <IncidentLink incident={incident} />
+        <div className="top">
+          <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
+          <Category>{type.text}</Category>
+          <IncidentLink incident={incident} />
+        </div>
 
-        <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
         {incident.locationName && <Location>{incident.locationName}</Location>}
-        <Category>{type.text}</Category>
+
         <Address>{incident.location.address}</Address>
 
         <TwitterLink incident={incident} />
