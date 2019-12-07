@@ -17,3 +17,12 @@ export const mapSettingsReducer = createReducer(defaultMapSettings, {
 });
 
 export default mapSettingsReducer;
+
+//   dispatch(
+//     mapChange({
+//       center: {
+//         lng: incident.location.coordinates[0],
+//         lat: incident.location.coordinates[1],
+//       },
+//     })
+//   );

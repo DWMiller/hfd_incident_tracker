@@ -1,34 +1,17 @@
 import { combineReducers } from 'redux';
 
-import incidentsReducer from './incidents';
-
-import filterCollapseReducer from './ui/filterCollapse';
-
-// incidentPanel,
-// import incidentPanel from './incidentPanelReducer';
-
-import activeMarkerReducer from './activeMarkerReducer';
-import incidentLoadedReducer from './incidentLoadedReducer';
-import mapSettingsReducer from './mapSettingsReducer';
-
-import typeFilterReducer from './filters/type';
-import textFilterReducer from './filters/text';
-// import dateFilterReducer from './filters/date';
+import activeMarker from './modules/activeMarker';
+import incidents from './modules/incidents';
+import incidentLoaded from './modules/incidentLoaded';
+import mapSettings from './modules/mapSettings';
+import incidentFilter from './modules/incidentFilter';
 
 const rootReducer = combineReducers({
-  incidents: incidentsReducer,
-  filters: combineReducers({
-    types: typeFilterReducer,
-    text: textFilterReducer,
-    // date: dateFilterReducer,
-  }),
-  ui: combineReducers({
-    isFilterCollapsed: filterCollapseReducer,
-  }),
-
-  mapSettings: mapSettingsReducer,
-  activeMarker: activeMarkerReducer,
-  loadedIncident: incidentLoadedReducer,
+  activeMarker,
+  incidents,
+  incidentFilter,
+  incidentLoaded,
+  mapSettings,
 });
 
 export default rootReducer;

@@ -3,10 +3,6 @@ import { createSelector } from 'reselect';
 import { filterByTypes, filterByText } from '../utils/filters';
 import getIncidentTypes from '../utils/getIncidentTypes';
 
-export const incidentTypeFilterSelector = state => state.filters.types;
-export const incidentTextFilterSelector = state => state.filters.text;
-export const incidentDateFilterSelector = state => state.filters.date;
-
 export const incidentsSelector = state => state.incidents || [];
 
 export const availableIncidentTypesSelector = createSelector(
@@ -17,9 +13,9 @@ export const availableIncidentTypesSelector = createSelector(
 export const filteredIncidentsSelector = createSelector(
   [
     incidentsSelector,
-    incidentTypeFilterSelector,
-    incidentTextFilterSelector,
-    incidentDateFilterSelector,
+    state => state.incidentFilter.types,
+    state => state.incidentFilter.text,
+    // state => state.incidentFilter.date,
   ],
   (incidents, filterTypes, filterText, filterDate) => {
     return (

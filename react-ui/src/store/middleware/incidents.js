@@ -8,7 +8,7 @@ import {
   INCIDENT_RECEIVED,
 } from '../actions/incidents';
 
-import { addIncident, replaceIncidents } from '../incidents';
+import { addIncident, replaceIncidents } from '../modules/incidents';
 
 import { apiRequest } from '../actions/api';
 

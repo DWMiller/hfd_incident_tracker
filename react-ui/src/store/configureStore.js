@@ -6,7 +6,7 @@ import { incidentsMiddleware } from './middleware/incidents';
 import { apiMiddleware } from './middleware/api';
 import { socketMiddleware } from './middleware/socket';
 
-const myMiddleware = [...incidentsMiddleware, ...apiMiddleware, socketMiddleware()];
+const myMiddleware = [...incidentsMiddleware, ...apiMiddleware, socketMiddleware];
 
 const middleware = [...getDefaultMiddleware(), ...myMiddleware];
 

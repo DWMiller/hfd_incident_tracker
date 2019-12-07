@@ -1,17 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { TOGGLE_FILTER_COLLAPSE } from '../../store/ui/filterCollapse';
-
 import {
-  DESELECT_ALL_FILTERS,
-  SELECT_MULTIPLE_FILTERS,
-  TOGGLE_FILTER,
-} from '../../store/filters/type';
+  filterTypeToggled,
+  allFilterTypesDeselected,
+  multipleFilterTypesSelected,
+} from '../../store/modules/incidentFilter/type';
 
-import { SET_TEXT_FILTER } from '../../store/filters/text';
+import { toggleFilterCollapse, getFilterCollapsed } from 'store/modules/incidentFilter/collapsed';
+import { textFilterChanged } from '../../store/modules/incidentFilter/text';
 
 import { availableIncidentTypesSelector } from '../../store/selectors';
 
@@ -23,32 +21,24 @@ import { FilterContainer } from './components';
 function IncidentFilter() {
   const dispatch = useDispatch();
 
-  const textFilter = useSelector(state => state.filters.text);
-  const isCollapsed = useSelector(state => state.ui.isFilterCollapsed);
-  const filters = useSelector(state => state.filters.types);
+  const textFilter = useSelector(state => state.incidentFilter.text);
+  const isCollapsed = useSelector(getFilterCollapsed);
+  const filters = useSelector(state => state.incidentFilter.types);
   const availableIncidentTypes = useSelector(availableIncidentTypesSelector);
 
-  const toggleFilterCollapse = () => dispatch({ type: TOGGLE_FILTER_COLLAPSE });
+  const toggleCollapse = () => dispatch(toggleFilterCollapse());
 
-  const deselectAllFilterTypes = () => dispatch({ type: DESELECT_ALL_FILTERS });
+  const deselectAllFilterTypes = () => dispatch(allFilterTypesDeselected());
 
-  const selectMultipleFilterTypes = category =>
-    dispatch({
-      type: SELECT_MULTIPLE_FILTERS,
-      payload: { category },
-    });
+  const selectMultipleFilterTypes = category => dispatch(multipleFilterTypesSelected({ category }));
 
-  const toggleFilterType = category =>
-    dispatch({
-      type: TOGGLE_FILTER,
-      payload: { category },
-    });
+  const toggleFilterType = category => dispatch(filterTypeToggled({ category }));
 
-  const setTextFilter = text => dispatch({ type: SET_TEXT_FILTER, payload: { text } });
+  const setTextFilter = text => dispatch(textFilterChanged({ text }));
 
   return (
     <FilterContainer className={isCollapsed ? ' collapsed' : ''}>
-      <button onClick={toggleFilterCollapse} className="title">
+      <button onClick={toggleCollapse} className="title">
         Filter Incidents
         {isCollapsed ? ' [ + ]' : ' [ - ]'}
       </button>
@@ -67,17 +57,5 @@ function IncidentFilter() {
     </FilterContainer>
   );
 }
-
-IncidentFilter.propTypes = {
-  availableIncidentTypes: PropTypes.arrayOf(PropTypes.string),
-  filters: PropTypes.arrayOf(PropTypes.string),
-  textFilter: PropTypes.string,
-  isCollapsed: PropTypes.bool.isRequired,
-  setTextFilter: PropTypes.func.isRequired,
-  toggleFilterCollapse: PropTypes.func.isRequired,
-  toggleFilterType: PropTypes.func.isRequired,
-  selectMultipleFilterTypes: PropTypes.func.isRequired,
-  deselectAllFilterTypes: PropTypes.func.isRequired,
-};
 
 export default IncidentFilter;
