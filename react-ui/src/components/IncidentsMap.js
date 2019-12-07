@@ -1,4 +1,3 @@
-import PigeonOverlay from 'pigeon-overlay';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -30,6 +29,7 @@ const getActiveMarker = createSelector(
       return null;
     }
 
+    //TODO - Refactor state so incident can be selected by id
     return incidents.find(incident => incident.id === activeMarker);
   }
 );
@@ -93,12 +93,7 @@ function MapContainer() {
       >
         {renderedMarkers}
         {activeMarker && (
-          <PigeonOverlay
-            anchor={Object.values(activeMarker.position)}
-            className="infoWindow pigeon-drag-block"
-          >
-            <MapInfoWindow incident={activeMarker} />
-          </PigeonOverlay>
+          <MapInfoWindow anchor={Object.values(activeMarker.position)} incident={activeMarker} />
         )}
       </Map>
     </MapContainerWrapper>

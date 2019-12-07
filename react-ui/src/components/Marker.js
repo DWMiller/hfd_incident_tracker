@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import PigeonOverlay from 'pigeon-overlay';
 
@@ -24,11 +23,9 @@ export class MapMarker extends PureComponent {
     const rTop = Math.round(top);
 
     return (
-      <React.Fragment>
-        <PigeonOverlay anchor={anchor} left={rLeft} top={rTop} style={{ userSelect: 'none' }}>
-          <MarkerImage onClick={this.onClick} src={url} width={width} height={height} alt="" />
-        </PigeonOverlay>
-      </React.Fragment>
+      <PigeonOverlay anchor={anchor} left={rLeft} top={rTop} style={{ userSelect: 'none' }}>
+        <MarkerImage onClick={this.onClick} src={url} width={width} height={height} alt="" />
+      </PigeonOverlay>
     );
   }
 }

@@ -1,5 +1,6 @@
-import React from 'react';
 import { format } from 'date-fns';
+import React from 'react';
+import PigeonOverlay from 'pigeon-overlay';
 
 import { incidentDefinitions } from '../../config/incident-definitions';
 import { incidentType } from '../../types';
@@ -15,7 +16,7 @@ import {
 } from './components';
 
 function MapInfoWindow(props) {
-  const { incident } = props;
+  const { incident, anchor, left, top } = props;
   const icon = incident.icon;
 
   const type = incidentDefinitions[incident.category]
@@ -24,19 +25,24 @@ function MapInfoWindow(props) {
 
   const date = format(new Date(incident.time), 'h:mm a');
 
+  const rLeft = Math.round(left);
+  const rTop = Math.round(top);
+
   return (
-    <InfoWindowWrapper>
-      <IncidentLink incident={incident} />
+    <PigeonOverlay anchor={anchor} left={rLeft} top={rTop} className="infoWindow pigeon-drag-block">
+      <InfoWindowWrapper>
+        <IncidentLink incident={incident} />
 
-      <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
-      {incident.locationName && <Location>{incident.locationName}</Location>}
-      <Category>{type.text}</Category>
-      <Address>{incident.location.address}</Address>
+        <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
+        {incident.locationName && <Location>{incident.locationName}</Location>}
+        <Category>{type.text}</Category>
+        <Address>{incident.location.address}</Address>
 
-      <TwitterLink incident={incident} />
+        <TwitterLink incident={incident} />
 
-      <Time>{date}</Time>
-    </InfoWindowWrapper>
+        <Time>{date}</Time>
+      </InfoWindowWrapper>
+    </PigeonOverlay>
   );
 }
 
