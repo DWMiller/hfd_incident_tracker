@@ -9,8 +9,7 @@ function Root() {
   return (
     <Router>
       <Switch>
-        <Route path="/incident/:code" component={ScreenIncident} />
-        <Route path="/overview" component={ScreenOverview} />
+        <Route path="/:code" component={ScreenIncident} />
         <Route path="/" component={ScreenOverview} />
       </Switch>
     </Router>

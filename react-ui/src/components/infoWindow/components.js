@@ -68,7 +68,7 @@ export const IncidentLinkWrapper = styled(Link)`
 `;
 
 export const IncidentLink = ({ incident }) => (
-  <IncidentLinkWrapper to={`/incident/${incident.code}`}>
+  <IncidentLinkWrapper to={`/${incident.code}`}>
     <FaExternalLinkAlt />
   </IncidentLinkWrapper>
 );
