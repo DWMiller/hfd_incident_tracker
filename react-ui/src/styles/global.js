@@ -17,6 +17,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
+  h1,h2,h3,h4,h5 {
+    font-size: ${props => props.theme.typeScale.larger};
+    line-height: 1;
+  }
+
   button {
     text-transform: uppercase;
     border: none;
@@ -36,6 +41,12 @@ const GlobalStyle = createGlobalStyle`
 
   button:focus {
     outline: none;
+  }
+
+  @media (max-width: 800px) {
+    h1,h2,h3,h4,h5 {
+      font-size: ${props => props.theme.typeScale.large};
+    }
   }
 `;
 

@@ -54,7 +54,6 @@ function MapContainer() {
 
   const incidents = useSelector(filteredIncidentsSelector);
   const settings = useSelector(state => state.mapSettings);
-
   const activeMarker = useSelector(getActiveMarker);
 
   const handleMapChange = React.useCallback(
@@ -65,6 +64,16 @@ function MapContainer() {
           zoom,
         })
       );
+    },
+    [dispatch]
+  );
+
+  const handleMapClick = React.useCallback(
+    ({ event }) => {
+      const infoWindow = document.querySelector('.infoWindow ');
+      if (infoWindow && !infoWindow.contains(event.target)) {
+        dispatch(setActiveMarker(null));
+      }
     },
     [dispatch]
   );
@@ -89,7 +98,7 @@ function MapContainer() {
         lng={lng}
         zoom={settings.zoom}
         onBoundsChanged={handleMapChange}
-        onClick={(...args) => null}
+        onClick={handleMapClick}
       >
         {renderedMarkers}
         {activeMarker && (

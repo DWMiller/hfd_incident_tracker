@@ -21,9 +21,24 @@ const shadows = {
   'shadow-500': '0 20px 40px rgba(0,0,0,.2)',
 };
 
+const typeScale = {
+  extraSmall: '12px',
+  small: '14px',
+  base: '16px',
+  medium: '18px',
+  large: '20px',
+  larger: '24px',
+  extraLarge: '30px',
+  veryLarge: '36px',
+  muchLarger: '48px',
+  superLarge: '60px',
+  megaLarge: '72px',
+};
+
 const theme = {
   palette,
   shadows,
+  typeScale,
 };
 
 export default theme;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
 
-import { FaSearch } from 'react-icons/fa';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export const InfoWindowWrapper = styled.div`
   background-color: white;
@@ -12,7 +12,7 @@ export const InfoWindowWrapper = styled.div`
   box-shadow: ${props => props.theme.shadows['shadow-200']};
   max-width: 200px;
   font-weight: 300;
-  font-size: 13px;
+  font-size: ${props => props.theme.typeScale.small};
 
   .top {
     display: flex;
@@ -47,24 +47,29 @@ export const Address = styled.span`
 `;
 
 export const Time = styled.span`
-  font-size: smaller;
+  font-size: ${props => props.theme.typeScale.extraSmall};
   text-align: right;
 `;
 
 export const TwitterLinkWrapper = styled.a`
-  font-size: smaller;
+  font-size: ${props => props.theme.typeScale.extraSmall};
   float: left;
 `;
 
 export const IncidentLinkWrapper = styled(Link)`
-  font-size: smaller;
+  font-size: ${props => props.theme.typeScale.extraSmall};
   float: right;
   cursor: pointer;
+
+  svg {
+    width: 1.5em;
+    height: auto;
+  }
 `;
 
 export const IncidentLink = ({ incident }) => (
   <IncidentLinkWrapper to={`/incident/${incident.code}`}>
-    <FaSearch />
+    <FaExternalLinkAlt />
   </IncidentLinkWrapper>
 );
 
