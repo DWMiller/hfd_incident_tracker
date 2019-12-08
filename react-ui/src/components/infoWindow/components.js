@@ -9,7 +9,7 @@ export const InfoWindowWrapper = styled.div`
   background-color: white;
   padding: 1rem;
   border-radius: 2px;
-  box-shadow: ${props => props.theme.shadows['shadow-200']};
+  box-shadow: ${props => props.theme.shadows['shadow-100']};
   max-width: 200px;
   font-weight: 300;
   font-size: ${props => props.theme.typeScale.small};

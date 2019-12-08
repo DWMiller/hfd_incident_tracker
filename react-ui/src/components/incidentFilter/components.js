@@ -2,39 +2,44 @@ import styled from 'styled-components';
 
 export const FilterContainer = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   min-width: 150px;
   max-width: 100%;
-  transition-duration: 0.195s;
-  transition-timing-function: ease-out;
-  background-color: #ecf0f1;
-  border: 1px solid lightgray;
+
   border-right: none;
-  box-shadow: ${props => props.theme.shadows['shadow-200']};
+
   z-index: 2000;
 
   @media (min-width: 800px) {
     left: 15px;
   }
 
-  &.collapsed {
-    transform: translateY(calc(100% - 35px));
+  .content {
+    padding: 10px;
+    border: 1px solid lightgray;
+    box-shadow: ${props => props.theme.shadows['shadow-200']};
+    background-color: #ecf0f1;
+    transition-duration: 0.195s;
+    transition-timing-function: ease-out;
+    z-index: 1999;
+  }
+
+  &.collapsed .content {
+    transform: translateY(-100%);
   }
 
   .title {
+    position: relative;
     display: block;
     width: 100%;
     height: 35px;
+    z-index: 2001;
+    border-bottom: none;
   }
 
   .title svg {
     margin-left: 1em;
-  }
-
-  .content {
-    padding: 0.5em 0.5em 0 0.5em;
-    margin-bottom: 0.5em;
   }
 
   .incidentFilterPanel__controls,
