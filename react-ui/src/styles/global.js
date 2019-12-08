@@ -12,7 +12,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     line-height: 1.5;
     color:  ${props => props.theme.palette['grey-900']};
-    height: 100%;
     margin: 0;
     padding: 0;
   }

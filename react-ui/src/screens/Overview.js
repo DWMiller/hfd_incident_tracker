@@ -9,6 +9,8 @@ import IncidentFilter from '../components/incidentFilter';
 
 const Container = styled.div`
   height: 100vh;
+  height: -webkit-fill-available;
+
   width: 100vw;
   overflow: hidden;
 `;
