@@ -91,12 +91,7 @@ function MapContainer() {
 
   return (
     <MapContainerWrapper>
-      <Map
-      center=
-        {...settings}
-        onBoundsChanged={handleMapChange}
-        onClick={handleMapClick}
-      >
+      <Map {...settings} onBoundsChanged={handleMapChange} onClick={handleMapClick}>
         {renderedMarkers}
         {activeMarker && (
           <MapInfoWindow anchor={Object.values(activeMarker.position)} incident={activeMarker} />
