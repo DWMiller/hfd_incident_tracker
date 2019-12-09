@@ -85,8 +85,6 @@ function MapContainer() {
     [dispatch]
   );
 
-  const [lat, lng] = settings.center;
-
   const renderedMarkers = React.useMemo(() => {
     return renderMarkers(incidents, handleMarkerSelect);
   }, [incidents, handleMarkerSelect]);
@@ -94,9 +92,8 @@ function MapContainer() {
   return (
     <MapContainerWrapper>
       <Map
-        lat={lat}
-        lng={lng}
-        zoom={settings.zoom}
+      center=
+        {...settings}
         onBoundsChanged={handleMapChange}
         onClick={handleMapClick}
       >
