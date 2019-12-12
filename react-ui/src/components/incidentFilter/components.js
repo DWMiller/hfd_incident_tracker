@@ -25,8 +25,12 @@ export const FilterContainer = styled.div`
     z-index: 1999;
   }
 
-  &.collapsed .content {
-    transform: translateY(-100%);
+  &.collapsed {
+    height: 35px;
+
+    .content {
+      transform: translateY(-100%);
+    }
   }
 
   .title {
