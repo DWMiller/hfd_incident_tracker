@@ -5,7 +5,6 @@ const Tweet = mongoose.model('Tweet');
 const Incident = mongoose.model('Incident');
 
 const { tweetFilter } = require('./tweetFilter');
-const { tweetFetcher } = require('./tweetFetcher.js');
 const { tweetRefiner } = require('./tweetRefiner.js');
 const { tweetParser } = require('./tweetParser.js');
 const { tweetGeoCoder } = require('./tweetGeocoder.js');
@@ -29,11 +28,7 @@ const saveIncident = async (tweet = {}) => {
   return incident;
 };
 
-exports.tweetReceiver = ramda.pipeP(
-  tweetFilter,
-  tweetRefiner,
-  saveTweet
-);
+exports.tweetReceiver = ramda.pipeP(tweetFilter, tweetRefiner, saveTweet);
 
 const validityCheck = async tweet => {
   if (!tweet || tweet.text === '') {
@@ -43,9 +38,4 @@ const validityCheck = async tweet => {
   return tweet;
 };
 
-exports.incidentPrepper = ramda.pipeP(
-  validityCheck,
-  tweetParser,
-  tweetGeoCoder,
-  saveIncident
-);
+exports.incidentPrepper = ramda.pipeP(validityCheck, tweetParser, tweetGeoCoder, saveIncident);
