@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const filterDateSlice = createSlice({
   name: 'dateFilter',
   initialState: {
-    startDate: 0,
-    endDate: 24,
+    min: 0,
+    max: 24,
   },
   reducers: {
     setDateRange: {
