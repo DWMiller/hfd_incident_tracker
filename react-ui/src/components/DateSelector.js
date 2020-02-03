@@ -28,16 +28,23 @@ const Container = styled.div`
 const sliderOptions = {
   min: 0,
   max: 24,
-  step: 0.5,
+  step: 1,
+  pushable: true,
   allowCross: false,
 };
 
 function getLabel(min = 0, max = 24) {
   if (max === 24) {
-    return `Last ${24 - min} hours`;
+    const hours = 24 - min;
+
+    if (hours === 1) {
+      return 'Last hour';
+    }
+
+    return `Last ${hours} hours`;
   }
 
-  return `${24 - min} - ${24 - max} hours ago.`;
+  return `${24 - max} to ${24 - min} hours ago.`;
 }
 
 function DateSelector() {

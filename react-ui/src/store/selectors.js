@@ -25,8 +25,14 @@ export const filteredIncidentsSelector = createSelector(
     const dates = skipDateFilter
       ? null
       : {
-          min: subHours(new Date(), filterDate.min ? 24 - filterDate.min : 0),
-          max: subHours(new Date(), filterDate.max ? 24 - filterDate.max : 24),
+          min: subHours(
+            new Date(),
+            typeof filterDate.min !== 'undefined' ? 24 - filterDate.min : 0
+          ),
+          max: subHours(
+            new Date(),
+            typeof filterDate.max !== 'undefined' ? 24 - filterDate.max : 24
+          ),
         };
 
     return incidents.filter(incident => {
