@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
-import typeFilter from './type';
-import textFilter from './text';
 import collapsed from './collapsed';
+import date from './date';
+import textFilter from './text';
+import typeFilter from './type';
 
 export default combineReducers({
+  collapsed,
+  date,
   types: typeFilter,
   text: textFilter,
-  collapsed,
 });

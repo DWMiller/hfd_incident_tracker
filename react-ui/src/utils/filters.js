@@ -1,3 +1,5 @@
+import isWithinInterval from 'date-fns/isWithinInterval';
+
 import { incidentDefinitions } from '../config/incident-definitions';
 
 export const filterByTypes = (incident, types) => {
@@ -15,6 +17,7 @@ export const filterByText = (incident, text) =>
     .toUpperCase()
     .includes(text.toUpperCase());
 
-export const filterByDate = (incident, date) => {
-  return incident.time.substring(0, 10) === date;
+export const filterByDate = (incident, { min, max }) => {
+  const incidentDate = new Date(incident.time);
+  return isWithinInterval(incidentDate, { start: min, end: max });
 };

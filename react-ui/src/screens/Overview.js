@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import IncidentsMap from '../components/IncidentsMap';
 
 // import IncidentPanel from './overview/IncidentPanel';
+
 import IncidentFilter from '../components/incidentFilter';
+import DateSelector from 'components/DateSelector';
 
 const Container = styled.div`
   height: 100vh;
@@ -20,6 +22,7 @@ function ScreenOverview() {
     <Container>
       <IncidentsMap />
       <IncidentFilter />
+      <DateSelector />
       {/* <IncidentPanel /> */}
     </Container>
   );

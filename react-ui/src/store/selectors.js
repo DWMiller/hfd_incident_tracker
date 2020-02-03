@@ -1,6 +1,8 @@
+import subHours from 'date-fns/subHours';
+
 import { createSelector } from 'reselect';
 
-import { filterByTypes, filterByText } from '../utils/filters';
+import { filterByTypes, filterByText, filterByDate } from '../utils/filters';
 import getIncidentTypes from '../utils/getIncidentTypes';
 
 export const incidentsSelector = state => state.incidents || [];
@@ -15,15 +17,33 @@ export const filteredIncidentsSelector = createSelector(
     incidentsSelector,
     state => state.incidentFilter.types,
     state => state.incidentFilter.text,
-    // state => state.incidentFilter.date,
+    state => state.incidentFilter.date,
   ],
   (incidents, filterTypes, filterText, filterDate) => {
-    return (
-      incidents
-        // .filter(incident => filterByDate(incident, filterDate)) // too slow, maybe pre-parse dates into a comparable number?
-        .filter(incident => filterByTypes(incident, filterTypes))
-        .filter(incident => filterByText(incident, filterText))
-    );
+    const skipDateFilter = filterDate.min === 0 && filterDate.max === 24;
+
+    const dates = skipDateFilter
+      ? null
+      : {
+          min: subHours(new Date(), 24 - filterDate.min),
+          max: subHours(new Date(), 24 - filterDate.max),
+        };
+
+    return incidents.filter(incident => {
+      if (!skipDateFilter && !filterByDate(incident, dates)) {
+        return false;
+      }
+
+      if (!filterByText(incident, filterText)) {
+        return false;
+      }
+
+      if (!filterByTypes(incident, filterTypes)) {
+        return false;
+      }
+
+      return true;
+    });
   }
 );
 

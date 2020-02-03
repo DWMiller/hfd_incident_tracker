@@ -1,19 +1,28 @@
-import { format } from 'date-fns';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const SET_DATE_FILTER = '[filter] SET_DATE';
-
-export const setDateFilter = date => ({
-  type: SET_DATE_FILTER,
-  date,
+const filterDateSlice = createSlice({
+  name: 'dateFilter',
+  initialState: {
+    startDate: 0,
+    endDate: 24,
+  },
+  reducers: {
+    setDateRange: {
+      reducer: (state, action) => action.payload,
+      prepare: payload => ({
+        payload,
+        meta: {
+          debounce: {
+            time: 100,
+            leading: true,
+            trailing: true,
+          },
+        },
+      }),
+    },
+  },
 });
 
-const currentDate = format(new Date(), 'yyyy-MM-dd');
+export const { setDateRange } = filterDateSlice.actions;
 
-export default function dateFilterReducer(state = currentDate, action) {
-  switch (action.type) {
-    case SET_DATE_FILTER:
-      return action.date;
-    default:
-      return state;
-  }
-}
+export default filterDateSlice.reducer;
