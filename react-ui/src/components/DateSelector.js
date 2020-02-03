@@ -32,7 +32,7 @@ const sliderOptions = {
   allowCross: false,
 };
 
-function getLabel(min, max) {
+function getLabel(min = 0, max = 24) {
   if (max === 24) {
     return `Last ${24 - min} hours`;
   }
