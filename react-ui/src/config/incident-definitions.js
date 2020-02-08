@@ -59,6 +59,10 @@ export const incidentDefinitions = {
     text: 'Fire',
     icon: 'FIRE',
   },
+  'FURNACE PROBLEM': {
+    text: 'Furnace Problem',
+    icon: 'FIRE',
+  },
   'STRUCTURE FIRE': {
     text: 'Structure Fire',
     icon: 'FIRE',
