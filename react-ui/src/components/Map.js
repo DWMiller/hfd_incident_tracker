@@ -13,7 +13,7 @@ export class Map extends Component {
     const { lng, lat, children, ...props } = this.props;
 
     return (
-      <PigeonMap center={[lat, lng]} {...props} provider={provider}>
+      <PigeonMap center={[lat, lng]} {...props} provider={provider} minZoom={11}>
         {children}
       </PigeonMap>
     );
