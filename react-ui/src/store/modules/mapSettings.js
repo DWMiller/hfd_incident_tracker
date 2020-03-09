@@ -1,28 +1,18 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const MAP_CHANGE = '[map] CHANGE';
-
-export const mapChange = settings => ({
-  type: MAP_CHANGE,
-  settings,
+const mapSlice = createSlice({
+  name: 'map',
+  initialState: {
+    zoom: 12,
+    center: [43.254401, -79.863552],
+    activeMarker: null,
+  },
+  reducers: {
+    mapChange: (state, action) => ({ ...state, ...action.payload }),
+    setActiveMarker: (state, action) => ({ ...state, activeMarker: action.payload }),
+  },
 });
 
-const defaultMapSettings = {
-  zoom: 12,
-  center: [43.254401, -79.863552],
-};
+export const { mapChange, setActiveMarker } = mapSlice.actions;
 
-export const mapSettingsReducer = createReducer(defaultMapSettings, {
-  [MAP_CHANGE]: (state, { settings }) => ({ ...state, ...settings }),
-});
-
-export default mapSettingsReducer;
-
-//   dispatch(
-//     mapChange({
-//       center: {
-//         lng: incident.location.coordinates[0],
-//         lat: incident.location.coordinates[1],
-//       },
-//     })
-//   );
+export default mapSlice.reducer;

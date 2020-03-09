@@ -1,5 +1,0 @@
-export const TOGGLE_INCIDENT_PANEL = 'TOGGLE_INCIDENT_PANEL';
-
-export const FIELD = 'STRING';
-
-export const INCIDENT_LOADED = 'INCIDENT_LOADED';

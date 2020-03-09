@@ -1,7 +1,25 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { GET_INCIDENT_SUCCESS } from './../actions/incidents';
+import { processIncident } from './incidents';
 
-export default createReducer(null, {
-  [GET_INCIDENT_SUCCESS]: (state, action) => action.payload,
+const PATH = window.location.port ? '//localhost:3001' : '';
+
+export const fetchIncident = createAsyncThunk('incident/fetch', async code => {
+  return fetch(`${PATH}/api/incident/${code}`, { method: 'GET' }).then(response => response.json());
 });
+
+const incidentSlice = createSlice({
+  name: 'incident',
+  initialState: null,
+  extraReducers: {
+    [fetchIncident.fulfilled]: (state, action) => {
+      return processIncident(action.payload);
+    },
+    [fetchIncident.rejected]: (state, action) => {
+      console.log('Could not fetch incident from server');
+      return state;
+    },
+  },
+});
+
+export default incidentSlice.reducer;

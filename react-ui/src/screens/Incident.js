@@ -7,8 +7,9 @@ import styled from 'styled-components';
 
 import { incidentDefinitions } from '../config/incident-definitions';
 
-import { getIncident } from '../store/actions/incidents';
+// import { getIncident } from '../store/actions/incidents';
 import Map from '../components/Map';
+import { fetchIncident } from 'store/modules/incidentLoaded';
 
 const Container = styled.div`
   padding: 1rem;
@@ -40,7 +41,7 @@ function ScreenIncident() {
   const incident = useSelector(state => state.incidentLoaded);
 
   React.useEffect(() => {
-    dispatch(getIncident(code));
+    dispatch(fetchIncident(code));
   }, [code, dispatch]);
 
   if (!incident) {

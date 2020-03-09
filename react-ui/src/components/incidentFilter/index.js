@@ -8,7 +8,7 @@ import {
   multipleFilterTypesSelected,
 } from '../../store/modules/incidentFilter/type';
 
-import { toggleFilterCollapse, getFilterCollapsed } from 'store/modules/incidentFilter/collapsed';
+import { toggleFilterCollapse } from 'store/modules/incidentFilter/collapsed';
 import { textFilterChanged } from '../../store/modules/incidentFilter/text';
 
 import { availableIncidentTypesSelector } from '../../store/selectors';
@@ -22,7 +22,7 @@ function IncidentFilter() {
   const dispatch = useDispatch();
 
   const textFilter = useSelector(state => state.incidentFilter.text);
-  const isCollapsed = useSelector(getFilterCollapsed);
+  const isCollapsed = useSelector(state => state.incidentFilter.collapsed);
   const filters = useSelector(state => state.incidentFilter.types);
   const availableIncidentTypes = useSelector(availableIncidentTypesSelector);
 

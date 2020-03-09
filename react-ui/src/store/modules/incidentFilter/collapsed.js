@@ -10,6 +10,4 @@ const filterCollapseSlice = createSlice({
 
 export const { toggleFilterCollapse } = filterCollapseSlice.actions;
 
-export const getFilterCollapsed = state => state.incidentFilter.collapsed;
-
 export default filterCollapseSlice.reducer;

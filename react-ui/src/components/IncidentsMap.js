@@ -1,10 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import styled from 'styled-components';
 
-import { mapChange } from '../store/modules/mapSettings';
-import { setActiveMarker } from '../store/modules/activeMarker';
+import { mapChange, setActiveMarker } from '../store/modules/mapSettings';
 
 import { filteredIncidentsSelector } from '../store/selectors';
 
@@ -23,7 +22,7 @@ const MapContainerWrapper = styled.div`
 `;
 
 const getActiveMarker = createSelector(
-  [state => state.incidents || [], state => state.activeMarker],
+  [state => state.incidents || [], state => state.mapSettings.activeMarker],
   (incidents, activeMarker) => {
     if (!activeMarker) {
       return null;

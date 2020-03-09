@@ -1,27 +1,53 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const ADD_INCIDENTS = '[incidents] ADD';
-export const CLEAR_INCIDENTS = '[incidents] CLEAR';
-export const REPLACE_INCIDENTS = '[incidents] REPLACE';
+import getIcon from '../../utils/getIcon';
 
-export const addIncidents = incidents => ({
-  type: ADD_INCIDENTS,
-  incidents,
+const PATH = window.location.port ? '//localhost:3001' : '';
+
+export const fetchRecentIncidents = createAsyncThunk('incidents/fetchRecent', async () => {
+  return fetch(`${PATH}/api/recent`, { method: 'GET' }).then(response => response.json());
 });
 
-export const addIncident = incident => addIncidents([incident]);
+const convertCoordinates = incident => {
+  const [lng, lat] = incident.location.coordinates;
+  incident.position = { lat, lng };
+  return incident;
+};
 
-export const replaceIncidents = incidents => ({
-  type: REPLACE_INCIDENTS,
-  incidents,
+const addIcon = incident => {
+  incident.icon = getIcon(incident);
+  return incident;
+};
+
+export const processIncident = incident => {
+  incident = addIcon(incident);
+  incident = convertCoordinates(incident);
+  return incident;
+};
+
+const incidentsSlice = createSlice({
+  name: 'incidents',
+  initialState: [],
+  reducers: {
+    clearIncidents: (state, action) => {
+      state = [];
+    },
+    addIncidents: (state, action) => {
+      const incidents = action.payload.filter(i => i.category).map(processIncident);
+      state.push(...incidents);
+    },
+  },
+  extraReducers: {
+    [fetchRecentIncidents.fulfilled]: (state, action) => {
+      return action.payload.filter(i => i.category).map(processIncident);
+    },
+    [fetchRecentIncidents.rejected]: (state, action) => {
+      console.log('Could not fetch recent incidents from server');
+      return state;
+    },
+  },
 });
 
-export const clearIncidents = () => ({
-  type: CLEAR_INCIDENTS,
-});
+export const { addIncidents } = incidentsSlice.actions;
 
-export default createReducer([], {
-  [ADD_INCIDENTS]: (state, { incidents }) => [...incidents, ...state],
-  [REPLACE_INCIDENTS]: (state, { incidents }) => [...incidents],
-  [CLEAR_INCIDENTS]: () => [],
-});
+export default incidentsSlice.reducer;

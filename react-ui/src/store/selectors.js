@@ -1,6 +1,5 @@
 import subHours from 'date-fns/subHours';
-
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 
 import { filterByTypes, filterByText, filterByDate } from '../utils/filters';
 import getIncidentTypes from '../utils/getIncidentTypes';
