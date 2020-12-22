@@ -127,4 +127,12 @@ export const incidentDefinitions = {
     text: 'Unspecified Incident',
     icon: 'UNKNOWN',
   },
+  'VEHICLE COLLISION': {
+    text: 'Vehicle Collision',
+    icon: 'ACCIDENT',
+  },
+  'ELEVATOR RESCUE': {
+    text: 'Elevator Rescue',
+    icon: 'FIRE_TRUCK',
+  },
 };
