@@ -27,7 +27,7 @@
     "mongoose": "^5.2.14",
     "node-tweet-stream": "^2.0.3",
     "ramda": "^0.25.0",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
