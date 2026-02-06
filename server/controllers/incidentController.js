@@ -5,6 +5,6 @@ exports.recent = async (req, res) => {
 };
 
 exports.incident = async (req, res) => {
-  const incident = getIncidentByCode(req.params.code);
+  const incident = getIncidentByCode(req.query.code);
   res.json(incident);
 };

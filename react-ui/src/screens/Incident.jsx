@@ -42,7 +42,7 @@ function ScreenIncident() {
     return null;
   }
 
-  const [streetAddress] = incident.location.address.split(',');
+  const [streetAddress] = (incident.location.address || 'Hamilton, ON').split(',');
   const locationText = incident.locationName ? incident.locationName.toLowerCase() : streetAddress;
 
   const { text: typeText } = incidentDefinitions[incident.category]

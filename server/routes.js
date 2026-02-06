@@ -3,6 +3,6 @@ const router = express.Router();
 const incidentController = require('./controllers/incidentController');
 
 router.get('/recent', incidentController.recent);
-router.get('/incident/:code', incidentController.incident);
+router.get('/incident', incidentController.incident);
 
 module.exports = router;
