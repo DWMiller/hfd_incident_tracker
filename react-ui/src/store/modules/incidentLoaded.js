@@ -5,7 +5,7 @@ import { processIncident } from './incidents';
 const PATH = window.location.port ? '//localhost:3001' : '';
 
 export const fetchIncident = createAsyncThunk('incident/fetch', async code => {
-  return fetch(`${PATH}/api/incident/${code}`, { method: 'GET' }).then(response => response.json());
+  return fetch(`${PATH}/api/incident?code=${code}`, { method: 'GET' }).then(response => response.json());
 });
 
 const incidentSlice = createSlice({

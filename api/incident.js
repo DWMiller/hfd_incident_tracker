@@ -1,4 +1,4 @@
-const { mapFeature } = require('../../server/arcgis/mapFeature');
+const { mapFeature } = require('../server/arcgis/mapFeature');
 
 const ARCGIS_BASE =
   'https://spatialsolutions.hamilton.ca/webgis/rest/services/HFDIncidents/HFDIncidents/MapServer/0/query' +
