@@ -5,7 +5,7 @@ export const FilterContainer = styled.div`
   top: 0;
   left: 0;
   min-width: 150px;
-  max-width: 100%;
+  max-width: 300px;
 
   border-right: none;
 
@@ -88,5 +88,17 @@ export const FilterContainer = styled.div`
 
   .incidentFilterPanel__type svg.active {
     color: black;
+  }
+`;
+
+export const Disclaimer = styled.p`
+  padding: 8px 10px;
+  margin: 0;
+  font-size: 11px;
+  color: #666;
+  line-height: 1.4;
+
+  a {
+    color: #1976d2;
   }
 `;

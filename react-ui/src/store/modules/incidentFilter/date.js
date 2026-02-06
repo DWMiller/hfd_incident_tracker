@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Slider uses hours. 0 = now, 168 = 7 days ago. Default: last 24h.
 const filterDateSlice = createSlice({
   name: 'dateFilter',
   initialState: {
@@ -7,19 +8,7 @@ const filterDateSlice = createSlice({
     max: 24,
   },
   reducers: {
-    setDateRange: {
-      reducer: (state, action) => action.payload,
-      prepare: payload => ({
-        payload,
-        meta: {
-          debounce: {
-            time: 100,
-            leading: true,
-            trailing: true,
-          },
-        },
-      }),
-    },
+    setDateRange: (state, action) => action.payload,
   },
 });
 
