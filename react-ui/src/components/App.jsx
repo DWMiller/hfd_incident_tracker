@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import useIncidentSocket from '../hooks/useIncidentSocket';
+import useIncidentPolling from '../hooks/useIncidentPolling';
 import { fetchRecentIncidents } from '../store/modules/incidents';
 
 import ScreensRoot from '../screens/Root';
@@ -13,7 +13,7 @@ function App() {
     dispatch(fetchRecentIncidents());
   }, [dispatch]);
 
-  useIncidentSocket();
+  useIncidentPolling();
 
   return <ScreensRoot />;
 }
