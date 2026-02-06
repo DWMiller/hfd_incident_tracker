@@ -9,8 +9,10 @@ export const fetchRecentIncidents = createAsyncThunk('incidents/fetchRecent', as
 });
 
 const convertCoordinates = incident => {
-  const [lng, lat] = incident.location.coordinates;
-  incident.position = { lat, lng };
+  if (incident.location && incident.location.coordinates) {
+    const [lng, lat] = incident.location.coordinates;
+    incident.position = { lat, lng };
+  }
   return incident;
 };
 
@@ -29,22 +31,22 @@ const incidentsSlice = createSlice({
   name: 'incidents',
   initialState: [],
   reducers: {
-    clearIncidents: (state, action) => {
-      state = [];
+    clearIncidents: () => {
+      return [];
     },
     addIncidents: (state, action) => {
       const incidents = action.payload.filter(i => i.category).map(processIncident);
       state.push(...incidents);
     },
   },
-  extraReducers: {
-    [fetchRecentIncidents.fulfilled]: (state, action) => {
-      return action.payload.filter(i => i.category).map(processIncident);
-    },
-    [fetchRecentIncidents.rejected]: (state, action) => {
-      console.log('Could not fetch recent incidents from server');
-      return state;
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchRecentIncidents.fulfilled, (state, action) => {
+        return action.payload.filter(i => i.category).map(processIncident);
+      })
+      .addCase(fetchRecentIncidents.rejected, () => {
+        console.log('Could not fetch recent incidents from server');
+      });
   },
 });
 

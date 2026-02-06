@@ -11,14 +11,14 @@ export const fetchIncident = createAsyncThunk('incident/fetch', async code => {
 const incidentSlice = createSlice({
   name: 'incident',
   initialState: null,
-  extraReducers: {
-    [fetchIncident.fulfilled]: (state, action) => {
-      return processIncident(action.payload);
-    },
-    [fetchIncident.rejected]: (state, action) => {
-      console.log('Could not fetch incident from server');
-      return state;
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchIncident.fulfilled, (state, action) => {
+        return processIncident(action.payload);
+      })
+      .addCase(fetchIncident.rejected, () => {
+        console.log('Could not fetch incident from server');
+      });
   },
 });
 
