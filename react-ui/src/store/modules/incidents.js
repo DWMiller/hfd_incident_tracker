@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import getIcon from '../../utils/getIcon';
 
-const PATH = window.location.port ? '//localhost:3001' : '';
+const PATH = window.location.port ? '//localhost:3002' : '';
 
 export const fetchRecentIncidents = createAsyncThunk('incidents/fetchRecent', async () => {
   return fetch(`${PATH}/api/recent`, { method: 'GET' }).then(response => response.json());

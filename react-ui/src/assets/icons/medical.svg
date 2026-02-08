@@ -1,13 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Medical incident">
-  <circle cx="32" cy="32" r="29" fill="#F7FAFC" stroke="#102A43" stroke-width="3" />
-  <rect x="26" y="17" width="12" height="30" rx="2" fill="#2A9D8F" />
-  <rect x="17" y="26" width="30" height="12" rx="2" fill="#2A9D8F" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" role="img" aria-label="Medical incident">
   <path
-    d="M12 41h10l5-7 6 11 4-7h15"
-    fill="none"
-    stroke="#102A43"
+    d="M15 6h6v24h-6zM6 15h24v6H6z"
+    fill="#16A34A"
+    stroke="white"
     stroke-width="3"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    paint-order="stroke"
   />
 </svg>

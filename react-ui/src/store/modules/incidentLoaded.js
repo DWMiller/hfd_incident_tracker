@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { processIncident } from './incidents';
 
-const PATH = window.location.port ? '//localhost:3001' : '';
+const PATH = window.location.port ? '//localhost:3002' : '';
 
 export const fetchIncident = createAsyncThunk('incident/fetch', async code => {
   return fetch(`${PATH}/api/incident?code=${code}`, { method: 'GET' }).then(response => response.json());

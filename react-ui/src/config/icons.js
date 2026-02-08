@@ -12,53 +12,53 @@ import biohazardIcon from '../assets/icons/biohazard.svg';
 const icons = {
   MEDICAL: {
     file: medicalIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   FIRE: {
     file: fireIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   FIRE_TRUCK: {
     file: fireTruckIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   ALARM: {
     file: alarmIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   CAR_FIRE: {
     file: carFireIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   UNKNOWN: {
     file: questionIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   ELECTRICAL: {
     file: electricalIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   ACCIDENT: {
     file: accidentIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   FLOODING: {
     file: floodingIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
   BIOHAZARD: {
     file: biohazardIcon,
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
   },
 };
 

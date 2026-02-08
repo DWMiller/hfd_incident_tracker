@@ -1,14 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Vehicle accident incident">
-  <circle cx="32" cy="32" r="29" fill="#F7FAFC" stroke="#102A43" stroke-width="3" />
-  <path d="M14 40l12-9 8 11H20z" fill="#718096" stroke="#102A43" stroke-width="3" stroke-linejoin="round" />
-  <path d="M50 40l-12-9-8 11h14z" fill="#F08C00" stroke="#102A43" stroke-width="3" stroke-linejoin="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" role="img" aria-label="Vehicle accident incident">
   <path
-    d="M32 21l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z"
-    fill="#D64541"
-    stroke="#102A43"
-    stroke-width="2"
-    stroke-linejoin="round"
+    d="M3 18l3-5h9l2 5v5H3v-5zM6 23a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM13 23a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"
+    fill="#0891B2"
+    stroke="white"
+    stroke-width="3"
+    paint-order="stroke"
   />
-  <circle cx="22" cy="45" r="3" fill="#102A43" />
-  <circle cx="42" cy="45" r="3" fill="#102A43" />
+  <path
+    d="M33 18l-3-5h-9l-2 5v5h14v-5zM30 23a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM23 23a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"
+    fill="#0891B2"
+    stroke="white"
+    stroke-width="3"
+    paint-order="stroke"
+  />
+  <path d="M16 9l2 6h-4l2-6zM20 9l-2 6h4l-2-6z" fill="#0891B2" stroke="white" stroke-width="2" paint-order="stroke" />
 </svg>

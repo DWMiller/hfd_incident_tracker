@@ -1,12 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Vehicle fire incident">
-  <circle cx="32" cy="32" r="29" fill="#F7FAFC" stroke="#102A43" stroke-width="3" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" role="img" aria-label="Vehicle fire incident">
   <path
-    d="M30 17c3 4 7 6 7 12 0 4-3 7-7 7s-7-3-7-7c0-4 2-7 4-9 1 2 3 3 3 3z"
-    fill="#D64541"
+    d="M16 2c2 3 5 5 5 10 0 3-2 5-5 5s-5-2-5-5c0-4 2-6 4-8 .5 2 1 3 1 3s0-3 0-5z"
+    fill="#B91C1C"
+    stroke="white"
+    stroke-width="3"
+    paint-order="stroke"
   />
-  <path d="M31 24c1 1 3 3 3 6 0 2-2 4-4 4-2 0-4-2-4-4 0-2 1-4 3-5l1 2z" fill="#F08C00" />
-  <path d="M20 34l6-8h12l6 8z" fill="#718096" stroke="#102A43" stroke-width="3" stroke-linejoin="round" />
-  <rect x="16" y="34" width="32" height="10" rx="3" fill="#718096" stroke="#102A43" stroke-width="3" />
-  <circle cx="24" cy="46" r="4" fill="#102A43" />
-  <circle cx="40" cy="46" r="4" fill="#102A43" />
+  <path
+    d="M5 22l3-6h20l3 6v5H5v-5zM9 27a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM27 27a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"
+    fill="#B91C1C"
+    stroke="white"
+    stroke-width="3"
+    paint-order="stroke"
+  />
 </svg>

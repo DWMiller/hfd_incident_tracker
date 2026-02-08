@@ -1,13 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Electrical incident">
-  <circle cx="32" cy="32" r="29" fill="#F7FAFC" stroke="#102A43" stroke-width="3" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" role="img" aria-label="Electrical incident">
   <path
-    d="M36 14L23 34h10l-5 16 15-22h-9z"
-    fill="#FFC857"
-    stroke="#102A43"
+    d="M22 2L9 19h8l-5 15L28 15h-8z"
+    fill="#D97706"
+    stroke="white"
     stroke-width="3"
-    stroke-linejoin="round"
+    paint-order="stroke"
   />
-  <rect x="13" y="37" width="15" height="10" rx="3" fill="#718096" stroke="#102A43" stroke-width="3" />
-  <path d="M18 33v4M23 33v4" fill="none" stroke="#102A43" stroke-width="3" stroke-linecap="round" />
-  <path d="M28 42h6" fill="none" stroke="#102A43" stroke-width="3" stroke-linecap="round" />
 </svg>

@@ -1,8 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hazmat incident">
-  <circle cx="32" cy="32" r="29" fill="#F7FAFC" stroke="#102A43" stroke-width="3" />
-  <circle cx="32" cy="32" r="5" fill="#102A43" />
-  <circle cx="32" cy="19" r="8" fill="none" stroke="#7CB518" stroke-width="4" />
-  <circle cx="21" cy="38" r="8" fill="none" stroke="#7CB518" stroke-width="4" />
-  <circle cx="43" cy="38" r="8" fill="none" stroke="#7CB518" stroke-width="4" />
-  <path d="M32 26v7M26 36l6-3M38 36l-6-3" fill="none" stroke="#102A43" stroke-width="3" stroke-linecap="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" role="img" aria-label="Hazmat incident">
+  <path
+    d="M18 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6z
+    M18 7c-2.5 0-4.5 2.5-5 6 1.5-1 3.5-1.5 5-1.5s3.5.5 5 1.5c-.5-3.5-2.5-6-5-6z
+    M10 26c1.5-2 3.5-3.5 6-4-1.5-1-3-2-4.5-2-3 0-4.5 2.5-5 4 .5 1 2 1.5 3.5 2z
+    M26 26c-1.5-2-3.5-3.5-6-4 1.5-1 3-2 4.5-2 3 0 4.5 2.5 5 4-.5 1-2 1.5-3.5 2z"
+    fill="#7C3AED"
+    fill-rule="evenodd"
+    stroke="white"
+    stroke-width="3"
+    paint-order="stroke"
+  />
 </svg>

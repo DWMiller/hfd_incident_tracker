@@ -1,10 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Fire truck incident">
-  <circle cx="32" cy="32" r="29" fill="#F7FAFC" stroke="#102A43" stroke-width="3" />
-  <rect x="13" y="31" width="28" height="13" rx="2" fill="#F08C00" stroke="#102A43" stroke-width="3" />
-  <rect x="41" y="34" width="10" height="10" rx="1" fill="#F08C00" stroke="#102A43" stroke-width="3" />
-  <path d="M18 27h26l-3 4H15z" fill="#D64541" stroke="#102A43" stroke-width="3" stroke-linejoin="round" />
-  <circle cx="22" cy="47" r="5" fill="#102A43" />
-  <circle cx="22" cy="47" r="2" fill="#F7FAFC" />
-  <circle cx="44" cy="47" r="5" fill="#102A43" />
-  <circle cx="44" cy="47" r="2" fill="#F7FAFC" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" role="img" aria-label="Fire truck incident">
+  <path
+    d="M2 12h22v14H2zM24 16h6l4 5v5h-10z"
+    fill="#EA580C"
+    stroke="white"
+    stroke-width="3"
+    paint-order="stroke"
+  />
+  <circle cx="8" cy="27" r="3" fill="#EA580C" stroke="white" stroke-width="3" paint-order="stroke" />
+  <circle cx="20" cy="27" r="3" fill="#EA580C" stroke="white" stroke-width="3" paint-order="stroke" />
+  <circle cx="30" cy="27" r="3" fill="#EA580C" stroke="white" stroke-width="3" paint-order="stroke" />
+  <rect x="4" y="6" width="18" height="3" rx="1" fill="#EA580C" stroke="white" stroke-width="2" paint-order="stroke" />
 </svg>
