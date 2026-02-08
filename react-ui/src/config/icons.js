@@ -1,51 +1,62 @@
+import medicalIcon from '../assets/icons/medical.svg';
+import fireIcon from '../assets/icons/fire.svg';
+import fireTruckIcon from '../assets/icons/fire-truck.svg';
+import alarmIcon from '../assets/icons/alarm.svg';
+import carFireIcon from '../assets/icons/car-fire.svg';
+import questionIcon from '../assets/icons/question.svg';
+import electricalIcon from '../assets/icons/electrical.svg';
+import accidentIcon from '../assets/icons/accident.svg';
+import floodingIcon from '../assets/icons/flooding.svg';
+import biohazardIcon from '../assets/icons/biohazard.svg';
+
 const icons = {
   MEDICAL: {
-    file: require('../assets/icons/medical.svg'),
+    file: medicalIcon,
     width: 28,
     height: 28,
   },
   FIRE: {
-    file: require('../assets/icons/fire.svg'),
+    file: fireIcon,
     width: 28,
     height: 28,
   },
   FIRE_TRUCK: {
-    file: require('../assets/icons/fire-truck.svg'),
+    file: fireTruckIcon,
     width: 28,
     height: 28,
   },
   ALARM: {
-    file: require('../assets/icons/alarm.svg'),
+    file: alarmIcon,
     width: 28,
     height: 28,
   },
   CAR_FIRE: {
-    file: require('../assets/icons/car-fire.svg'),
+    file: carFireIcon,
     width: 28,
     height: 28,
   },
   UNKNOWN: {
-    file: require('../assets/icons/question.svg'),
+    file: questionIcon,
     width: 28,
     height: 28,
   },
   ELECTRICAL: {
-    file: require('../assets/icons/electrical.svg'),
+    file: electricalIcon,
     width: 28,
     height: 28,
   },
   ACCIDENT: {
-    file: require('../assets/icons/accident.svg'),
+    file: accidentIcon,
     width: 28,
     height: 28,
   },
   FLOODING: {
-    file: require('../assets/icons/flooding.svg'),
+    file: floodingIcon,
     width: 28,
     height: 28,
   },
   BIOHAZARD: {
-    file: require('../assets/icons/biohazard.svg'),
+    file: biohazardIcon,
     width: 28,
     height: 28,
   },
