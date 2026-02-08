@@ -5,6 +5,7 @@ const mapSlice = createSlice({
   initialState: {
     zoom: 12,
     center: [43.254401, -79.863552],
+    bounds: null,
     activeMarker: null,
   },
   reducers: {

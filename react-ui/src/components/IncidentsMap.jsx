@@ -56,11 +56,12 @@ function MapContainer() {
   const activeMarker = useSelector(getActiveMarker);
 
   const handleMapChange = React.useCallback(
-    ({ center, zoom }) => {
+    ({ center, zoom, bounds }) => {
       dispatch(
         mapChange({
           center,
           zoom,
+          bounds,
         })
       );
     },
@@ -86,9 +87,24 @@ function MapContainer() {
 
   const mappableIncidents = React.useMemo(() => incidents.filter(i => i.position), [incidents]);
 
+  const bounds = useSelector(state => state.mapSettings.bounds);
+
+  const visibleIncidents = React.useMemo(() => {
+    if (!bounds) return mappableIncidents;
+    const latPad = (bounds.ne[0] - bounds.sw[0]) * 0.1;
+    const lngPad = (bounds.ne[1] - bounds.sw[1]) * 0.1;
+    const minLat = bounds.sw[0] - latPad;
+    const maxLat = bounds.ne[0] + latPad;
+    const minLng = bounds.sw[1] - lngPad;
+    const maxLng = bounds.ne[1] + lngPad;
+    return mappableIncidents.filter(({ position: { lat, lng } }) =>
+      lat >= minLat && lat <= maxLat && lng >= minLng && lng <= maxLng
+    );
+  }, [mappableIncidents, bounds]);
+
   const renderedMarkers = React.useMemo(() => {
-    return renderMarkers(mappableIncidents, handleMarkerSelect);
-  }, [mappableIncidents, handleMarkerSelect]);
+    return renderMarkers(visibleIncidents, handleMarkerSelect);
+  }, [visibleIncidents, handleMarkerSelect]);
 
   return (
     <MapContainerWrapper>
