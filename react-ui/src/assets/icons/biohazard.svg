@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hazmat incident">
+  <circle cx="32" cy="32" r="29" fill="#F7FAFC" stroke="#102A43" stroke-width="3" />
+  <circle cx="32" cy="32" r="5" fill="#102A43" />
+  <circle cx="32" cy="19" r="8" fill="none" stroke="#7CB518" stroke-width="4" />
+  <circle cx="21" cy="38" r="8" fill="none" stroke="#7CB518" stroke-width="4" />
+  <circle cx="43" cy="38" r="8" fill="none" stroke="#7CB518" stroke-width="4" />
+  <path d="M32 26v7M26 36l6-3M38 36l-6-3" fill="none" stroke="#102A43" stroke-width="3" stroke-linecap="round" />
+</svg>
