@@ -1,39 +1,27 @@
 {
   "name": "incidents",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "private": true,
   "homepage": "https://www.hamiltonincidents.ca/",
   "engines": {
-    "node": "10.x"
+    "node": "20.x"
   },
-  "description": "",
   "scripts": {
     "start": "node server",
-    "deploy": "node server",
-    "build": "cd react-ui/ && npm install && npm run build",
-    "watch": "nodemon ./server/index.js --ignore react-ui",
-    "prune": "node src/scripts/delete_old.js"
+    "dev": "nodemon server",
+    "build": "cd react-ui && npm install && npm run build"
   },
   "cacheDirectories": [
     "node_modules",
     "react-ui/node_modules"
   ],
   "dependencies": {
-    "@google/maps": "^0.5.5",
-    "cors": "^2.8.4",
-    "date-fns": "^2.8.1",
-    "dotenv": "^6.0.0",
-    "express": "^4.16.3",
-    "mongoose": "^5.2.14",
-    "node-tweet-stream": "^2.0.3",
-    "ramda": "^0.25.0",
-    "socket.io": "^2.1.1"
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "socket.io": "^4.8.0"
   },
   "devDependencies": {
-    "cross-env": "^6.0.3",
-    "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
-    "nodemon": "^1.18.4"
+    "nodemon": "^3.1.0"
   },
   "repository": {
     "type": "git",

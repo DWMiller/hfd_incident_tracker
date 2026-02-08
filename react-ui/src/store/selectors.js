@@ -1,4 +1,3 @@
-import subHours from 'date-fns/subHours';
 import { createSelector } from '@reduxjs/toolkit';
 
 import { filterByTypes, filterByText, filterByDate } from '../utils/filters';
@@ -6,32 +5,34 @@ import getIncidentTypes from '../utils/getIncidentTypes';
 
 export const incidentsSelector = state => state.incidents || [];
 
-export const availableIncidentTypesSelector = createSelector(
+export const mappableIncidentsSelector = createSelector(
   [incidentsSelector],
+  incidents => incidents.filter(i => i.mappable)
+);
+
+export const availableIncidentTypesSelector = createSelector(
+  [mappableIncidentsSelector],
   (incidents = []) => getIncidentTypes(incidents)
 );
 
+const HOUR_MS = 3600000;
+const MAX_HOURS = 168; // 7 days
+
 export const filteredIncidentsSelector = createSelector(
   [
-    incidentsSelector,
+    mappableIncidentsSelector,
     state => state.incidentFilter.types,
     state => state.incidentFilter.text,
     state => state.incidentFilter.date,
   ],
   (incidents, filterTypes, filterText, filterDate) => {
-    const skipDateFilter = filterDate.min === 0 && filterDate.max === 24;
+    const skipDateFilter = filterDate.min === 0 && filterDate.max === MAX_HOURS;
 
     const dates = skipDateFilter
       ? null
       : {
-          min: subHours(
-            new Date(),
-            typeof filterDate.min !== 'undefined' ? 24 - filterDate.min : 0
-          ),
-          max: subHours(
-            new Date(),
-            typeof filterDate.max !== 'undefined' ? 24 - filterDate.max : 24
-          ),
+          min: new Date(Date.now() - filterDate.max * HOUR_MS),
+          max: new Date(Date.now() - filterDate.min * HOUR_MS),
         };
 
     return incidents.filter(incident => {
@@ -51,7 +52,3 @@ export const filteredIncidentsSelector = createSelector(
     });
   }
 );
-
-// export const recentIncidentsSelector = createSelector([filteredIncidentsSelector], incidents => {
-//   return incidents.slice(0, 5);
-// });
