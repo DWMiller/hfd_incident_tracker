@@ -7,7 +7,10 @@
       "WebFetch(domain:pigeon-maps.js.org)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:support.claude.com)",
-      "Bash(npx -y playwright:*)"
+      "Bash(npx -y playwright:*)",
+      "Bash(npx vite build:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }

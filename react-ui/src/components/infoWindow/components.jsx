@@ -89,8 +89,8 @@ export const CloseButton = styled.button`
   border: none;
   cursor: pointer;
   color: ${props => props.theme.palette['grey-400']};
-  font-size: 18px;
-  padding: 2px;
+  font-size: 16px;
+  padding: 4px;
   display: flex;
   align-items: center;
   line-height: 1;
@@ -103,17 +103,20 @@ export const CloseButton = styled.button`
 export const IncidentLinkWrapper = styled(Link)`
   position: absolute;
   top: 12px;
-  right: 36px;
+  right: 40px;
   cursor: pointer;
   color: ${props => props.theme.palette['grey-400']};
+  padding: 5px;
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: ${props => props.theme.palette['grey-700']};
   }
 
   svg {
-    width: 14px;
-    height: auto;
+    width: 12px;
+    height: 12px;
   }
 `;
 
