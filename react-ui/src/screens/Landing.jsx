@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Page = styled.div`
@@ -29,10 +29,11 @@ const Hero = styled.section`
   }
 `;
 
-const CTAButton = styled.button`
+const CTALink = styled(Link)`
+  display: inline-block;
   background: #e94560;
   color: white;
-  border: none;
+  text-decoration: none;
   padding: 14px 36px;
   font-size: 18px;
   font-weight: 600;
@@ -126,6 +127,14 @@ const FooterCTA = styled.section`
   background: ${props => props.theme.palette['grey-050']};
 `;
 
+const Footer = styled.footer`
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: ${props => props.theme.palette['grey-500']};
+  border-top: 1px solid ${props => props.theme.palette['grey-100']};
+`;
+
 const features = [
   { title: 'Live map', desc: 'Colour-coded markers for fires, medical, accidents, hazmat, and more' },
   { title: 'Filter by type', desc: 'Hide everything except the incident types you care about' },
@@ -144,8 +153,6 @@ function Landing() {
     }
   }, [navigate]);
 
-  const goToApp = () => navigate('/app');
-
   return (
     <Page>
       <Hero>
@@ -154,7 +161,7 @@ function Landing() {
           Live map of every emergency call across Hamilton, Ontario.
           See what's happening in your city right now.
         </p>
-        <CTAButton onClick={goToApp}>Open Live Map</CTAButton>
+        <CTALink to="/app">Open Live Map</CTALink>
       </Hero>
 
       <Section>
@@ -205,8 +212,11 @@ function Landing() {
 
       <FooterCTA>
         <h2>See what's happening in Hamilton</h2>
-        <CTAButton onClick={goToApp}>Open Live Map</CTAButton>
+        <CTALink to="/app">Open Live Map</CTALink>
       </FooterCTA>
+      <Footer>
+        Data from Hamilton Fire Department dispatch via City of Hamilton.
+      </Footer>
     </Page>
   );
 }
