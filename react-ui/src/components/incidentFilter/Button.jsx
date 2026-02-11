@@ -1,39 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import icons from '../../config/icons';
+import { TypeRowWrapper, IconSquare, TypeInfo, TypeLabel, ActiveCount, EyeToggle } from './components';
 
-function IncidentFilterButton(props) {
-  const onSelect = () => props.toggleIncidentFilter(props.icon);
-
-  const { icon, isSelected, className, toggleIncidentFilter, ...rest } = props;
+function IncidentFilterButton({ icon, isSelected, toggleIncidentFilter, count }) {
+  const onToggle = () => toggleIncidentFilter(icon);
+  const iconConfig = icons[icon];
 
   return (
-    <div
-      className={`${className} incidentFilterPanel__type ' + ${isSelected ? 'selected' : ''}`}
-      {...rest}
-    >
-      <img onClick={onSelect} alt={'Filter ' + icon} src={icons[icon].file} />
-      <FaEye
-        onClick={!isSelected ? onSelect : null}
-        className={isSelected ? ' active' : ''}
-        style={{ verticalAlign: 'baseline' }}
-      />
-      <FaEyeSlash
-        onClick={isSelected ? onSelect : null}
-        className={!isSelected ? ' active' : ''}
-        style={{ verticalAlign: 'baseline' }}
-      />
-    </div>
+    <TypeRowWrapper onClick={onToggle}>
+      <IconSquare $color={iconConfig.color}>
+        <img alt={iconConfig.label} src={iconConfig.file} />
+      </IconSquare>
+      <TypeInfo>
+        <TypeLabel>{iconConfig.label}</TypeLabel>
+        <ActiveCount>{count || 0} active</ActiveCount>
+      </TypeInfo>
+      <EyeToggle $visible={isSelected}>
+        {isSelected ? <FaEye /> : <FaEyeSlash />}
+      </EyeToggle>
+    </TypeRowWrapper>
   );
 }
 
 IncidentFilterButton.propTypes = {
   isSelected: PropTypes.bool.isRequired,
-  icon: PropTypes.string,
+  icon: PropTypes.string.isRequired,
   toggleIncidentFilter: PropTypes.func.isRequired,
+  count: PropTypes.number,
 };
 
 export default IncidentFilterButton;

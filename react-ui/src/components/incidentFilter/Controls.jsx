@@ -1,62 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
 import IncidentFilterButton from './Button';
+import { ToggleRow, TypeList } from './components';
 
-class IncidentFilterControls extends Component {
-  selectAll = () => this.props.selectMultipleIncidentFilters(this.props.availableIncidentTypes);
+const IncidentFilterControls = React.memo(function IncidentFilterControls({
+  filters,
+  availableIncidentTypes,
+  toggleIncidentFilter,
+  deselectAllIncidentFilters,
+  selectMultipleIncidentFilters,
+  incidentCounts,
+}) {
+  const selectAll = () => selectMultipleIncidentFilters(availableIncidentTypes);
 
-  shouldComponentUpdate(nextProps) {
-    return !(
-      this.props.filters === nextProps.filters &&
-      this.props.availableIncidentTypes === nextProps.availableIncidentTypes
-    );
-  }
-
-  renderIncidentButton(types) {
-    return types.map(icon => (
-      <IncidentFilterButton
-        key={icon}
-        isSelected={this.props.filters.some(f => f === icon)}
-        icon={icon}
-        toggleIncidentFilter={this.props.toggleIncidentFilter}
-      />
-    ));
-  }
-
-  render() {
-    const {
-      deselectAllIncidentFilters,
-      availableIncidentTypes,
-      toggleIncidentFilter,
-      selectMultipleIncidentFilters,
-      ...props
-    } = this.props;
-
-    return (
-      <div {...props}>
-        <div className="incidentFilterPanel__controls">
-          <div />
-          <span title="Enable visibility of all incident types">
-            <FaEye className="incidentFilterPanel__control" onClick={this.selectAll} />
-          </span>
-          <span title="Disable visibility of all incident types">
-            <FaEyeSlash
-              className="incidentFilterPanel__control"
-              onClick={deselectAllIncidentFilters}
-            />
-          </span>
-        </div>
-
-        <div className="incidentFilterPanel__types">
-          {this.renderIncidentButton(availableIncidentTypes)}
-        </div>
-      </div>
-    );
-  }
-}
+  return (
+    <>
+      <ToggleRow>
+        <button onClick={selectAll}>Show All</button>
+        <button onClick={deselectAllIncidentFilters}>Hide All</button>
+      </ToggleRow>
+      <TypeList>
+        {availableIncidentTypes.map(icon => (
+          <IncidentFilterButton
+            key={icon}
+            isSelected={filters.includes(icon)}
+            icon={icon}
+            toggleIncidentFilter={toggleIncidentFilter}
+            count={incidentCounts[icon] || 0}
+          />
+        ))}
+      </TypeList>
+    </>
+  );
+});
 
 IncidentFilterControls.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.string),
@@ -64,6 +40,7 @@ IncidentFilterControls.propTypes = {
   toggleIncidentFilter: PropTypes.func.isRequired,
   deselectAllIncidentFilters: PropTypes.func.isRequired,
   selectMultipleIncidentFilters: PropTypes.func.isRequired,
+  incidentCounts: PropTypes.object,
 };
 
 export default IncidentFilterControls;
