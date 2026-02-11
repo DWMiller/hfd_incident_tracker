@@ -4,7 +4,10 @@
       "Bash(npm run build:*)",
       "Bash(npm install)",
       "WebSearch",
-      "WebFetch(domain:pigeon-maps.js.org)"
+      "WebFetch(domain:pigeon-maps.js.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:support.claude.com)",
+      "Bash(npx -y playwright:*)"
     ]
   }
 }
