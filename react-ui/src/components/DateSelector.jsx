@@ -11,19 +11,36 @@ import 'rc-slider/assets/index.css';
 const FloatingWrapper = styled.div`
   position: absolute;
   z-index: 2000;
-  width: 100%;
-  bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  bottom: 36px;
+  right: 10px;
 `;
 
 const Container = styled.div`
   width: 350px;
   background: white;
   padding: 16px 20px;
-  border-radius: 5px;
+  border-radius: 14px;
   box-shadow: ${props => props.theme.shadows['shadow-200']};
+
+  .rc-slider-handle {
+    width: 16px;
+    height: 16px;
+    margin-top: -6px;
+    background-color: #1976d2;
+    border: none;
+    opacity: 1;
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.2);
+    }
+  }
+  .rc-slider-track {
+    background-color: #bdbdbd;
+  }
+  .rc-slider-rail {
+    background-color: #e0e0e0;
+  }
 `;
 
 const Label = styled.p`
@@ -34,25 +51,27 @@ const Label = styled.p`
 
 const Presets = styled.div`
   display: flex;
-  gap: 6px;
+  gap: 8px;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: 10px;
 `;
 
 const PresetButton = styled.button`
-  padding: 4px 12px;
-  border-radius: 4px;
-  border: 1px solid ${props => (props.$active ? '#1976d2' : '#ccc')};
-  background: ${props => (props.$active ? '#1976d2' : 'white')};
-  color: ${props => (props.$active ? 'white' : '#333')};
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: none;
+  background: ${props => (props.$active ? '#1976d2' : '#f0f0f0')};
+  color: ${props => (props.$active ? 'white' : '#888')};
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
   &:hover {
-    background: ${props => (props.$active ? '#1565c0' : '#f5f5f5')};
+    background: ${props => (props.$active ? '#1565c0' : '#e0e0e0')};
   }
 `;
 
 const PRESETS = [
+  { label: '24h', hours: 24 },
   { label: '2 days', hours: 48 },
   { label: '3 days', hours: 72 },
   { label: '1 week', hours: 168 },
@@ -70,11 +89,11 @@ function DateSelector() {
   const min = useSelector(state => state.incidentFilter.date.min);
   const max = useSelector(state => state.incidentFilter.date.max);
 
-  const presetActive = min === 0 && max > 24;
+  const presetActive = min === 0 && PRESETS.some(p => p.hours === max);
 
   // Slider: position 0 = 24h ago, position 24 = now
   // Convert: sliderPos = 24 - hoursAgo
-  const sliderValue = presetActive ? [0, 24] : [24 - max, 24 - min];
+  const sliderValue = presetActive && max > 24 ? [0, 24] : [24 - max, 24 - min];
 
   const onSliderChange = ([left, right]) => {
     const newMax = Math.max(24 - left, 1);
@@ -91,13 +110,11 @@ function DateSelector() {
   let label;
   if (presetActive) {
     const preset = PRESETS.find(p => p.hours === max);
-    label = preset ? `Last ${preset.label}` : `Last ${max} hours`;
-  } else if (min === 0 && max === 24) {
-    label = 'Last 24 hours';
+    label = <>Showing last <strong>{preset.label}</strong></>;
   } else if (min === 0) {
-    label = `${formatTime(max)} \u2013 now`;
+    label = <>Showing <strong>{formatTime(max)} – now</strong></>;
   } else {
-    label = `${formatTime(max)} \u2013 ${formatTime(min)}`;
+    label = <>Showing <strong>{formatTime(max)} – {formatTime(min)}</strong></>;
   }
 
   return (
