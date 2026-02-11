@@ -1,20 +1,25 @@
 import { format } from 'date-fns';
 import React from 'react';
 import { Overlay } from 'pigeon-maps';
+import { MdClose } from 'react-icons/md';
+import { IoLocationSharp, IoTimeOutline } from 'react-icons/io5';
 
 import { incidentDefinitions } from '../../config/incident-definitions';
 
 import {
   InfoWindowWrapper,
+  IconCircle,
   Location,
   Category,
   Address,
   Time,
+  DetailRow,
+  CloseButton,
   IncidentLink,
 } from './components';
 
 function MapInfoWindow(props) {
-  const { incident, anchor, left, top } = props;
+  const { incident, anchor, left, top, onClose } = props;
   const icon = incident.icon;
 
   const type = incidentDefinitions[incident.category]
@@ -28,18 +33,30 @@ function MapInfoWindow(props) {
 
   return (
     <Overlay anchor={anchor} left={rLeft} top={rTop} className="infoWindow pigeon-drag-block">
-      <InfoWindowWrapper>
+      <InfoWindowWrapper $accentColor={icon.color}>
+        <IncidentLink incident={incident} />
+        <CloseButton onClick={onClose}>
+          <MdClose />
+        </CloseButton>
+
         <div className="top">
-          <img width={icon.width} height={icon.height} src={icon.file} alt={type.text} />
+          <IconCircle $color={icon.color}>
+            <img src={icon.file} alt={type.text} />
+          </IconCircle>
           <Category>{type.text}</Category>
-          <IncidentLink incident={incident} />
         </div>
 
         {incident.locationName && <Location>{incident.locationName}</Location>}
 
-        <Address>{incident.location.address}</Address>
+        <DetailRow>
+          <IoLocationSharp />
+          <Address>{incident.location.address}</Address>
+        </DetailRow>
 
-        <Time>{date}</Time>
+        <DetailRow>
+          <IoTimeOutline />
+          <Time>{date}</Time>
+        </DetailRow>
       </InfoWindowWrapper>
     </Overlay>
   );

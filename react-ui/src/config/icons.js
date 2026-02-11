@@ -14,51 +14,61 @@ const icons = {
     file: medicalIcon,
     width: 36,
     height: 36,
+    color: '#16A34A',
   },
   FIRE: {
     file: fireIcon,
     width: 36,
     height: 36,
+    color: '#DC2626',
   },
   FIRE_TRUCK: {
     file: fireTruckIcon,
     width: 36,
     height: 36,
+    color: '#EA580C',
   },
   ALARM: {
     file: alarmIcon,
     width: 36,
     height: 36,
+    color: '#475569',
   },
   CAR_FIRE: {
     file: carFireIcon,
     width: 36,
     height: 36,
+    color: '#B91C1C',
   },
   UNKNOWN: {
     file: questionIcon,
     width: 36,
     height: 36,
+    color: '#6B7280',
   },
   ELECTRICAL: {
     file: electricalIcon,
     width: 36,
     height: 36,
+    color: '#D97706',
   },
   ACCIDENT: {
     file: accidentIcon,
     width: 36,
     height: 36,
+    color: '#0891B2',
   },
   FLOODING: {
     file: floodingIcon,
     width: 36,
     height: 36,
+    color: '#2563EB',
   },
   BIOHAZARD: {
     file: biohazardIcon,
     width: 36,
     height: 36,
+    color: '#7C3AED',
   },
 };
 

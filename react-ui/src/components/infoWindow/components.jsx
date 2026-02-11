@@ -7,22 +7,21 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export const InfoWindowWrapper = styled.div`
   background-color: white;
-  padding: 1rem;
-  border-radius: 2px;
-  box-shadow: ${props => props.theme.shadows['shadow-100']};
-  max-width: 200px;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: ${props => props.theme.shadows['shadow-200']};
+  max-width: 320px;
+  min-width: 280px;
   font-weight: 300;
   font-size: ${props => props.theme.typeScale.small};
+  border-top: 4px solid ${props => props.$accentColor || props.theme.palette['grey-400']};
+  position: relative;
 
   .top {
     display: flex;
     align-items: center;
-  }
-
-  img {
-    float: left;
-    margin-right: 1em;
-    object-fit: contain;
+    gap: 12px;
+    margin-bottom: 16px;
   }
 
   span {
@@ -30,34 +29,90 @@ export const InfoWindowWrapper = styled.div`
   }
 `;
 
-export const Location = styled.span`
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-top: 10px;
+export const IconCircle = styled.div`
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background-color: ${props => `${props.$color || '#6B7280'}26`};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
 `;
 
 export const Category = styled.span`
   font-weight: bold;
-  flex: 1 0 auto;
+  font-size: ${props => props.theme.typeScale.base};
+  flex: 1 1 auto;
+`;
+
+export const Location = styled.span`
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const DetailRow = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  color: ${props => props.theme.palette['grey-600']};
+  font-size: ${props => props.theme.typeScale.small};
+
+  svg {
+    min-width: 16px;
+    margin-top: 2px;
+    color: ${props => props.theme.palette['grey-400']};
+  }
 `;
 
 export const Address = styled.span`
-  margin: 10px 0;
+  line-height: 1.4;
 `;
 
 export const Time = styled.span`
   font-size: ${props => props.theme.typeScale.extraSmall};
-  text-align: right;
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: ${props => props.theme.palette['grey-400']};
+  font-size: 18px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+
+  &:hover {
+    color: ${props => props.theme.palette['grey-700']};
+  }
 `;
 
 export const IncidentLinkWrapper = styled(Link)`
-  font-size: ${props => props.theme.typeScale.extraSmall};
-  float: right;
+  position: absolute;
+  top: 12px;
+  right: 36px;
   cursor: pointer;
+  color: ${props => props.theme.palette['grey-400']};
+
+  &:hover {
+    color: ${props => props.theme.palette['grey-700']};
+  }
 
   svg {
-    width: 1.5em;
+    width: 14px;
     height: auto;
   }
 `;
@@ -67,4 +122,3 @@ export const IncidentLink = ({ incident }) => (
     <FaExternalLinkAlt />
   </IncidentLinkWrapper>
 );
-
