@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import useIncidentPolling from '../hooks/useIncidentPolling';
 import { fetchRecentIncidents } from '../store/modules/incidents';
 
-import ScreensRoot from '../screens/Root';
+import AppRoutes from '../screens/AppRoutes';
 
 function App() {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ function App() {
 
   useIncidentPolling();
 
-  return <ScreensRoot />;
+  return <AppRoutes />;
 }
 
 export default App;

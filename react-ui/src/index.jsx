@@ -10,7 +10,7 @@ import { loadState, useLocalStorageSync } from './utils/localStorage';
 import GlobalStyle from './styles/global';
 import theme from './styles/theme';
 
-import App from './components/App';
+import ScreensRoot from './screens/Root';
 
 const store = configureStore(loadState('hfd-state'));
 
@@ -21,7 +21,7 @@ function Root() {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <App />
+        <ScreensRoot />
       </ThemeProvider>
     </Provider>
   );

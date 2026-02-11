@@ -58,7 +58,7 @@ function ScreenIncident() {
           <span>{typeText}</span>
           <span> @ {locationText}</span>
         </h1>
-        <Link to="/">View Recent Incidents</Link>
+        <Link to="/app">View Recent Incidents</Link>
       </Header>
 
       {hasPosition && (

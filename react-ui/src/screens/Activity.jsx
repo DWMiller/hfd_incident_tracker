@@ -76,7 +76,7 @@ function Activity() {
     <Page>
       <Header>
         <h1>All Activity</h1>
-        <Link to="/">Back to map</Link>
+        <Link to="/app">Back to map</Link>
       </Header>
       <p style={{ fontSize: 13, color: '#666', margin: '0 0 16px' }}>
         {sorted.length} incidents. Location-restricted calls (e.g. medical) are included here without addresses.

@@ -57,7 +57,7 @@ function IncidentFilter() {
 
         <Disclaimer>
           Medical and other privacy-restricted calls are not shown on the map.{' '}
-          <Link to="/activity">View all activity</Link>
+          <Link to="/app/activity">View all activity</Link>
         </Disclaimer>
       </div>
     </FilterContainer>
