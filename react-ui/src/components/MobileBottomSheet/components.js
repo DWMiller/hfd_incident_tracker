@@ -1,23 +1,21 @@
 import styled, { css } from 'styled-components';
 
-// Use dvh with vh fallback for correct mobile viewport sizing.
 // The sheet is always rendered at full height and translated off-screen.
+// Bottom offset is applied as an inline style via the useViewportBottom hook
+// to clear iOS browser toolbars that overlap fixed-bottom content.
+//
 // collapsed: only 48px tab bar visible
 // half: 50% of viewport
 // full: 85% of viewport
 
 function getTranslate(state) {
-  // collapsed: push down so only 48px peeks up
-  if (state === 'collapsed') return 'calc(100% - 48px - env(safe-area-inset-bottom, 0px))';
-  // half: push down so 50% of viewport is visible
+  if (state === 'collapsed') return 'calc(100% - 48px)';
   if (state === 'half') return 'calc(100% - 50dvh)';
-  // full: show everything
   return '0';
 }
 
-// vh fallback for the half state on older browsers
 function getTranslateFallback(state) {
-  if (state === 'collapsed') return 'calc(100% - 48px - env(safe-area-inset-bottom, 0px))';
+  if (state === 'collapsed') return 'calc(100% - 48px)';
   if (state === 'half') return 'calc(100% - 50vh)';
   return '0';
 }
@@ -34,7 +32,6 @@ export const SheetBackdrop = styled.div`
 
 export const SheetContainer = styled.div`
   position: fixed;
-  bottom: 0;
   left: 0;
   right: 0;
   height: 85vh;
@@ -49,7 +46,6 @@ export const SheetContainer = styled.div`
   transform: translateY(${props => getTranslateFallback(props.$state)});
   transform: translateY(${props => getTranslate(props.$state)});
   transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
 `;
 
 export const DragHandleArea = styled.div`
