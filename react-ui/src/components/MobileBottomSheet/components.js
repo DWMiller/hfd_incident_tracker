@@ -8,14 +8,16 @@ import styled, { css } from 'styled-components';
 // half: 50% of viewport
 // full: 85% of viewport
 
+const COLLAPSED_HEIGHT = 64; // px — handle + tab bar
+
 function getTranslate(state) {
-  if (state === 'collapsed') return 'calc(100% - 48px)';
+  if (state === 'collapsed') return `calc(100% - ${COLLAPSED_HEIGHT}px)`;
   if (state === 'half') return 'calc(100% - 50dvh)';
   return '0';
 }
 
 function getTranslateFallback(state) {
-  if (state === 'collapsed') return 'calc(100% - 48px)';
+  if (state === 'collapsed') return `calc(100% - ${COLLAPSED_HEIGHT}px)`;
   if (state === 'half') return 'calc(100% - 50vh)';
   return '0';
 }
@@ -47,6 +49,7 @@ export const SheetContainer = styled.div`
   z-index: 2500;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   will-change: transform;
   transform: translateY(${props => getTranslateFallback(props.$state)});
   transform: translateY(${props => getTranslate(props.$state)});

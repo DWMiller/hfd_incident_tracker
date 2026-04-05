@@ -8,7 +8,7 @@ function getViewportHeight() {
 }
 
 function getSnapPx(state) {
-  if (state === 'collapsed') return 48;
+  if (state === 'collapsed') return 64;
   const vh = getViewportHeight();
   return state === 'half' ? vh * 0.50 : vh * 0.85;
 }
