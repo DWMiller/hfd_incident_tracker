@@ -5,7 +5,6 @@ import { IoNotifications } from 'react-icons/io5';
 
 import { availableIncidentTypesSelector, incidentsSelector } from '../../store/selectors';
 import useBottomSheetDrag from '../../hooks/useBottomSheetDrag';
-import useViewportBottom from '../../hooks/useViewportBottom';
 
 import IncidentFilter from '../incidentFilter';
 import RecentIncidentFeed from '../RecentIncidentFeed';
@@ -38,7 +37,6 @@ function MobileBottomSheet({ sheetState, setSheetState }) {
   const [hasNew, setHasNew] = React.useState(false);
 
   const { dragHandleProps } = useBottomSheetDrag(sheetRef, sheetState, setSheetState);
-  const bottomOffset = useViewportBottom();
 
   // Badge data: filter counts
   const filters = useSelector(state => state.incidentFilter.types);
@@ -93,7 +91,7 @@ function MobileBottomSheet({ sheetState, setSheetState }) {
   return (
     <>
       <SheetBackdrop $visible={sheetState !== 'collapsed'} onClick={collapse} />
-      <SheetContainer ref={sheetRef} $state={sheetState} style={{ bottom: bottomOffset }}>
+      <SheetContainer ref={sheetRef} $state={sheetState}>
         <DragHandleArea {...dragHandleProps}>
           <DragHandleBar />
         </DragHandleArea>

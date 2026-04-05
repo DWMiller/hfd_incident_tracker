@@ -34,6 +34,11 @@ export const SheetContainer = styled.div`
   position: fixed;
   left: 0;
   right: 0;
+  /* bottom: 0 lands behind iOS browser toolbars. The difference between
+     vh (layout viewport, extends behind toolbar) and dvh (dynamic viewport,
+     excludes toolbar) gives the exact toolbar height to offset by. */
+  bottom: 0;
+  bottom: calc(100vh - 100dvh);
   height: 85vh;
   height: 85dvh;
   background: white;
