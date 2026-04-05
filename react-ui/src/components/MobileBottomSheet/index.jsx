@@ -11,6 +11,7 @@ import RecentIncidentFeed from '../RecentIncidentFeed';
 import DateSelector from '../DateSelector';
 
 import {
+  COLLAPSED_HEIGHT,
   SheetBackdrop,
   SheetContainer,
   SheetHeader,
@@ -23,6 +24,12 @@ import {
   DotIndicator,
   ContentPane,
 } from './components';
+
+function getSheetHeight(state) {
+  if (state === 'collapsed') return `${COLLAPSED_HEIGHT}px`;
+  if (state === 'half') return '50vh';
+  return '85vh';
+}
 
 const PRESETS = [
   { label: '24h', hours: 24 },
@@ -93,7 +100,7 @@ function MobileBottomSheet({ sheetState, setSheetState }) {
   return (
     <>
       <SheetBackdrop $visible={sheetState !== 'collapsed'} onClick={collapse} />
-      <SheetContainer ref={sheetRef} $state={sheetState}>
+      <SheetContainer ref={sheetRef} style={{ height: getSheetHeight(sheetState) }}>
         <SheetHeader {...headerDragProps}>
           <DragHandleArea>
             <DragHandleBar />

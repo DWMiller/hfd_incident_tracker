@@ -1,23 +1,65 @@
 import { useRef, useCallback, useEffect } from 'react';
 
 const VELOCITY_THRESHOLD = 0.3; // px/ms
-const DRAG_THRESHOLD = 8; // px — minimum movement before committing to a drag
+const DRAG_THRESHOLD = 8; // px minimum before committing to drag
+const COLLAPSED_HEIGHT = 64;
 
 function getViewportHeight() {
   return window.visualViewport?.height || window.innerHeight;
 }
 
 function getSnapPx(state) {
-  if (state === 'collapsed') return 64;
+  if (state === 'collapsed') return COLLAPSED_HEIGHT;
   const vh = getViewportHeight();
   return state === 'half' ? vh * 0.50 : vh * 0.85;
+}
+
+function snapToNearest(currentHeight) {
+  const vh = getViewportHeight();
+  const stops = [
+    { state: 'collapsed', px: COLLAPSED_HEIGHT },
+    { state: 'half', px: vh * 0.5 },
+    { state: 'full', px: vh * 0.85 },
+  ];
+  let best = stops[0];
+  for (const s of stops) {
+    if (Math.abs(currentHeight - s.px) < Math.abs(currentHeight - best.px)) best = s;
+  }
+  return best.state;
 }
 
 export default function useBottomSheetDrag(sheetRef, contentRef, sheetState, setSheetState) {
   const dragData = useRef(null);
 
-  // --- Header area drag (handle + tab bar) ---
-  // Always initiates sheet drag regardless of direction.
+  // --- Shared: apply height during drag ---
+  const applyHeight = useCallback((height) => {
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    sheet.style.height = `${height}px`;
+  }, [sheetRef]);
+
+  // --- Shared: finish drag ---
+  const finishDrag = useCallback((velocity, currentHeight) => {
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+    sheet.style.transition = '';
+
+    let newState;
+    if (velocity > VELOCITY_THRESHOLD) {
+      newState = sheetState === 'collapsed' ? 'half' : 'full';
+    } else if (velocity < -VELOCITY_THRESHOLD) {
+      newState = sheetState === 'full' ? 'half' : 'collapsed';
+    } else {
+      newState = snapToNearest(currentHeight);
+    }
+
+    // Let React update the height via state
+    sheet.style.height = '';
+    setSheetState(newState);
+    dragData.current = null;
+  }, [sheetRef, sheetState, setSheetState]);
+
+  // --- Header drag (handle + tab bar) ---
 
   const onHeaderTouchStart = useCallback((e) => {
     const touch = e.touches[0];
@@ -38,16 +80,15 @@ export default function useBottomSheetDrag(sheetRef, contentRef, sheetState, set
     const sheet = sheetRef.current;
     if (!sheet) return;
 
-    const deltaY = dragData.current.startY - touch.clientY;
+    const deltaY = dragData.current.startY - touch.clientY; // positive = up
 
-    // Wait for movement to exceed threshold before committing
     if (!dragData.current.committed) {
       if (Math.abs(deltaY) < DRAG_THRESHOLD) return;
       dragData.current.committed = true;
       sheet.style.transition = 'none';
     }
 
-    e.preventDefault(); // prevent scroll once committed
+    e.preventDefault();
 
     const now = Date.now();
     const dt = now - dragData.current.lastTime;
@@ -58,66 +99,43 @@ export default function useBottomSheetDrag(sheetRef, contentRef, sheetState, set
     dragData.current.lastTime = now;
 
     const vh = getViewportHeight();
-    const sheetFullHeight = vh * 0.85;
-    const newHeight = Math.max(48, Math.min(sheetFullHeight, dragData.current.startHeight + deltaY));
-    const translatePx = sheetFullHeight - newHeight;
-    sheet.style.transform = `translateY(${translatePx}px)`;
-  }, [sheetRef]);
+    const maxHeight = vh * 0.85;
+    const newHeight = Math.max(COLLAPSED_HEIGHT, Math.min(maxHeight, dragData.current.startHeight + deltaY));
+    applyHeight(newHeight);
+  }, [sheetRef, applyHeight]);
 
-  const onTouchEnd = useCallback(() => {
+  const onHeaderTouchEnd = useCallback(() => {
     if (!dragData.current) return;
-    const sheet = sheetRef.current;
-    if (!sheet) return;
-
-    // If never committed to a drag, let the tap through
     if (!dragData.current.committed) {
       dragData.current = null;
       return;
     }
 
-    sheet.style.transition = '';
-    sheet.style.transform = '';
-
-    const { velocity, startHeight, startY, lastY } = dragData.current;
+    const { startHeight, startY, lastY, velocity } = dragData.current;
     const vh = getViewportHeight();
-    const sheetFullHeight = vh * 0.85;
     const deltaY = startY - lastY;
-    const currentHeight = Math.max(48, Math.min(sheetFullHeight, startHeight + deltaY));
+    const currentHeight = Math.max(COLLAPSED_HEIGHT, Math.min(vh * 0.85, startHeight + deltaY));
+    finishDrag(velocity, currentHeight);
+  }, [finishDrag]);
 
-    let newState;
-    if (velocity > VELOCITY_THRESHOLD) {
-      newState = sheetState === 'collapsed' ? 'half' : 'full';
-    } else if (velocity < -VELOCITY_THRESHOLD) {
-      newState = sheetState === 'full' ? 'half' : 'collapsed';
-    } else {
-      const collapsedPx = 48;
-      const halfPx = vh * 0.5;
-      const fullPx = sheetFullHeight;
-      const dCollapsed = Math.abs(currentHeight - collapsedPx);
-      const dHalf = Math.abs(currentHeight - halfPx);
-      const dFull = Math.abs(currentHeight - fullPx);
-      if (dCollapsed <= dHalf && dCollapsed <= dFull) newState = 'collapsed';
-      else if (dHalf <= dFull) newState = 'half';
-      else newState = 'full';
-    }
-
-    setSheetState(newState);
-    dragData.current = null;
-  }, [sheetRef, sheetState, setSheetState]);
+  const headerDragProps = {
+    onTouchStart: onHeaderTouchStart,
+    onTouchMove: onHeaderTouchMove,
+    onTouchEnd: onHeaderTouchEnd,
+    style: { touchAction: 'none' },
+  };
 
   // --- Content pane pull-to-collapse ---
-  // When the content is scrolled to the top and the user pulls down,
-  // hijack the touch to drag the sheet down.
 
   useEffect(() => {
     const content = contentRef?.current;
     if (!content) return;
 
-    let contentDrag = null;
+    let cd = null; // content drag state
 
     const onStart = (e) => {
       const touch = e.touches[0];
-      contentDrag = {
+      cd = {
         startY: touch.clientY,
         startScrollTop: content.scrollTop,
         lastY: touch.clientY,
@@ -128,85 +146,41 @@ export default function useBottomSheetDrag(sheetRef, contentRef, sheetState, set
     };
 
     const onMove = (e) => {
-      if (!contentDrag) return;
+      if (!cd) return;
       const touch = e.touches[0];
-      const deltaY = touch.clientY - contentDrag.startY; // positive = pulling down
+      const pullDown = touch.clientY - cd.startY; // positive = pulling down
       const now = Date.now();
-      const dt = now - contentDrag.lastTime;
+      const dt = now - cd.lastTime;
       if (dt > 0) {
-        contentDrag.velocity = (contentDrag.lastY - touch.clientY) / dt;
+        cd.velocity = (cd.lastY - touch.clientY) / dt; // positive = moving up
       }
-      contentDrag.lastY = touch.clientY;
-      contentDrag.lastTime = now;
+      cd.lastY = touch.clientY;
+      cd.lastTime = now;
 
-      // Only hijack if: at scroll top, pulling down, past threshold
-      if (!contentDrag.hijacked) {
-        if (contentDrag.startScrollTop > 0 || deltaY < DRAG_THRESHOLD) return;
-        // Commit to sheet drag
-        contentDrag.hijacked = true;
+      if (!cd.hijacked) {
+        if (cd.startScrollTop > 0 || pullDown < DRAG_THRESHOLD) return;
+        cd.hijacked = true;
         const sheet = sheetRef.current;
         if (sheet) sheet.style.transition = 'none';
-
-        dragData.current = {
-          startY: contentDrag.startY,
-          startHeight: getSnapPx(sheetState),
-          lastY: touch.clientY,
-          lastTime: now,
-          velocity: contentDrag.velocity,
-          committed: true,
-          source: 'content',
-        };
+        cd.startHeight = getSnapPx(sheetState);
       }
 
-      if (contentDrag.hijacked) {
+      if (cd.hijacked) {
         e.preventDefault();
-        const sheet = sheetRef.current;
-        if (!sheet || !dragData.current) return;
-        dragData.current.lastY = touch.clientY;
-        dragData.current.lastTime = now;
-        dragData.current.velocity = contentDrag.velocity;
-
-        const pullDelta = contentDrag.startY - touch.clientY; // negative = pulling down
         const vh = getViewportHeight();
-        const sheetFullHeight = vh * 0.85;
-        const newHeight = Math.max(48, Math.min(sheetFullHeight, dragData.current.startHeight + pullDelta));
-        const translatePx = sheetFullHeight - newHeight;
-        sheet.style.transform = `translateY(${translatePx}px)`;
+        const maxHeight = vh * 0.85;
+        const newHeight = Math.max(COLLAPSED_HEIGHT, Math.min(maxHeight, cd.startHeight - pullDown));
+        applyHeight(newHeight);
       }
     };
 
     const onEnd = () => {
-      if (contentDrag?.hijacked) {
-        // Reuse the shared onTouchEnd logic
-        const sheet = sheetRef.current;
-        if (sheet && dragData.current) {
-          sheet.style.transition = '';
-          sheet.style.transform = '';
-
-          const { velocity, startHeight, startY, lastY } = dragData.current;
-          const vh = getViewportHeight();
-          const sheetFullHeight = vh * 0.85;
-          const deltaY = startY - lastY;
-          const currentHeight = Math.max(48, Math.min(sheetFullHeight, startHeight + deltaY));
-
-          let newState;
-          if (velocity < -VELOCITY_THRESHOLD) {
-            newState = sheetState === 'full' ? 'half' : 'collapsed';
-          } else {
-            const collapsedPx = 48;
-            const halfPx = vh * 0.5;
-            const dCollapsed = Math.abs(currentHeight - collapsedPx);
-            const dHalf = Math.abs(currentHeight - halfPx);
-            const dFull = Math.abs(currentHeight - sheetFullHeight);
-            if (dCollapsed <= dHalf && dCollapsed <= dFull) newState = 'collapsed';
-            else if (dHalf <= dFull) newState = 'half';
-            else newState = 'full';
-          }
-          setSheetState(newState);
-        }
-        dragData.current = null;
+      if (cd?.hijacked) {
+        const pullDown = cd.lastY - cd.startY;
+        const currentHeight = Math.max(COLLAPSED_HEIGHT, cd.startHeight - pullDown);
+        finishDrag(cd.velocity, currentHeight);
       }
-      contentDrag = null;
+      cd = null;
     };
 
     content.addEventListener('touchstart', onStart, { passive: true });
@@ -217,14 +191,7 @@ export default function useBottomSheetDrag(sheetRef, contentRef, sheetState, set
       content.removeEventListener('touchmove', onMove);
       content.removeEventListener('touchend', onEnd);
     };
-  }, [contentRef, sheetRef, sheetState, setSheetState]);
-
-  const headerDragProps = {
-    onTouchStart: onHeaderTouchStart,
-    onTouchMove: onHeaderTouchMove,
-    onTouchEnd: onTouchEnd,
-    style: { touchAction: 'none' },
-  };
+  }, [contentRef, sheetRef, sheetState, setSheetState, applyHeight, finishDrag]);
 
   return { headerDragProps };
 }
