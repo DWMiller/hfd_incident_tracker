@@ -17,7 +17,6 @@ export const SheetContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  bottom: calc(100vh - 100dvh);
   background: white;
   border-radius: 16px 16px 0 0;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
