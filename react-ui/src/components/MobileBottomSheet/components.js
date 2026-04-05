@@ -53,6 +53,11 @@ export const SheetContainer = styled.div`
   transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
 `;
 
+// Wraps the drag handle + tab bar so the entire header area is draggable.
+export const SheetHeader = styled.div`
+  flex-shrink: 0;
+`;
+
 export const DragHandleArea = styled.div`
   display: flex;
   justify-content: center;

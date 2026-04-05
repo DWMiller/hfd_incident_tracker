@@ -13,6 +13,7 @@ import DateSelector from '../DateSelector';
 import {
   SheetBackdrop,
   SheetContainer,
+  SheetHeader,
   DragHandleArea,
   DragHandleBar,
   TabBar,
@@ -32,11 +33,12 @@ const PRESETS = [
 
 function MobileBottomSheet({ sheetState, setSheetState }) {
   const sheetRef = useRef(null);
+  const contentRef = useRef(null);
   const [activeTab, setActiveTab] = React.useState('filters');
   const lastSeenTime = useRef(null);
   const [hasNew, setHasNew] = React.useState(false);
 
-  const { dragHandleProps } = useBottomSheetDrag(sheetRef, sheetState, setSheetState);
+  const { headerDragProps } = useBottomSheetDrag(sheetRef, contentRef, sheetState, setSheetState);
 
   // Badge data: filter counts
   const filters = useSelector(state => state.incidentFilter.types);
@@ -92,35 +94,37 @@ function MobileBottomSheet({ sheetState, setSheetState }) {
     <>
       <SheetBackdrop $visible={sheetState !== 'collapsed'} onClick={collapse} />
       <SheetContainer ref={sheetRef} $state={sheetState}>
-        <DragHandleArea {...dragHandleProps}>
-          <DragHandleBar />
-        </DragHandleArea>
+        <SheetHeader {...headerDragProps}>
+          <DragHandleArea>
+            <DragHandleBar />
+          </DragHandleArea>
 
-        <TabBar>
-          <Tab $active={activeTab === 'filters'} onClick={() => handleTabClick('filters')}>
-            <MdFilterList />
-            <TabLabel>
-              Filters
-              <TabBadge>{visibleCount}/{totalCount}</TabBadge>
-            </TabLabel>
-          </Tab>
+          <TabBar>
+            <Tab $active={activeTab === 'filters'} onClick={() => handleTabClick('filters')}>
+              <MdFilterList />
+              <TabLabel>
+                Filters
+                <TabBadge>{visibleCount}/{totalCount}</TabBadge>
+              </TabLabel>
+            </Tab>
 
-          <Tab $active={activeTab === 'feed'} onClick={() => handleTabClick('feed')}>
-            {hasNew && <DotIndicator />}
-            <IoNotifications />
-            <TabLabel>Feed</TabLabel>
-          </Tab>
+            <Tab $active={activeTab === 'feed'} onClick={() => handleTabClick('feed')}>
+              {hasNew && <DotIndicator />}
+              <IoNotifications />
+              <TabLabel>Feed</TabLabel>
+            </Tab>
 
-          <Tab $active={activeTab === 'time'} onClick={() => handleTabClick('time')}>
-            <MdAccessTime />
-            <TabLabel>
-              Time
-              <TabBadge>{timeLabel}</TabBadge>
-            </TabLabel>
-          </Tab>
-        </TabBar>
+            <Tab $active={activeTab === 'time'} onClick={() => handleTabClick('time')}>
+              <MdAccessTime />
+              <TabLabel>
+                Time
+                <TabBadge>{timeLabel}</TabBadge>
+              </TabLabel>
+            </Tab>
+          </TabBar>
+        </SheetHeader>
 
-        <ContentPane>
+        <ContentPane ref={contentRef}>
           {activeTab === 'filters' && <IncidentFilter embedded />}
           {activeTab === 'feed' && <RecentIncidentFeed embedded />}
           {activeTab === 'time' && <DateSelector embedded />}
