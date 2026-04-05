@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 
+import useMediaQuery from '../hooks/useMediaQuery';
 import IncidentsMap from '../components/IncidentsMap';
 import IncidentFilter from '../components/incidentFilter';
 import DateSelector from '../components/DateSelector';
 import RecentIncidentFeed from '../components/RecentIncidentFeed';
+import MobileBottomSheet from '../components/MobileBottomSheet';
 
 const Container = styled.div`
   height: 100vh;
@@ -15,12 +17,23 @@ const Container = styled.div`
 `;
 
 function ScreenOverview() {
+  const isMobile = useMediaQuery('(max-width: 799px)');
+  const [sheetState, setSheetState] = useState('collapsed');
+
+  const collapseSheet = useCallback(() => setSheetState('collapsed'), []);
+
   return (
     <Container>
-      <IncidentsMap />
-      <IncidentFilter />
-      <RecentIncidentFeed />
-      <DateSelector />
+      <IncidentsMap onMapTap={isMobile ? collapseSheet : undefined} />
+      {isMobile ? (
+        <MobileBottomSheet sheetState={sheetState} setSheetState={setSheetState} />
+      ) : (
+        <>
+          <IncidentFilter />
+          <RecentIncidentFeed />
+          <DateSelector />
+        </>
+      )}
     </Container>
   );
 }

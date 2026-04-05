@@ -43,6 +43,30 @@ const Container = styled.div`
   }
 `;
 
+const EmbeddedContainer = styled.div`
+  padding: 20px 16px;
+
+  .rc-slider-handle {
+    width: 16px;
+    height: 16px;
+    margin-top: -6px;
+    background-color: #1976d2;
+    border: none;
+    opacity: 1;
+    &:hover,
+    &:active,
+    &:focus {
+      box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.2);
+    }
+  }
+  .rc-slider-track {
+    background-color: #bdbdbd;
+  }
+  .rc-slider-rail {
+    background-color: #e0e0e0;
+  }
+`;
+
 const Label = styled.p`
   margin: 8px 0 4px;
   text-align: center;
@@ -84,7 +108,7 @@ function formatTime(hoursAgo) {
   return format(date, 'EEE h a');
 }
 
-function DateSelector() {
+function DateSelector({ embedded }) {
   const dispatch = useDispatch();
   const min = useSelector(state => state.incidentFilter.date.min);
   const max = useSelector(state => state.incidentFilter.date.max);
@@ -117,30 +141,38 @@ function DateSelector() {
     label = <>Showing <strong>{formatTime(max)} – {formatTime(min)}</strong></>;
   }
 
+  const content = (
+    <>
+      <Slider
+        range
+        value={sliderValue}
+        onChange={onSliderChange}
+        min={0}
+        max={24}
+        allowCross={false}
+      />
+      <Label>{label}</Label>
+      <Presets>
+        {PRESETS.map(p => (
+          <PresetButton
+            key={p.hours}
+            $active={min === 0 && max === p.hours}
+            onClick={() => onPreset(p.hours)}
+          >
+            {p.label}
+          </PresetButton>
+        ))}
+      </Presets>
+    </>
+  );
+
+  if (embedded) {
+    return <EmbeddedContainer>{content}</EmbeddedContainer>;
+  }
+
   return (
     <FloatingWrapper>
-      <Container>
-        <Slider
-          range
-          value={sliderValue}
-          onChange={onSliderChange}
-          min={0}
-          max={24}
-          allowCross={false}
-        />
-        <Label>{label}</Label>
-        <Presets>
-          {PRESETS.map(p => (
-            <PresetButton
-              key={p.hours}
-              $active={min === 0 && max === p.hours}
-              onClick={() => onPreset(p.hours)}
-            >
-              {p.label}
-            </PresetButton>
-          ))}
-        </Presets>
-      </Container>
+      <Container>{content}</Container>
     </FloatingWrapper>
   );
 }

@@ -18,7 +18,7 @@ import IncidentFilterControls from './Controls';
 
 import { FilterPanel, PanelHeader, HeaderTitle, HeaderCount, HeaderChevron, PanelContent, Disclaimer } from './components';
 
-function IncidentFilter() {
+function IncidentFilter({ embedded }) {
   const dispatch = useDispatch();
 
   const textFilter = useSelector(state => state.incidentFilter.text);
@@ -36,6 +36,28 @@ function IncidentFilter() {
   const toggleFilterType = category => dispatch(filterTypeToggled({ category }));
   const setTextFilter = text => dispatch(textFilterChanged({ text }));
 
+  const content = (
+    <PanelContent>
+      <IncidentTextFilter filterText={textFilter} updateFilter={setTextFilter} />
+
+      <IncidentFilterControls
+        filters={filters}
+        availableIncidentTypes={availableIncidentTypes}
+        toggleIncidentFilter={toggleFilterType}
+        selectMultipleIncidentFilters={selectMultipleFilterTypes}
+        deselectAllIncidentFilters={deselectAllFilterTypes}
+        incidentCounts={incidentCounts}
+      />
+
+      <Disclaimer>
+        Medical and other privacy-restricted calls are not shown on the map.{' '}
+        <Link to="/app/activity">View all activity</Link>
+      </Disclaimer>
+    </PanelContent>
+  );
+
+  if (embedded) return content;
+
   return (
     <FilterPanel>
       <PanelHeader onClick={toggleCollapse}>
@@ -46,25 +68,7 @@ function IncidentFilter() {
         <HeaderChevron>{isCollapsed ? <FaChevronDown /> : <FaChevronUp />}</HeaderChevron>
       </PanelHeader>
 
-      {!isCollapsed && (
-        <PanelContent>
-          <IncidentTextFilter filterText={textFilter} updateFilter={setTextFilter} />
-
-          <IncidentFilterControls
-            filters={filters}
-            availableIncidentTypes={availableIncidentTypes}
-            toggleIncidentFilter={toggleFilterType}
-            selectMultipleIncidentFilters={selectMultipleFilterTypes}
-            deselectAllIncidentFilters={deselectAllFilterTypes}
-            incidentCounts={incidentCounts}
-          />
-
-          <Disclaimer>
-            Medical and other privacy-restricted calls are not shown on the map.{' '}
-            <Link to="/app/activity">View all activity</Link>
-          </Disclaimer>
-        </PanelContent>
-      )}
+      {!isCollapsed && content}
     </FilterPanel>
   );
 }

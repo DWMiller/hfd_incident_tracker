@@ -18,6 +18,10 @@ const MapContainerWrapper = styled.div`
 
   .infoWindow {
     z-index: 1000;
+
+    @media (max-width: 799px) {
+      z-index: 3000;
+    }
   }
 `;
 
@@ -48,7 +52,7 @@ const renderMarkers = (incidents, handleMarkerSelect) => {
   });
 };
 
-function MapContainer() {
+function MapContainer({ onMapTap }) {
   const dispatch = useDispatch();
 
   const incidents = useSelector(filteredIncidentsSelector);
@@ -74,8 +78,9 @@ function MapContainer() {
       if (infoWindow && !infoWindow.contains(event.target)) {
         dispatch(setActiveMarker(null));
       }
+      onMapTap?.();
     },
-    [dispatch]
+    [dispatch, onMapTap]
   );
 
   const handleMarkerSelect = React.useCallback(

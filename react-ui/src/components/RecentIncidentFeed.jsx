@@ -173,7 +173,7 @@ function formatEventTime(time) {
   return { absolute, relative };
 }
 
-function RecentIncidentFeed() {
+function RecentIncidentFeed({ embedded }) {
   const incidents = useSelector(incidentsSelector);
 
   const recentIncidents = React.useMemo(() => {
@@ -181,6 +181,57 @@ function RecentIncidentFeed() {
       .sort((a, b) => new Date(b.time) - new Date(a.time))
       .slice(0, MAX_VISIBLE_INCIDENTS);
   }, [incidents]);
+
+  const list = recentIncidents.length === 0 ? (
+    <EmptyState>No recent incidents available.</EmptyState>
+  ) : (
+    <ActivityList style={embedded ? { maxHeight: 'none' } : undefined}>
+      {recentIncidents.map(incident => {
+        const def = incidentDefinitions[incident.category] || incidentDefinitions.UNKNOWN;
+        const icon = incident.icon;
+        const { absolute, relative } = formatEventTime(incident.time);
+        const location = incident.mappable
+          ? incident.location?.address || 'Address unavailable'
+          : 'Location withheld';
+
+        return (
+          <ActivityItem key={incident.id}>
+            <IconTile $color={icon?.color}>
+              {icon && <img src={icon.file} alt="" />}
+            </IconTile>
+
+            <EventBody>
+              <EventTop>
+                <EventType>
+                  {def.text}
+                  {!incident.mappable && <Badge>Restricted</Badge>}
+                </EventType>
+                <EventMeta>{relative}</EventMeta>
+              </EventTop>
+
+              <EventLocation>{location}</EventLocation>
+              <EventTime>{absolute}</EventTime>
+            </EventBody>
+          </ActivityItem>
+        );
+      })}
+    </ActivityList>
+  );
+
+  if (embedded) {
+    return (
+      <>
+        <Header>
+          <TitleGroup>
+            <Eyebrow>Live Feed</Eyebrow>
+            <Title>Recent activity</Title>
+          </TitleGroup>
+          <HeaderLink to="/app/activity">All activity</HeaderLink>
+        </Header>
+        {list}
+      </>
+    );
+  }
 
   return (
     <FloatingWrapper>
@@ -192,42 +243,7 @@ function RecentIncidentFeed() {
           </TitleGroup>
           <HeaderLink to="/app/activity">All activity</HeaderLink>
         </Header>
-
-        {recentIncidents.length === 0 ? (
-          <EmptyState>No recent incidents available.</EmptyState>
-        ) : (
-          <ActivityList>
-            {recentIncidents.map(incident => {
-              const def = incidentDefinitions[incident.category] || incidentDefinitions.UNKNOWN;
-              const icon = incident.icon;
-              const { absolute, relative } = formatEventTime(incident.time);
-              const location = incident.mappable
-                ? incident.location?.address || 'Address unavailable'
-                : 'Location withheld';
-
-              return (
-                <ActivityItem key={incident.id}>
-                  <IconTile $color={icon?.color}>
-                    {icon && <img src={icon.file} alt="" />}
-                  </IconTile>
-
-                  <EventBody>
-                    <EventTop>
-                      <EventType>
-                        {def.text}
-                        {!incident.mappable && <Badge>Restricted</Badge>}
-                      </EventType>
-                      <EventMeta>{relative}</EventMeta>
-                    </EventTop>
-
-                    <EventLocation>{location}</EventLocation>
-                    <EventTime>{absolute}</EventTime>
-                  </EventBody>
-                </ActivityItem>
-              );
-            })}
-          </ActivityList>
-        )}
+        {list}
       </Panel>
     </FloatingWrapper>
   );
