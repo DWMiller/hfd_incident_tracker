@@ -1,10 +1,24 @@
 import styled, { css } from 'styled-components';
 
-const SHEET_HEIGHT = '85vh';
+// Use dvh with vh fallback for correct mobile viewport sizing.
+// The sheet is always rendered at full height and translated off-screen.
+// collapsed: only 48px tab bar visible
+// half: 50% of viewport
+// full: 85% of viewport
 
 function getTranslate(state) {
-  if (state === 'collapsed') return `calc(${SHEET_HEIGHT} - 48px)`;
-  if (state === 'half') return `calc(${SHEET_HEIGHT} - 50vh)`;
+  // collapsed: push down so only 48px peeks up
+  if (state === 'collapsed') return 'calc(100% - 48px - env(safe-area-inset-bottom, 0px))';
+  // half: push down so 50% of viewport is visible
+  if (state === 'half') return 'calc(100% - 50dvh)';
+  // full: show everything
+  return '0';
+}
+
+// vh fallback for the half state on older browsers
+function getTranslateFallback(state) {
+  if (state === 'collapsed') return 'calc(100% - 48px - env(safe-area-inset-bottom, 0px))';
+  if (state === 'half') return 'calc(100% - 50vh)';
   return '0';
 }
 
@@ -23,7 +37,8 @@ export const SheetContainer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  height: ${SHEET_HEIGHT};
+  height: 85vh;
+  height: 85dvh;
   background: white;
   border-radius: 16px 16px 0 0;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
@@ -31,6 +46,7 @@ export const SheetContainer = styled.div`
   display: flex;
   flex-direction: column;
   will-change: transform;
+  transform: translateY(${props => getTranslateFallback(props.$state)});
   transform: translateY(${props => getTranslate(props.$state)});
   transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
   padding-bottom: env(safe-area-inset-bottom, 0px);

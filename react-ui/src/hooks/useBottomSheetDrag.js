@@ -2,17 +2,15 @@ import { useRef, useCallback } from 'react';
 
 const VELOCITY_THRESHOLD = 0.4; // px/ms
 
-// Snap points as fractions of viewport height visible above bottom
-const SNAP_POINTS = {
-  collapsed: 48, // px — just the tab bar
-  half: 0.50,    // 50vh
-  full: 0.85,    // 85vh
-};
+function getViewportHeight() {
+  // visualViewport gives the actual visible area on mobile (excludes browser chrome)
+  return window.visualViewport?.height || window.innerHeight;
+}
 
 function getSnapPx(state) {
-  if (state === 'collapsed') return SNAP_POINTS.collapsed;
-  const vh = window.innerHeight;
-  return state === 'half' ? vh * SNAP_POINTS.half : vh * SNAP_POINTS.full;
+  if (state === 'collapsed') return 48;
+  const vh = getViewportHeight();
+  return state === 'half' ? vh * 0.50 : vh * 0.85;
 }
 
 export default function useBottomSheetDrag(sheetRef, sheetState, setSheetState) {
@@ -23,7 +21,6 @@ export default function useBottomSheetDrag(sheetRef, sheetState, setSheetState) 
     const sheet = sheetRef.current;
     if (!sheet) return;
 
-    // Disable CSS transition during drag
     sheet.style.transition = 'none';
 
     dragData.current = {
@@ -49,11 +46,14 @@ export default function useBottomSheetDrag(sheetRef, sheetState, setSheetState) 
     dragData.current.lastY = touch.clientY;
     dragData.current.lastTime = now;
 
-    const deltaY = dragData.current.startY - touch.clientY; // positive = dragging up
-    const newHeight = Math.max(48, Math.min(window.innerHeight * 0.85, dragData.current.startHeight + deltaY));
+    const vh = getViewportHeight();
+    const sheetFullHeight = vh * 0.85;
+    const deltaY = dragData.current.startY - touch.clientY;
+    const newHeight = Math.max(48, Math.min(sheetFullHeight, dragData.current.startHeight + deltaY));
 
-    const translate = window.innerHeight * 0.85 - newHeight;
-    sheet.style.transform = `translateY(${translate}px)`;
+    // translateY relative to the sheet's own height (100%), not viewport units
+    const translatePx = sheetFullHeight - newHeight;
+    sheet.style.transform = `translateY(${translatePx}px)`;
   }, [sheetRef]);
 
   const onTouchEnd = useCallback(() => {
@@ -61,26 +61,23 @@ export default function useBottomSheetDrag(sheetRef, sheetState, setSheetState) 
     const sheet = sheetRef.current;
     if (!sheet) return;
 
-    // Re-enable transition
     sheet.style.transition = '';
 
     const { velocity, startHeight, startY, lastY } = dragData.current;
+    const vh = getViewportHeight();
+    const sheetFullHeight = vh * 0.85;
     const deltaY = startY - lastY;
-    const currentHeight = Math.max(48, Math.min(window.innerHeight * 0.85, startHeight + deltaY));
+    const currentHeight = Math.max(48, Math.min(sheetFullHeight, startHeight + deltaY));
 
     let newState;
     if (velocity > VELOCITY_THRESHOLD) {
-      // Flinging up
       newState = sheetState === 'collapsed' ? 'half' : 'full';
     } else if (velocity < -VELOCITY_THRESHOLD) {
-      // Flinging down
       newState = sheetState === 'full' ? 'half' : 'collapsed';
     } else {
-      // Snap to nearest
-      const vh = window.innerHeight;
       const collapsedPx = 48;
       const halfPx = vh * 0.5;
-      const fullPx = vh * 0.85;
+      const fullPx = sheetFullHeight;
 
       const dCollapsed = Math.abs(currentHeight - collapsedPx);
       const dHalf = Math.abs(currentHeight - halfPx);
@@ -91,9 +88,8 @@ export default function useBottomSheetDrag(sheetRef, sheetState, setSheetState) 
       else newState = 'full';
     }
 
-    // Apply final snap position
-    const translate = window.innerHeight * 0.85 - getSnapPx(newState);
-    sheet.style.transform = `translateY(${translate}px)`;
+    // Clear inline transform — let CSS take over with the new state
+    sheet.style.transform = '';
 
     setSheetState(newState);
     dragData.current = null;

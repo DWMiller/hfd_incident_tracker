@@ -9,14 +9,27 @@ import RecentIncidentFeed from '../components/RecentIncidentFeed';
 import MobileBottomSheet from '../components/MobileBottomSheet';
 
 const Container = styled.div`
-  height: 100vh;
-  height: -webkit-fill-available;
-
-  width: 100vw;
+  position: fixed;
+  inset: 0;
   overflow: hidden;
+
+  /* Prevent body scroll while this screen is mounted */
+  & ~ * {
+    overflow: hidden;
+  }
 `;
 
+// Lock body scroll while the map screen is active
+const useBodyScrollLock = () => {
+  React.useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+};
+
 function ScreenOverview() {
+  useBodyScrollLock();
   const isMobile = useMediaQuery('(max-width: 799px)');
   const [sheetState, setSheetState] = useState('collapsed');
 
